@@ -1,0 +1,10 @@
+ui_*
+moc_*
+qrc_*
+*.[oa]
+*~
+*.pro.user*
+.directory
+Makefile*
+build-intermediate
+
