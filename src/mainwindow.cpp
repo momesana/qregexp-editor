@@ -16,6 +16,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
 
+    // icons
+    ui->quitAct->setIcon(QIcon::fromTheme("application-exit"));
+    ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
+    ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
+
+    // shortcuts
+    ui->quitAct->setShortcut(QKeySequence::Quit);
+
     connect(ui->quitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), this, SLOT(enableWidgets()));
     connect(ui->regexpLineEdit, SIGNAL(returnPressed()), this, SLOT(evaluate()));
