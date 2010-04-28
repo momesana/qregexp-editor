@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
 
+    connect(ui->quitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), this, SLOT(enableWidgets()));
     connect(ui->regexpLineEdit, SIGNAL(returnPressed()), this, SLOT(evaluate()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), this, SLOT(clearRegExpEdit()));
