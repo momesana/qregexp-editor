@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../forms/mainwindow.ui" line="14"/>
-        <location filename="../forms/mainwindow.ui" line="163"/>
+        <location filename="../forms/mainwindow.ui" line="193"/>
         <source>Tool Bar</source>
         <translation type="unfinished">Werkzeugsleiste</translation>
     </message>
@@ -148,21 +148,40 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../forms/mainwindow.ui" line="137"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The evaluation was aborted as your regular expression matches the &lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;empty&lt;/span&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;string&lt;/span&gt;. This may lead to an &lt;span style=&quot; font-weight:600;&quot;&gt;infinite loop&lt;/span&gt; in your regular expression matching code.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Das Auswerten wurde abgebrochen, da der Reguläre Ausdruck den &lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;leeren &lt;/span&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;String&lt;/span&gt; matcht. Dies könnte zu einer &lt;span style=&quot; font-weight:600;&quot;&gt;Endlosschleife&lt;/span&gt; in ihrem Code führen.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../forms/mainwindow.ui" line="167"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="143"/>
+        <location filename="../forms/mainwindow.ui" line="173"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="152"/>
+        <location filename="../forms/mainwindow.ui" line="182"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="175"/>
+        <location filename="../forms/mainwindow.ui" line="205"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">B&amp;eenden</translation>
     </message>
@@ -171,42 +190,42 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Strg+Q</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="180"/>
+        <location filename="../forms/mainwindow.ui" line="210"/>
         <source>&amp;Evaluate</source>
         <translation type="unfinished">&amp;Auswerten</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="183"/>
+        <location filename="../forms/mainwindow.ui" line="213"/>
         <source>Ctrl+R</source>
         <translation type="unfinished">Strg+R</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="188"/>
+        <location filename="../forms/mainwindow.ui" line="218"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Über</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="193"/>
+        <location filename="../forms/mainwindow.ui" line="223"/>
         <source>Clear Input Edit</source>
         <translation type="unfinished">Eingabe Feld löschen</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="196"/>
+        <location filename="../forms/mainwindow.ui" line="226"/>
         <source>Ctrl+L</source>
         <translation type="unfinished">Strg+L</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="201"/>
+        <location filename="../forms/mainwindow.ui" line="231"/>
         <source>Clear RegExp Edit</source>
         <translation type="unfinished">Feld für Reguläre Ausdrücke löschen</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="204"/>
+        <location filename="../forms/mainwindow.ui" line="234"/>
         <source>Ctrl+K</source>
         <translation type="unfinished">Strg+K</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="116"/>
+        <location filename="../src/mainwindow.cpp" line="121"/>
         <source>About </source>
         <translation type="unfinished">Über</translation>
     </message>
@@ -218,44 +237,44 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Groß-Kleinschreibung: %1  Minimal: %2  Syntax: %3</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="34"/>
+        <location filename="../src/regexpmodel.cpp" line="66"/>
         <source>Case-sensitive: %1  Minimal: %2  Style: %3</source>
         <translation type="unfinished">Groß-Kleinschreibung: %1  Minimal: %2  Style: %3</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="35"/>
-        <location filename="../src/regexpmodel.cpp" line="36"/>
+        <location filename="../src/regexpmodel.cpp" line="67"/>
+        <location filename="../src/regexpmodel.cpp" line="68"/>
         <source>On</source>
         <translation type="unfinished">An</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="35"/>
-        <location filename="../src/regexpmodel.cpp" line="36"/>
+        <location filename="../src/regexpmodel.cpp" line="67"/>
+        <location filename="../src/regexpmodel.cpp" line="68"/>
         <source>Off</source>
         <translation type="unfinished">Aus</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="124"/>
+        <location filename="../src/regexpmodel.cpp" line="133"/>
         <source>Position</source>
         <translation type="unfinished">Position</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="125"/>
+        <location filename="../src/regexpmodel.cpp" line="134"/>
         <source>Length</source>
         <translation type="unfinished">Länge</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="134"/>
+        <location filename="../src/regexpmodel.cpp" line="143"/>
         <source>(Empty)</source>
         <translation type="unfinished">(Leer)</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="168"/>
+        <location filename="../src/regexpmodel.cpp" line="177"/>
         <source>Type</source>
         <translation type="unfinished">Typ</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="169"/>
+        <location filename="../src/regexpmodel.cpp" line="178"/>
         <source>Value</source>
         <translation type="unfinished">Wert</translation>
     </message>
