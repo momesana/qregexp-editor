@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit"));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
+    QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
+    warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
+    ui->emptyStringMatchedIconLabel->setPixmap(warningIcon.pixmap(32));
 
     // shortcuts
     ui->quitAct->setShortcut(QKeySequence::Quit);
@@ -45,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->evaluateAct, SIGNAL(triggered()), this, SLOT(evaluate()));
     connect(ui->evalButton, SIGNAL(released()), this, SLOT(evaluate()));
     connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+    connect(m_model, SIGNAL(emptyStringMatched(bool)), this, SLOT(toggleWarningWidget(bool)));
     readSettings();
     enableWidgets();
 
@@ -52,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_statusLabel = new QLabel;
     statusBar()->addPermanentWidget(m_statusLabel);
     connect(m_model, SIGNAL(statusChanged(QString)), this, SLOT(updateStatus(QString)));
+    ui->warningWidget->hide();
 }
 
 MainWindow::~MainWindow()
@@ -102,7 +107,7 @@ void MainWindow::writeSettings()
     s.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
 
     QString widths;
-    for (int i = 0; i < m_model->columnCount(QModelIndex()); ++i) {
+    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         widths.append(QString::number(ui->resultView->columnWidth(i)));
         widths.append(' ');
     }
@@ -155,3 +160,7 @@ void MainWindow::updateStatus(const QString& message)
     m_statusLabel->setText(message);
 }
 
+void MainWindow::toggleWarningWidget(bool on)
+{
+    ui->warningWidget->setVisible(on);
+}

@@ -24,6 +24,7 @@ public:
 
 signals:
     void statusChanged(const QString&);
+    void emptyStringMatched(bool);
 
 private:
     TreeItem* m_rootNode;

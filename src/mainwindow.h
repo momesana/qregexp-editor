@@ -36,6 +36,7 @@ private slots:
     void clearInputEdit();
     void clearRegExpEdit();
     void updateStatus(const QString&);
+    void toggleWarningWidget(bool);
 };
 
 #endif // MAINWINDOW_H

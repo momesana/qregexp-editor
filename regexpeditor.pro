@@ -8,6 +8,7 @@ INCLUDEPATH += .
 MOC_DIR = build-intermediate/moc
 OBJECTS_DIR = build-intermediate/obj
 UI_DIR = build-intermediate/ui
+CONFIG += debug
 
 # Input
 HEADERS += src/mainwindow.h \

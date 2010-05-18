@@ -20,6 +20,38 @@ RegExpModel::~RegExpModel()
 
 void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
 {    
+    beginResetModel();
+    delete m_rootNode;
+    m_rootNode = new TreeItem(TreeItem::ROOT, 0);
+    const int count = regExp.captureCount() + 1;
+    int pos = 0;
+    bool empty = false; // is the empty string being matched? (leads to an infinite loop)
+
+    while ((pos = regExp.indexIn(text, pos)) != -1) {
+        const int len = regExp.matchedLength();
+        if (len == 0) {
+            qWarning() << "In RegExpModel::evaluate() -> matchedLength() == 0";
+            empty = true;
+            break;
+        }
+
+        TreeItem* stringNode = new TreeItem(regExp.cap(0), TreeItem::STRING, m_rootNode);
+        for (int i = 1; i < count; ++i) {
+            const QString subStr = regExp.cap(i);
+            TreeItem* subStringNode = new TreeItem(TreeItem::SUB_STRING, stringNode);
+            subStringNode->setData(subStr);
+
+            if (!subStr.isEmpty())
+                new TreeItem(regExp.pos(i), TreeItem::POSITION, subStringNode);
+        }
+
+        new TreeItem(regExp.pos(), TreeItem::POSITION, stringNode);
+        new TreeItem(len, TreeItem::LENGTH, stringNode);
+        pos += len;
+    }
+    endResetModel();
+
+    // updating information
     bool cs = regExp.caseSensitivity() == Qt::CaseSensitive;
     bool min = regExp.isMinimal();
     QString ps;
@@ -35,30 +67,7 @@ void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
                        .arg(cs ? tr("On") : tr("Off"))
                        .arg(min ? tr("On") : tr("Off"))
                        .arg(ps));
-
-    beginResetModel();
-    delete m_rootNode;
-    m_rootNode = new TreeItem(TreeItem::ROOT, 0);
-    const int count = regExp.captureCount() + 1;
-    int pos = 0;
-
-    while ((pos = regExp.indexIn(text, pos)) != -1) {
-        TreeItem* stringNode = new TreeItem(TreeItem::STRING, m_rootNode);
-        stringNode->setData(regExp.cap(0));
-
-        for (int i = 1; i < count; ++i) {
-            const QString subStr = regExp.cap(i);
-            TreeItem* subStringNode = new TreeItem(TreeItem::SUB_STRING, stringNode);
-            subStringNode->setData(subStr);
-
-            if (!subStr.isEmpty())
-                new TreeItem(regExp.pos(i), TreeItem::POSITION, subStringNode);
-        }
-        new TreeItem(regExp.pos(), TreeItem::POSITION, stringNode);
-        new TreeItem(regExp.matchedLength(), TreeItem::LENGTH, stringNode);
-        pos += regExp.matchedLength();
-    }
-    endResetModel();
+    emit emptyStringMatched(empty);
 }
 
 TreeItem* RegExpModel::nodeFromIndex(const QModelIndex &index) const
