@@ -13,11 +13,14 @@ UI_DIR = build-intermediate/ui
 HEADERS += src/mainwindow.h \
     src/regexpmodel.h \
     src/aboutdialog.h \
-    src/node.h
+    src/node.h \
+    src/treeitem.h
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/aboutdialog.cpp \
-    src/regexpmodel.cpp
+    src/regexpmodel.cpp \
+    src/node.cpp \
+    src/treeitem.cpp
 FORMS += forms/mainwindow.ui \
     forms/aboutdialog.ui
 RESOURCES += application.qrc
@@ -27,4 +30,3 @@ OTHER_FILES += COPYING \
     AUTHORS \
     AUTHORS.html
 TRANSLATIONS = translations/regexpeditor_de.ts
-    #translations/gregexpeditor_fa.ts

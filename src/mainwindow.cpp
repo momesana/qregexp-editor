@@ -86,6 +86,10 @@ void MainWindow::readSettings()
     ui->patternSyntaxComboBox->setCurrentIndex(index);
     ui->caseSensitivityCheckBox->setChecked(s.value("mainwindow/casesensitivitycheckbox", true).toBool());
     ui->minimalCheckBox->setChecked(s.value("mainwindow/minimalcheckbox", false).toBool());
+
+    QStringList widths = s.value("mainWindow/resultview").toString().split(' ');
+    for (int i = 0; i < widths.count(); ++i)
+        ui->resultView->setColumnWidth(i, qMax(widths.at(i).toInt(), 0));
 }
 
 void MainWindow::writeSettings()
@@ -96,6 +100,13 @@ void MainWindow::writeSettings()
     s.setValue("mainwindow/patternsyntaxcombobox", ui->patternSyntaxComboBox->currentIndex());
     s.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
     s.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
+
+    QString widths;
+    for (int i = 0; i < m_model->columnCount(QModelIndex()); ++i) {
+        widths.append(QString::number(ui->resultView->columnWidth(i)));
+        widths.append(' ');
+    }
+    s.setValue("mainWindow/resultview", widths);
 }
 
 void MainWindow::about()

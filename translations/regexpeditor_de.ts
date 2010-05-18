@@ -82,9 +82,14 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../forms/mainwindow.ui" line="14"/>
         <source>MainWindow</source>
-        <translation type="unfinished">Hauptfenster</translation>
+        <translation type="obsolete">Hauptfenster</translation>
+    </message>
+    <message>
+        <location filename="../forms/mainwindow.ui" line="14"/>
+        <location filename="../forms/mainwindow.ui" line="163"/>
+        <source>Tool Bar</source>
+        <translation type="unfinished">Werkzeugsleiste</translation>
     </message>
     <message>
         <location filename="../forms/mainwindow.ui" line="23"/>
@@ -142,67 +147,66 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Groß-/Kleinschreibung unterschieden</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="133"/>
+        <location filename="../forms/mainwindow.ui" line="137"/>
         <source>&amp;File</source>
         <translation type="unfinished">&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="139"/>
+        <location filename="../forms/mainwindow.ui" line="143"/>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="148"/>
+        <location filename="../forms/mainwindow.ui" line="152"/>
         <source>&amp;Help</source>
         <translation type="unfinished">&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="159"/>
+        <location filename="../forms/mainwindow.ui" line="175"/>
         <source>&amp;Quit</source>
         <translation type="unfinished">B&amp;eenden</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="162"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished">Strg+Q</translation>
+        <translation type="obsolete">Strg+Q</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="167"/>
+        <location filename="../forms/mainwindow.ui" line="180"/>
         <source>&amp;Evaluate</source>
         <translation type="unfinished">&amp;Auswerten</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="170"/>
+        <location filename="../forms/mainwindow.ui" line="183"/>
         <source>Ctrl+R</source>
         <translation type="unfinished">Strg+R</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="175"/>
+        <location filename="../forms/mainwindow.ui" line="188"/>
         <source>&amp;About</source>
         <translation type="unfinished">&amp;Über</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="180"/>
+        <location filename="../forms/mainwindow.ui" line="193"/>
         <source>Clear Input Edit</source>
         <translation type="unfinished">Eingabe Feld löschen</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="183"/>
+        <location filename="../forms/mainwindow.ui" line="196"/>
         <source>Ctrl+L</source>
         <translation type="unfinished">Strg+L</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="188"/>
+        <location filename="../forms/mainwindow.ui" line="201"/>
         <source>Clear RegExp Edit</source>
         <translation type="unfinished">Feld für Reguläre Ausdrücke löschen</translation>
     </message>
     <message>
-        <location filename="../forms/mainwindow.ui" line="191"/>
+        <location filename="../forms/mainwindow.ui" line="204"/>
         <source>Ctrl+K</source>
         <translation type="unfinished">Strg+K</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="95"/>
+        <location filename="../src/mainwindow.cpp" line="116"/>
         <source>About </source>
         <translation type="unfinished">Über</translation>
     </message>
@@ -231,9 +235,33 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Aus</translation>
     </message>
     <message>
-        <location filename="../src/regexpmodel.cpp" line="123"/>
+        <location filename="../src/regexpmodel.cpp" line="124"/>
+        <source>Position</source>
+        <translation type="unfinished">Position</translation>
+    </message>
+    <message>
+        <location filename="../src/regexpmodel.cpp" line="125"/>
+        <source>Length</source>
+        <translation type="unfinished">Länge</translation>
+    </message>
+    <message>
+        <location filename="../src/regexpmodel.cpp" line="134"/>
+        <source>(Empty)</source>
+        <translation type="unfinished">(Leer)</translation>
+    </message>
+    <message>
+        <location filename="../src/regexpmodel.cpp" line="168"/>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <location filename="../src/regexpmodel.cpp" line="169"/>
+        <source>Value</source>
+        <translation type="unfinished">Wert</translation>
+    </message>
+    <message>
         <source>Matched (sub-)strings</source>
-        <translation type="unfinished">Gefundene (Sub-)Strings</translation>
+        <translation type="obsolete">Gefundene (Sub-)Strings</translation>
     </message>
 </context>
 </TS>
