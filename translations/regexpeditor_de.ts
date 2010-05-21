@@ -144,7 +144,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../forms/mainwindow.ui" line="105"/>
         <source>Case-sensitive</source>
-        <translation type="unfinished">Groß-/Kleinschreibung unterschieden</translation>
+        <translation type="unfinished">Groß-/Kleinschreibung unterscheiden</translation>
     </message>
     <message>
         <location filename="../forms/mainwindow.ui" line="137"/>
