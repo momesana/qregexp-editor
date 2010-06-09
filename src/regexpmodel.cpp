@@ -35,14 +35,18 @@ void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
             break;
         }
 
+        qDebug() << tr("************** Match **************\n%1").arg(regExp.cap(0));
         TreeItem* stringNode = new TreeItem(regExp.cap(0), TreeItem::STRING, m_rootNode);
         for (int i = 1; i < count; ++i) {
             const QString subStr = regExp.cap(i);
+            qDebug() << tr("--> Capture %1: %2").arg(QString::number(i)).arg(subStr);
             TreeItem* subStringNode = new TreeItem(TreeItem::SUB_STRING, stringNode);
             subStringNode->setData(subStr);
 
-            if (!subStr.isEmpty())
+            if (!subStr.isEmpty()) {
+                qDebug() << tr("------> Pos:%1").arg(QString::number(regExp.pos(i)));
                 new TreeItem(regExp.pos(i), TreeItem::POSITION, subStringNode);
+            }
         }
 
         new TreeItem(regExp.pos(), TreeItem::POSITION, stringNode);
