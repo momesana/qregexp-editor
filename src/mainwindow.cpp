@@ -161,7 +161,8 @@ void MainWindow::enableEvaluation()
     }
     else {
         ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #FFBFBF; }");
-        statusBar()->showMessage(tr("Invalid expression"));
+        statusBar()->showMessage(
+            tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
 
     ui->evalButton->setEnabled(b);
