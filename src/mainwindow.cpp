@@ -5,6 +5,7 @@
 
 // Qt
 #include <QCoreApplication>
+#include <QMessageBox>
 #include <QSettings>
 #include <QDebug>
 
@@ -135,11 +136,18 @@ void MainWindow::evaluate()
     rx.setPatternSyntax((QRegExp::PatternSyntax)data);
     rx.setMinimal(ui->minimalCheckBox->isChecked());
     rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
-    m_model->evaluate(ui->inputEdit->toPlainText(), rx);
 
-    // Resize the columns to it's contents
-    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
-        ui->resultView->resizeColumnToContents(i);
+    // is the regex valid ?
+    if (rx.isValid()) {
+        m_model->evaluate(ui->inputEdit->toPlainText(), rx);
+
+        // Resize the columns to it's contents
+        for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
+            ui->resultView->resizeColumnToContents(i);
+    } else {
+        QString msg = tr("Error description: %1").arg(rx.errorString());
+        QMessageBox::warning(this, tr("Invalid Regular Expression"), msg);
+    }
 }
 
 void MainWindow::enableWidgets()
