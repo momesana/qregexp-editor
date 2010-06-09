@@ -136,6 +136,10 @@ void MainWindow::evaluate()
     rx.setMinimal(ui->minimalCheckBox->isChecked());
     rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
     m_model->evaluate(ui->inputEdit->toPlainText(), rx);
+
+    // Resize the columns to it's contents
+    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
+        ui->resultView->resizeColumnToContents(i);
 }
 
 void MainWindow::enableWidgets()
