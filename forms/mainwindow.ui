@@ -169,6 +169,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="openAct"/>
     <addaction name="quitAct"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
@@ -203,6 +204,11 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="clearInputEditAct"/>
   </widget>
+  <action name="openAct">
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+  </action>
   <action name="quitAct">
    <property name="text">
     <string>&amp;Quit</string>

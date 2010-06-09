@@ -26,10 +26,13 @@ private:
     AboutDialog *m_aboutDialog;
     QLabel* m_statusLabel;
 
+    bool loadFile(const QString &filename);
+
     void writeSettings();
     void readSettings();
 
 private slots:
+    void open();
     void evaluate();
     void about();
     void enableWidgets();
