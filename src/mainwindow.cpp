@@ -155,10 +155,14 @@ void MainWindow::enableEvaluation()
              ui->regexpLineEdit->text().isEmpty() ||
              !m_rx.isValid() ? false : true;
 
-    if (m_rx.isValid())
+    if (m_rx.isValid()) {
         ui->regexpLineEdit->setStyleSheet("");
-    else
+        statusBar()->showMessage(tr("Valid expression"));
+    }
+    else {
         ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #FFBFBF; }");
+        statusBar()->showMessage(tr("Invalid expression"));
+    }
 
     ui->evalButton->setEnabled(b);
     ui->evaluateAct->setEnabled(b);
