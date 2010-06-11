@@ -29,9 +29,8 @@ AboutDialog::AboutDialog(QWidget* parent)
   setupUi(this);
 
   versionLabel->setText(QString("<div>"
-                        "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span>"
-                        "<span style='font-weight: bold; font-size: 10pt;'> &copy; 2010</span> <br />"
-                        "<span style='font-size: 8pt;'>Mohammad Mehdi Salem Naraghi<span><div>")
+                        "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span> <br />"
+                        "<span style='font-size: 8pt;'> Copyright &copy; 2010 M. Mehdi Salem Naraghi<span><div>")
                         .arg(qApp->applicationName())
                         .arg(qApp->applicationVersion()));
 
