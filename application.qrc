@@ -7,5 +7,6 @@
         <file>COPYING.html</file>
         <file>images/edit-clear.png</file>
         <file>images/document-open.png</file>
+        <file>images/application-exit.png</file>
     </qresource>
 </RCC>
