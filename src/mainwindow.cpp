@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(qApp->applicationName());
 
     // icons
-    ui->openAct->setIcon(QIcon::fromTheme("document-open"));
+    ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit"));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
