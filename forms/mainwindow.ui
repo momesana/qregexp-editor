@@ -170,6 +170,7 @@ p, li { white-space: pre-wrap; }
      <string>&amp;File</string>
     </property>
     <addaction name="openAct"/>
+    <addaction name="separator"/>
     <addaction name="quitAct"/>
    </widget>
    <widget class="QMenu" name="menu_Edit">
