@@ -31,12 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->quitAct->setShortcut(QKeySequence::Quit);
 
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
-    connect(ui->quitAct, SIGNAL(triggered()), this, SLOT(close()));
-    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), this, SLOT(enableWidgets()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), this, SLOT(evaluate()));
-    connect(ui->clearRegExpEditAct, SIGNAL(triggered()), this, SLOT(clearRegExpEdit()));
-    connect(ui->inputEdit, SIGNAL(textChanged()), this, SLOT(enableWidgets()));
-    connect(ui->clearInputEditAct, SIGNAL(triggered()), this, SLOT(clearInputEdit()));
+    connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
+    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
+    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(evaluate()));
+    connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
+    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableEvaluation()));
+    connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
+    connect(ui->patternSyntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
+    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
+    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
+    connect(ui->evaluateAct, SIGNAL(triggered()), SLOT(evaluate()));
+    connect(ui->evalButton, SIGNAL(released()), SLOT(evaluate()));
+    connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
 
     // combobox
     QComboBox* cb = ui->patternSyntaxComboBox;
@@ -49,12 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_model = new RegExpModel(this);
     ui->resultView->setModel(m_model);
-    connect(ui->evaluateAct, SIGNAL(triggered()), this, SLOT(evaluate()));
-    connect(ui->evalButton, SIGNAL(released()), this, SLOT(evaluate()));
-    connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
-    connect(m_model, SIGNAL(emptyStringMatched(bool)), this, SLOT(toggleWarningWidget(bool)));
+    connect(m_model, SIGNAL(emptyStringMatched(bool)), SLOT(toggleWarningWidget(bool)));
     readSettings();
-    enableWidgets();
+    enableEvaluation();
 
     // statusbar
     m_statusLabel = new QLabel;
@@ -139,32 +142,39 @@ void MainWindow::about()
 
 void MainWindow::evaluate()
 {
+    m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
+
+    // Resize the columns to it's contents
+    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
+        ui->resultView->resizeColumnToContents(i);
+}
+
+void MainWindow::enableEvaluation()
+{
+    bool b = ui->inputEdit->toPlainText().isEmpty() ||
+             ui->regexpLineEdit->text().isEmpty() ||
+             !m_rx.isValid() ? false : true;
+
+    if (m_rx.isValid())
+        ui->regexpLineEdit->setStyleSheet("");
+    else
+        ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #FFBFBF; }");
+
+    ui->evalButton->setEnabled(b);
+    ui->evaluateAct->setEnabled(b);
+}
+
+void MainWindow::updateRegExp()
+{
     int index = ui->patternSyntaxComboBox->currentIndex();
     // we use the data as enum value for the pattern syntax of the regexp
     int data = ui->patternSyntaxComboBox->itemData(index, Qt::UserRole).toInt();
-    QRegExp rx(ui->regexpLineEdit->text());
-    rx.setPatternSyntax((QRegExp::PatternSyntax)data);
-    rx.setMinimal(ui->minimalCheckBox->isChecked());
-    rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
+    m_rx.setPattern(ui->regexpLineEdit->text());
+    m_rx.setPatternSyntax((QRegExp::PatternSyntax)data);
+    m_rx.setMinimal(ui->minimalCheckBox->isChecked());
+    m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
-    // is the regex valid ?
-    if (rx.isValid()) {
-        m_model->evaluate(ui->inputEdit->toPlainText(), rx);
-
-        // Resize the columns to it's contents
-        for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
-            ui->resultView->resizeColumnToContents(i);
-    } else {
-        QString msg = tr("Error description: %1").arg(rx.errorString());
-        QMessageBox::warning(this, tr("Invalid Regular Expression"), msg);
-    }
-}
-
-void MainWindow::enableWidgets()
-{
-    bool b = ui->inputEdit->toPlainText().isEmpty() || ui->regexpLineEdit->text().isEmpty();
-    ui->evalButton->setDisabled(b);
-    ui->evaluateAct->setDisabled(b);
+    enableEvaluation();
 }
 
 void MainWindow::clearInputEdit()

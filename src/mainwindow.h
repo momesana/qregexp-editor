@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QRegExp>
 
 namespace Ui {
     class MainWindow;
@@ -25,6 +26,7 @@ private:
     RegExpModel *m_model;
     AboutDialog *m_aboutDialog;
     QLabel* m_statusLabel;
+    QRegExp m_rx;
 
     bool loadFile(const QString &filename);
 
@@ -35,7 +37,8 @@ private slots:
     void open();
     void evaluate();
     void about();
-    void enableWidgets();
+    void enableEvaluation();
+    void updateRegExp();
     void clearInputEdit();
     void clearRegExpEdit();
     void updateStatus(const QString&);
