@@ -30,6 +30,7 @@ namespace Ui {
 }
 
 class AboutDialog;
+class EscapedPatternDialog;
 class RegExpModel;
 class QAction;
 class QLabel;
@@ -47,6 +48,7 @@ private:
     Ui::MainWindow *ui;
     RegExpModel *m_model;
     AboutDialog *m_aboutDialog;
+    EscapedPatternDialog *m_escapedPatternDialog;
     QLabel *m_statusLabel;
     QRegExp m_rx;
     QStringList m_recentFiles;
@@ -64,6 +66,7 @@ private slots:
     void clearAllRecentFiles();
     void evaluate();
     void about();
+    void escapedPattern();
     void enableEvaluation();
     void updateRegExp();
     void clearInputEdit();

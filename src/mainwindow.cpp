@@ -21,6 +21,7 @@
 #include "ui_mainwindow.h"
 #include "regexpmodel.h"
 #include "aboutdialog.h"
+#include "escapedpatterndialog.h"
 
 // Qt
 #include <QCoreApplication>
@@ -33,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_aboutDialog(0)
+    , m_escapedPatternDialog(0)
     , m_maxRecentFiles(10)
 {
     ui->setupUi(this);
@@ -63,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->evaluateAct, SIGNAL(triggered()), SLOT(evaluate()));
     connect(ui->evalButton, SIGNAL(released()), SLOT(evaluate()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
+    connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
 
     // combobox
     QComboBox* cb = ui->patternSyntaxComboBox;
@@ -188,6 +191,19 @@ void MainWindow::about()
     m_aboutDialog->activateWindow();
 }
 
+void MainWindow::escapedPattern()
+{
+    if (!m_escapedPatternDialog) {
+        m_escapedPatternDialog = new EscapedPatternDialog(this);
+        m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
+    }
+
+    m_escapedPatternDialog->setPattern(ui->regexpLineEdit->text());
+    m_escapedPatternDialog->show();
+    m_escapedPatternDialog->raise();
+    m_escapedPatternDialog->activateWindow();
+}
+
 void MainWindow::evaluate()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
@@ -202,6 +218,8 @@ void MainWindow::enableEvaluation()
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
              ui->regexpLineEdit->text().isEmpty() ||
              !m_rx.isValid() ? false : true;
+
+    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpLineEdit->text().isEmpty());
 
     if (m_rx.isValid()) {
         ui->regexpLineEdit->setStyleSheet("");

@@ -15,15 +15,18 @@ HEADERS += src/mainwindow.h \
     src/regexpmodel.h \
     src/aboutdialog.h \
     src/node.h \
-    src/treeitem.h
+    src/treeitem.h \
+    src/escapedpatterndialog.h
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \
     src/aboutdialog.cpp \
     src/regexpmodel.cpp \
     src/node.cpp \
-    src/treeitem.cpp
+    src/treeitem.cpp \
+    src/escapedpatterndialog.cpp
 FORMS += forms/mainwindow.ui \
-    forms/aboutdialog.ui
+    forms/aboutdialog.ui \
+    forms/escapedpatterndialog.ui
 RESOURCES += application.qrc
 OTHER_FILES += COPYING \
     COPYING.html \
