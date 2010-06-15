@@ -21,6 +21,7 @@
 #include "ui_mainwindow.h"
 #include "regexpmodel.h"
 #include "aboutdialog.h"
+#include "escapedpatterndialog.h"
 
 // Qt
 #include <QCoreApplication>
@@ -33,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_aboutDialog(0)
+    , m_escapedPatternDialog(0)
+    , m_maxRecentFiles(10)
 {
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
@@ -62,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->evaluateAct, SIGNAL(triggered()), SLOT(evaluate()));
     connect(ui->evalButton, SIGNAL(released()), SLOT(evaluate()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
+    connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
 
     // combobox
     QComboBox* cb = ui->patternSyntaxComboBox;
@@ -76,6 +80,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultView->setModel(m_model);
     connect(m_model, SIGNAL(emptyStringMatched(bool)), SLOT(toggleWarningWidget(bool)));
     readSettings();
+
+    // create recent files actions
+    for (int i = 0; i < m_maxRecentFiles; ++i) {
+        QAction* act = new QAction(this);
+        connect(act, SIGNAL(triggered()), SLOT(openRecentFile()));
+        m_recentFileActions << act;
+        act->setVisible(false);
+    }
+    QAction* separator = ui->recentFilesMenu->addSeparator();
+    ui->recentFilesMenu->addAction(tr("C&lear all"), this, SLOT(clearAllRecentFiles()));
+    ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
+    updateRecentFileActions();
+
     enableEvaluation();
 
     // statusbar
@@ -117,6 +134,7 @@ void MainWindow::readSettings()
     ui->patternSyntaxComboBox->setCurrentIndex(index);
     ui->caseSensitivityCheckBox->setChecked(s.value("mainwindow/casesensitivitycheckbox", true).toBool());
     ui->minimalCheckBox->setChecked(s.value("mainwindow/minimalcheckbox", false).toBool());
+    m_recentFiles = s.value("mainwindow/recentfiles", QStringList()).toStringList();
 
     QStringList widths = s.value("mainWindow/resultview").toString().split(' ');
     for (int i = 0; i < widths.count(); ++i)
@@ -131,6 +149,7 @@ void MainWindow::writeSettings()
     s.setValue("mainwindow/patternsyntaxcombobox", ui->patternSyntaxComboBox->currentIndex());
     s.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
     s.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
+    s.setValue("mainwindow/recentfiles", m_recentFiles);
 
     QString widths;
     for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
@@ -147,6 +166,19 @@ void MainWindow::open()
         loadFile(fileName);
 }
 
+void MainWindow::openRecentFile()
+{
+    QAction* act = qobject_cast<QAction*>(sender());
+    this->loadFile(act->data().toString());
+}
+
+void MainWindow::clearAllRecentFiles()
+{
+    m_recentFiles.clear();
+    updateRecentFileActions();
+}
+
+
 void MainWindow::about()
 {
     if (!m_aboutDialog) {
@@ -157,6 +189,19 @@ void MainWindow::about()
     m_aboutDialog->show();
     m_aboutDialog->raise();
     m_aboutDialog->activateWindow();
+}
+
+void MainWindow::escapedPattern()
+{
+    if (!m_escapedPatternDialog) {
+        m_escapedPatternDialog = new EscapedPatternDialog(this);
+        m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
+    }
+
+    m_escapedPatternDialog->setPattern(ui->regexpLineEdit->text());
+    m_escapedPatternDialog->show();
+    m_escapedPatternDialog->raise();
+    m_escapedPatternDialog->activateWindow();
 }
 
 void MainWindow::evaluate()
@@ -173,6 +218,8 @@ void MainWindow::enableEvaluation()
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
              ui->regexpLineEdit->text().isEmpty() ||
              !m_rx.isValid() ? false : true;
+
+    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpLineEdit->text().isEmpty());
 
     if (m_rx.isValid()) {
         ui->regexpLineEdit->setStyleSheet("");
@@ -231,7 +278,36 @@ bool MainWindow::loadFile(const QString &fileName)
                              .arg(file.errorString()));
         return false;
     }
+
+    m_recentFiles.removeAll(fileName);
+    m_recentFiles.prepend(fileName);
+    updateRecentFileActions();
     QTextStream inFile(&file);
     ui->inputEdit->setPlainText(inFile.readAll());
     return true;
+}
+
+void MainWindow::updateRecentFileActions()
+{
+    ui->recentFilesMenu->setEnabled(m_recentFiles.size());
+    QMutableStringListIterator i(m_recentFiles);
+    while(i.hasNext()) {
+        if (!QFile::exists(i.next()))
+            i.remove();
+    }
+
+    QFontMetrics fm = this->fontMetrics();
+    for(int i = 0; i < m_recentFileActions.size(); ++i) {
+        if (i >= m_maxRecentFiles || i >= m_recentFiles.size())
+            m_recentFileActions[i]->setVisible(false);
+        else {
+            const QString path = m_recentFiles.at(i);
+            QAction* act = m_recentFileActions[i];
+            act->setText(QString("%1 [%2]")
+                         .arg(QFileInfo(path).fileName())
+                         .arg(fm.elidedText(path, Qt::ElideMiddle, width() / 2))); // TODO find more intelligent way to calculate the avail. width
+            act->setData(path);
+            act->setVisible(true);
+        }
+    }
 }

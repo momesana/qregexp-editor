@@ -20,15 +20,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QList>
 #include <QMainWindow>
 #include <QRegExp>
+#include <QStringList>
 
 namespace Ui {
     class MainWindow;
 }
 
 class AboutDialog;
+class EscapedPatternDialog;
 class RegExpModel;
+class QAction;
 class QLabel;
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -44,18 +48,25 @@ private:
     Ui::MainWindow *ui;
     RegExpModel *m_model;
     AboutDialog *m_aboutDialog;
-    QLabel* m_statusLabel;
+    EscapedPatternDialog *m_escapedPatternDialog;
+    QLabel *m_statusLabel;
     QRegExp m_rx;
+    QStringList m_recentFiles;
+    QList<QAction*> m_recentFileActions;
+    const int m_maxRecentFiles;
 
     bool loadFile(const QString &filename);
-
+    void updateRecentFileActions();
     void writeSettings();
     void readSettings();
 
 private slots:
     void open();
+    void openRecentFile();
+    void clearAllRecentFiles();
     void evaluate();
     void about();
+    void escapedPattern();
     void enableEvaluation();
     void updateRegExp();
     void clearInputEdit();
