@@ -249,17 +249,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/mainwindow.cpp" line="154"/>
         <source>About %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Über %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="179"/>
         <source>Valid expression</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gültiger regulärer Ausdruck</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="184"/>
         <source>Invalid expression: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ungültiger regulärer Ausdruck: %1</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="228"/>
@@ -270,7 +270,8 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/mainwindow.cpp" line="229"/>
         <source>Cannot read file %1:
 %2.</source>
-        <translation type="unfinished">Can Datei %1 nicht lesen: %2.</translation>
+        <translation type="unfinished">Can Datei %1 nicht lesen:
+%2.</translation>
     </message>
 </context>
 <context>
