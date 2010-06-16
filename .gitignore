@@ -8,3 +8,4 @@ qrc_*
 Makefile*
 build-intermediate
 qregexp-editor
+*.qm
