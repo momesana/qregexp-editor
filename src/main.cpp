@@ -31,7 +31,7 @@ int main(int argc, char** argv)
 
   QCoreApplication::setOrganizationName("momesana software inc.");
   QCoreApplication::setOrganizationDomain("momesana.com");
-  QCoreApplication::setApplicationVersion("0.2");
+  QCoreApplication::setApplicationVersion("0.2.0.1");
   QCoreApplication::setApplicationName("QRegExp Editor");
 
   QTranslator qtTranslator;
