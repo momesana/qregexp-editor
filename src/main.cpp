@@ -32,7 +32,7 @@ int main(int argc, char** argv)
   QCoreApplication::setOrganizationName("momesana software inc.");
   QCoreApplication::setOrganizationDomain("momesana.com");
   QCoreApplication::setApplicationVersion("0.2");
-  QCoreApplication::setApplicationName("QRegExp Editor");
+  QCoreApplication::setApplicationName("QRegExp-Editor");
 
   QTranslator qtTranslator;
   qtTranslator.load("qt_" + QLocale::system().name(),
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
   app.installTranslator(&qtTranslator);
 
   QTranslator appTranslator;
-  appTranslator.load("translations/regexpeditor_" + QLocale::system().name());
+  appTranslator.load("translations/qregexp-editor_" + QLocale::system().name());
   app.installTranslator(&appTranslator);
 
   MainWindow mw;

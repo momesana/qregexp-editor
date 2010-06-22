@@ -33,4 +33,4 @@ OTHER_FILES += COPYING \
     ABOUT.html \
     AUTHORS \
     AUTHORS.html
-TRANSLATIONS = translations/regexpeditor_de.ts
+TRANSLATIONS = translations/qregexp-editor_de.ts
