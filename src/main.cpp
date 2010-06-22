@@ -25,6 +25,13 @@
 
 #include "mainwindow.h"
 
+// Borrowed from QtCreator (qt-creator/src/app/main.cpp)
+#ifdef Q_OS_MAC
+#  define SHARE_PATH "/../Resources"
+#else
+#  define SHARE_PATH "/../share/qregexp-editor"
+#endif
+
 int main(int argc, char** argv)
 {
   QApplication app(argc, argv);
@@ -34,13 +41,16 @@ int main(int argc, char** argv)
   QCoreApplication::setApplicationVersion("0.2.0.1");
   QCoreApplication::setApplicationName("QRegExp Editor");
 
+  const QString &appTrPath = QApplication::applicationDirPath()
+                        + QLatin1String(SHARE_PATH "/translations");
+
   QTranslator qtTranslator;
   qtTranslator.load("qt_" + QLocale::system().name(),
                     QLibraryInfo::location(QLibraryInfo::TranslationsPath));
   app.installTranslator(&qtTranslator);
 
   QTranslator appTranslator;
-  appTranslator.load("translations/qregexp-editor_" + QLocale::system().name());
+  appTranslator.load(QLatin1String("qregexp-editor_") + QLocale::system().name(), appTrPath);
   app.installTranslator(&appTranslator);
 
   MainWindow mw;

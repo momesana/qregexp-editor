@@ -2,6 +2,12 @@ include_directories(
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+
+file(GLOB HEADER_FILES *.h *.hpp)
+file(GLOB CPP_FILES *.cpp)
+file(GLOB UI_FILES *.ui)
+set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_FILES} PARENT_SCOPE)
+
 set(qregexp-editor_SRCS
    node.cpp
    regexpmodel.cpp
