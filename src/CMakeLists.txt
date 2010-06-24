@@ -25,10 +25,17 @@ set(qregexp-editor_MOC_HDRS
    regexpmodel.h
 )
 
+set(qregexp-editor_RCCS
+   ../application.qrc
+)
+
+# generate rules for building source files from the resources
+qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
+
 qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
 qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
-add_executable(qregexp-editor ${qregexp-editor_SRCS})
+add_executable(qregexp-editor ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
 
 target_link_libraries(qregexp-editor ${QT_LIBRARIES})
 
