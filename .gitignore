@@ -6,6 +6,5 @@ qrc_*
 *.pro.user*
 .directory
 Makefile*
-build-intermediate
 qregexp-editor
 *.qm
