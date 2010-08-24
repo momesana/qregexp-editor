@@ -226,7 +226,7 @@ void MainWindow::enableEvaluation()
         statusBar()->showMessage(tr("Valid expression"));
     }
     else {
-        ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #FFBFBF; }");
+        ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #F7E7E7; }");
         statusBar()->showMessage(
             tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
