@@ -15,6 +15,23 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;center&gt;
+&lt;div style='background: lightgray; font-weight:bold;'&gt;Rationale&lt;/div&gt;
+&lt;/center&gt;
+&lt;p&gt;As the QRegexp documentation says:  The C++ compiler transforms backslashes in strings. To include a \\ in a regexp, enter it twice, i.e. \\\\.&lt;/p&gt;
+&lt;center&gt;
+&lt;div style='background: lightgray; font-weight: bold;'&gt;Escaped pattern&lt;/div&gt;
+&lt;/center&gt;
+</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTextBrowser" name="textBrowser"/>
    </item>
    <item>
