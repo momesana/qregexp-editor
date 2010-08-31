@@ -20,6 +20,9 @@
 #include "escapedpatterndialog.h"
 #include "ui_escapedpatterndialog.h"
 
+// Qt
+#include <QDebug>
+
 EscapedPatternDialog::EscapedPatternDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::EscapedPatternDialog)
@@ -36,16 +39,7 @@ void EscapedPatternDialog::setPattern(const QString& pattern)
 {
     QString str(pattern);
     str.replace('\\', "\\\\");
-
-    QString html = tr(
-            "<center><div style='background: lightgray; font-weight: bold;'>Rationale</div></center>"
-            "<p>As the QRegexp documentation says:  The C++ compiler transforms "
-            "backslashes in strings. To include a \\ in a regexp, enter it "
-            "twice, i.e. \\\\.</p>"
-            "<center><div style='background: lightgray; font-weight: bold;'>Escaped pattern</div></center>"
-            "<p><code style='color: darkGreen'>%1</code></p>").arg(str);
-
-    ui->textBrowser->setHtml(html);
+    ui->textBrowser->setPlainText(str);
 }
 
 void EscapedPatternDialog::changeEvent(QEvent *e)
