@@ -165,14 +165,6 @@ p, li { white-space: pre-wrap; }
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_File">
-    <property name="title">
-     <string>&amp;File</string>
-    </property>
-    <addaction name="openAct"/>
-    <addaction name="separator"/>
-    <addaction name="quitAct"/>
-   </widget>
    <widget class="QMenu" name="menu_Edit">
     <property name="title">
      <string>&amp;Edit</string>
@@ -188,8 +180,29 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="aboutAct"/>
    </widget>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="recentFilesMenu">
+     <property name="title">
+      <string>Recently Opened files</string>
+     </property>
+    </widget>
+    <addaction name="openAct"/>
+    <addaction name="recentFilesMenu"/>
+    <addaction name="separator"/>
+    <addaction name="quitAct"/>
+   </widget>
+   <widget class="QMenu" name="menu_Tools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+    <addaction name="escapedPatternAct"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
+   <addaction name="menu_Tools"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -245,6 +258,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="escapedPatternAct">
+   <property name="text">
+    <string>Escaped pattern</string>
    </property>
   </action>
  </widget>
