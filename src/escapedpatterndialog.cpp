@@ -20,9 +20,6 @@
 #include "escapedpatterndialog.h"
 #include "ui_escapedpatterndialog.h"
 
-// Qt
-#include <QDebug>
-
 EscapedPatternDialog::EscapedPatternDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::EscapedPatternDialog)
