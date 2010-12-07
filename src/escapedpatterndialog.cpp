@@ -57,5 +57,8 @@ QString EscapedPatternDialog::escapePattern(const QString& pattern)
     // escape backslashs and double quotes
     str.replace(QString(QLatin1Char('\\')), QLatin1String("\\\\"));
     str.replace(QString(QLatin1Char('"')), QLatin1String("\\\""));
+    str.prepend(QLatin1String("\""));
+    str.append(QLatin1String("\""));
+
     return str;
 }
