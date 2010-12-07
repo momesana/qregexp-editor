@@ -37,6 +37,7 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
+    QString escapePattern(const QString& pattern);
     Ui::EscapedPatternDialog *ui;
 };
 

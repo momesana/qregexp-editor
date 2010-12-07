@@ -34,8 +34,7 @@ EscapedPatternDialog::~EscapedPatternDialog()
 
 void EscapedPatternDialog::setPattern(const QString& pattern)
 {
-    QString str(pattern);
-    str.replace('\\', "\\\\");
+    QString str = escapePattern(pattern);
     ui->textBrowser->setPlainText(str);
 }
 
@@ -49,4 +48,14 @@ void EscapedPatternDialog::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+QString EscapedPatternDialog::escapePattern(const QString& pattern)
+{
+    QString str(pattern);
+
+    // escape backslashs and double quotes
+    str.replace(QString(QLatin1Char('\\')), QLatin1String("\\\\"));
+    str.replace(QString(QLatin1Char('"')), QLatin1String("\\\""));
+    return str;
 }
