@@ -59,6 +59,7 @@ private:
     void updateRecentFileActions();
     void writeSettings();
     void readSettings();
+    void populateComboBoxes();
 
 private slots:
     void open();

@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
     ui->emptyStringMatchedIconLabel->setPixmap(warningIcon.pixmap(32));
 
+    populateComboBoxes();
+
     // shortcuts
     ui->quitAct->setShortcut(QKeySequence::Quit);
 
@@ -59,22 +61,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableSearch()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
-    connect(ui->patternSyntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
+    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
     connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
-
-    // combobox
-    QComboBox* cb = ui->patternSyntaxComboBox;
-    cb->setItemData(0, 0, Qt::UserRole); // QRegExp::RegExp
-    cb->setItemData(1, 3, Qt::UserRole); // QRegExp::RegExp2
-    cb->setItemData(2, 1, Qt::UserRole); // QRegExp::Wildcard
-    cb->setItemData(3, 4, Qt::UserRole); // QRegExp::WildcardUnix
-    cb->setItemData(4, 2, Qt::UserRole); // QRegExp::FixedString
-    cb->setItemData(5, 5, Qt::UserRole); // QRegExp::W3CXmlSchema11
 
     m_model = new RegExpModel(this);
     ui->resultView->setModel(m_model);
@@ -130,8 +123,8 @@ void MainWindow::readSettings()
     QSettings s;
     restoreGeometry(s.value("mainwindow/geometry").toByteArray());
     restoreState(s.value("mainwindow/state").toByteArray());
-    const int index = s.value("mainwindow/patternsyntaxcombobox", 0).toInt();
-    ui->patternSyntaxComboBox->setCurrentIndex(index);
+    const int index = s.value("mainwindow/patternsyntaxcombobox", QRegExp::RegExp2).toInt();
+    ui->syntaxComboBox->setCurrentIndex(index);
     ui->caseSensitivityCheckBox->setChecked(s.value("mainwindow/casesensitivitycheckbox", true).toBool());
     ui->minimalCheckBox->setChecked(s.value("mainwindow/minimalcheckbox", false).toBool());
     m_recentFiles = s.value("mainwindow/recentfiles", QStringList()).toStringList();
@@ -146,7 +139,7 @@ void MainWindow::writeSettings()
     QSettings s;
     s.setValue("mainwindow/geometry", saveGeometry());
     s.setValue("mainwindow/state", saveState());
-    s.setValue("mainwindow/patternsyntaxcombobox", ui->patternSyntaxComboBox->currentIndex());
+    s.setValue("mainwindow/patternsyntaxcombobox", ui->syntaxComboBox->currentIndex());
     s.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
     s.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
     s.setValue("mainwindow/recentfiles", m_recentFiles);
@@ -237,9 +230,9 @@ void MainWindow::enableSearch()
 
 void MainWindow::updateRegExp()
 {
-    int index = ui->patternSyntaxComboBox->currentIndex();
+    int index = ui->syntaxComboBox->currentIndex();
     // we use the data as enum value for the pattern syntax of the regexp
-    int data = ui->patternSyntaxComboBox->itemData(index, Qt::UserRole).toInt();
+    int data = ui->syntaxComboBox->itemData(index, Qt::UserRole).toInt();
     m_rx.setPattern(ui->regexpLineEdit->text());
     m_rx.setPatternSyntax((QRegExp::PatternSyntax)data);
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
@@ -310,4 +303,14 @@ void MainWindow::updateRecentFileActions()
             act->setVisible(true);
         }
     }
+}
+
+void MainWindow::populateComboBoxes()
+{
+    ui->syntaxComboBox->addItem(tr("RegExp"), QRegExp::RegExp);
+    ui->syntaxComboBox->addItem(tr("RegExp2"), QRegExp::RegExp2);
+    ui->syntaxComboBox->addItem(tr("Wildcard"), QRegExp::Wildcard);
+    ui->syntaxComboBox->addItem(tr("WildcardUnix"), QRegExp::WildcardUnix);
+    ui->syntaxComboBox->addItem(tr("FixedString"), QRegExp::FixedString);
+    ui->syntaxComboBox->addItem(tr("W3CXmlSchema11"), QRegExp::W3CXmlSchema11);
 }

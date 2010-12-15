@@ -59,37 +59,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="patternSyntaxComboBox">
-        <item>
-         <property name="text">
-          <string>RegExp</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>RegExp2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Wildcard</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>WildcardUnix</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>FixedString</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>W3CXmlSchema11</string>
-         </property>
-        </item>
+       <widget class="QComboBox" name="syntaxComboBox">
        </widget>
       </item>
       <item>
@@ -269,7 +239,7 @@ p, li { white-space: pre-wrap; }
  <tabstops>
   <tabstop>regexpLineEdit</tabstop>
   <tabstop>inputEdit</tabstop>
-  <tabstop>patternSyntaxComboBox</tabstop>
+  <tabstop>syntaxComboBox</tabstop>
   <tabstop>minimalCheckBox</tabstop>
   <tabstop>caseSensitivityCheckBox</tabstop>
   <tabstop>searchButton</tabstop>
