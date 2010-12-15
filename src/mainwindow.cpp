@@ -40,15 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
 
-    // icons
-    ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
-    ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit")));
-    ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
-    ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
-    QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
-    warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
-    ui->emptyStringMatchedIconLabel->setPixmap(warningIcon.pixmap(32));
-
+    setIcons();
     populateComboBoxes();
 
     // shortcuts
@@ -313,4 +305,15 @@ void MainWindow::populateComboBoxes()
     ui->syntaxComboBox->addItem(tr("WildcardUnix"), QRegExp::WildcardUnix);
     ui->syntaxComboBox->addItem(tr("FixedString"), QRegExp::FixedString);
     ui->syntaxComboBox->addItem(tr("W3CXmlSchema11"), QRegExp::W3CXmlSchema11);
+}
+
+void MainWindow::setIcons()
+{
+    ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
+    ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit")));
+    ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
+    ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
+    QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
+    warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
+    ui->emptyStringMatchedIconLabel->setPixmap(warningIcon.pixmap(32));
 }

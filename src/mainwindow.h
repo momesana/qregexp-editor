@@ -60,6 +60,7 @@ private:
     void writeSettings();
     void readSettings();
     void populateComboBoxes();
+    void setIcons();
 
 private slots:
     void open();
