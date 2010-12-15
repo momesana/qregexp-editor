@@ -28,9 +28,9 @@
        <widget class="QLineEdit" name="regexpLineEdit"/>
       </item>
       <item>
-       <widget class="QPushButton" name="evalButton">
+       <widget class="QPushButton" name="searchButton">
         <property name="text">
-         <string>Evaluate</string>
+         <string>Search</string>
         </property>
        </widget>
       </item>
@@ -172,7 +172,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="clearInputEditAct"/>
     <addaction name="clearRegExpEditAct"/>
     <addaction name="separator"/>
-    <addaction name="evaluateAct"/>
+    <addaction name="searchAct"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -231,9 +231,9 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Quit</string>
    </property>
   </action>
-  <action name="evaluateAct">
+  <action name="searchAct">
    <property name="text">
-    <string>&amp;Evaluate</string>
+    <string>&amp;Search</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -272,7 +272,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>patternSyntaxComboBox</tabstop>
   <tabstop>minimalCheckBox</tabstop>
   <tabstop>caseSensitivityCheckBox</tabstop>
-  <tabstop>evalButton</tabstop>
+  <tabstop>searchButton</tabstop>
   <tabstop>resultView</tabstop>
  </tabstops>
  <resources/>

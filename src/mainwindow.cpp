@@ -55,15 +55,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
     connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(evaluate()));
+    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(search()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
-    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableEvaluation()));
+    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableSearch()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
     connect(ui->patternSyntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->evaluateAct, SIGNAL(triggered()), SLOT(evaluate()));
-    connect(ui->evalButton, SIGNAL(released()), SLOT(evaluate()));
+    connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
+    connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
 
@@ -93,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
     updateRecentFileActions();
 
-    enableEvaluation();
+    enableSearch();
 
     // statusbar
     m_statusLabel = new QLabel;
@@ -204,7 +204,7 @@ void MainWindow::escapedPattern()
     m_escapedPatternDialog->activateWindow();
 }
 
-void MainWindow::evaluate()
+void MainWindow::search()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
 
@@ -213,7 +213,7 @@ void MainWindow::evaluate()
         ui->resultView->resizeColumnToContents(i);
 }
 
-void MainWindow::enableEvaluation()
+void MainWindow::enableSearch()
 {
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
              ui->regexpLineEdit->text().isEmpty() ||
@@ -231,8 +231,8 @@ void MainWindow::enableEvaluation()
             tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
 
-    ui->evalButton->setEnabled(b);
-    ui->evaluateAct->setEnabled(b);
+    ui->searchButton->setEnabled(b);
+    ui->searchAct->setEnabled(b);
 }
 
 void MainWindow::updateRegExp()
@@ -245,7 +245,7 @@ void MainWindow::updateRegExp()
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
     m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
-    enableEvaluation();
+    enableSearch();
 }
 
 void MainWindow::clearInputEdit()

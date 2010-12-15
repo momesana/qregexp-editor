@@ -64,10 +64,10 @@ private slots:
     void open();
     void openRecentFile();
     void clearAllRecentFiles();
-    void evaluate();
+    void search();
     void about();
     void escapedPattern();
-    void enableEvaluation();
+    void enableSearch();
     void updateRegExp();
     void clearInputEdit();
     void clearRegExpEdit();
