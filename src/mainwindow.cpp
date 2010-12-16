@@ -49,17 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     makeSignalConnections(); // UI widgets (exception: recent files)
     createRegExpModel();
     readSettings();
-
-    // create recent files actions
-    for (int i = 0; i < m_maxRecentFiles; ++i) {
-        QAction* act = new QAction(this);
-        connect(act, SIGNAL(triggered()), SLOT(openRecentFile()));
-        m_recentFileActions << act;
-        act->setVisible(false);
-    }
-    QAction* separator = ui->recentFilesMenu->addSeparator();
-    ui->recentFilesMenu->addAction(tr("C&lear all"), this, SLOT(clearAllRecentFiles()));
-    ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
+    createRecentFileActions();
     updateRecentFileActions();
 
     enableSearch();
@@ -328,4 +318,17 @@ void MainWindow::createRegExpModel()
     m_model = new RegExpModel(this);
     ui->resultView->setModel(m_model);
     connect(m_model, SIGNAL(emptyStringMatched(bool)), SLOT(toggleWarningWidget(bool)));
+}
+
+void MainWindow::createRecentFileActions()
+{
+    for (int i = 0; i < m_maxRecentFiles; ++i) {
+        QAction* act = new QAction(this);
+        connect(act, SIGNAL(triggered()), SLOT(openRecentFile()));
+        m_recentFileActions << act;
+        act->setVisible(false);
+    }
+    QAction* separator = ui->recentFilesMenu->addSeparator();
+    ui->recentFilesMenu->addAction(tr("C&lear all"), this, SLOT(clearAllRecentFiles()));
+    ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
 }

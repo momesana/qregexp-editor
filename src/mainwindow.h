@@ -64,6 +64,7 @@ private:
     void makeSignalConnections();
     void createStatusBar();
     void createRegExpModel();
+    void createRecentFileActions(); 
 
 private slots:
     void open();
