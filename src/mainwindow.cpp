@@ -48,12 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     makeSignalConnections(); // UI widgets (exception: recent files)
     createRegExpModel();
-    readSettings();
     createRecentFileActions();
-    updateRecentFileActions();
-
-    enableSearch();
     createStatusBar();
+
+    readSettings();
+    updateRecentFileActions();
+    enableSearch();
 }
 
 MainWindow::~MainWindow()
