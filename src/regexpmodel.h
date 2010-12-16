@@ -21,12 +21,13 @@
 #define REGEXPMODEL_H
 
 #include <QtCore/QAbstractItemModel>
-#include <QtCore/QRegExp>
 #include <QtCore/QList>
 
 #include <QtGui/QColor>
 
 class TreeItem;
+class QRegExp;
+
 class RegExpModel : public QAbstractItemModel
 {
 Q_OBJECT
