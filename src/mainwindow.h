@@ -62,6 +62,7 @@ private:
     void populateComboBoxes();
     void setIcons();
     void makeSignalConnections();
+    void createStatusBar();
 
 private slots:
     void open();

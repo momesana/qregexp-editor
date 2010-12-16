@@ -66,12 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateRecentFileActions();
 
     enableSearch();
-
-    // statusbar
-    m_statusLabel = new QLabel;
-    statusBar()->addPermanentWidget(m_statusLabel);
-    connect(m_model, SIGNAL(statusChanged(QString)), this, SLOT(updateStatus(QString)));
-    ui->warningWidget->hide();
+    createStatusBar();
 }
 
 MainWindow::~MainWindow()
@@ -321,4 +316,12 @@ void MainWindow::makeSignalConnections()
     connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
+}
+
+void MainWindow::createStatusBar()
+{
+    m_statusLabel = new QLabel;
+    statusBar()->addPermanentWidget(m_statusLabel);
+    connect(m_model, SIGNAL(statusChanged(QString)), this, SLOT(updateStatus(QString)));
+    ui->warningWidget->hide();
 }
