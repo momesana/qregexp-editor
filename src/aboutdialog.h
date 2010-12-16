@@ -20,8 +20,9 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
-#include <QtGui/QDialog>
 #include "ui_aboutdialog.h"
+
+#include <QtGui/QDialog>
 
 class AboutDialog : public QDialog, public Ui::AboutDialog
 {

@@ -25,10 +25,11 @@
 
 // Qt
 #include <QtCore/QCoreApplication>
-#include <QtGui/QFileDialog>
-#include <QtGui/QMessageBox>
 #include <QtCore/QSettings>
 #include <QtCore/QDebug>
+
+#include <QtGui/QFileDialog>
+#include <QtGui/QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)

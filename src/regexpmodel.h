@@ -23,6 +23,7 @@
 #include <QtCore/QAbstractItemModel>
 #include <QtCore/QRegExp>
 #include <QtCore/QList>
+
 #include <QtGui/QColor>
 
 class TreeItem;

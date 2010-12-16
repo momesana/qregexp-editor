@@ -21,8 +21,9 @@
 #include "treeitem.h"
 
 // Qt
-#include <QtGui/QFont>
 #include <QtCore/QDebug>
+
+#include <QtGui/QFont>
 
 RegExpModel::RegExpModel(QObject *parent)
     : QAbstractItemModel(parent)

@@ -17,13 +17,14 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "mainwindow.h"
+
 // Qt
-#include <QtGui/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
 
-#include "mainwindow.h"
+#include <QtGui/QApplication>
 
 // Borrowed from QtCreator (qt-creator/src/app/main.cpp)
 #ifdef Q_OS_MAC
