@@ -20,8 +20,8 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <QList>
-#include <QVariant>
+#include <QtCore/QList>
+#include <QtCore/QVariant>
 
 class Node
 {

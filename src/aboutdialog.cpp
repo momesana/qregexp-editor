@@ -18,10 +18,10 @@
  */
 
 #include "aboutdialog.h"
-#include <QFile>
-#include <QSettings>
-#include <QCloseEvent>
-#include <QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QSettings>
+#include <QtGui/QCloseEvent>
+#include <QtCore/QDebug>
 
 AboutDialog::AboutDialog(QWidget* parent)
     : QDialog(parent)

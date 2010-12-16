@@ -20,7 +20,7 @@
 #ifndef ESCAPEDPATTERNDIALOG_H
 #define ESCAPEDPATTERNDIALOG_H
 
-#include <QDialog>
+#include <QtGui/QDialog>
 
 namespace Ui {
     class EscapedPatternDialog;

@@ -20,10 +20,10 @@
 #ifndef REGEXPMODEL_H
 #define REGEXPMODEL_H
 
-#include <QAbstractItemModel>
-#include <QRegExp>
-#include <QList>
-#include <QColor>
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QRegExp>
+#include <QtCore/QList>
+#include <QtGui/QColor>
 
 class TreeItem;
 class RegExpModel : public QAbstractItemModel

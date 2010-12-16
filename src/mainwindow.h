@@ -20,10 +20,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QList>
-#include <QMainWindow>
-#include <QRegExp>
-#include <QStringList>
+#include <QtCore/QList>
+#include <QtGui/QMainWindow>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
 
 namespace Ui {
     class MainWindow;

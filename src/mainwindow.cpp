@@ -24,11 +24,11 @@
 #include "escapedpatterndialog.h"
 
 // Qt
-#include <QCoreApplication>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QSettings>
-#include <QDebug>
+#include <QtCore/QCoreApplication>
+#include <QtGui/QFileDialog>
+#include <QtGui/QMessageBox>
+#include <QtCore/QSettings>
+#include <QtCore/QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)

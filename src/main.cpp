@@ -18,10 +18,10 @@
  */
 
 // Qt
-#include <QApplication>
-#include <QTranslator>
-#include <QLibraryInfo>
-#include <QLocale>
+#include <QtGui/QApplication>
+#include <QtCore/QTranslator>
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
 
 #include "mainwindow.h"
 
