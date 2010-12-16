@@ -47,10 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->quitAct->setShortcut(QKeySequence::Quit);
 
     makeSignalConnections(); // UI widgets (exception: recent files)
-
-    m_model = new RegExpModel(this);
-    ui->resultView->setModel(m_model);
-    connect(m_model, SIGNAL(emptyStringMatched(bool)), SLOT(toggleWarningWidget(bool)));
+    createRegExpModel();
     readSettings();
 
     // create recent files actions
@@ -324,4 +321,11 @@ void MainWindow::createStatusBar()
     statusBar()->addPermanentWidget(m_statusLabel);
     connect(m_model, SIGNAL(statusChanged(QString)), this, SLOT(updateStatus(QString)));
     ui->warningWidget->hide();
+}
+
+void MainWindow::createRegExpModel()
+{
+    m_model = new RegExpModel(this);
+    ui->resultView->setModel(m_model);
+    connect(m_model, SIGNAL(emptyStringMatched(bool)), SLOT(toggleWarningWidget(bool)));
 }

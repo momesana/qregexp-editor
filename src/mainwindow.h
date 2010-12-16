@@ -63,6 +63,7 @@ private:
     void setIcons();
     void makeSignalConnections();
     void createStatusBar();
+    void createRegExpModel();
 
 private slots:
     void open();
