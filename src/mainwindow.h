@@ -61,6 +61,7 @@ private:
     void readSettings();
     void populateComboBoxes();
     void setIcons();
+    void makeSignalConnections();
 
 private slots:
     void open();

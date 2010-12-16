@@ -46,20 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // shortcuts
     ui->quitAct->setShortcut(QKeySequence::Quit);
 
-    connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
-    connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
-    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(search()));
-    connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
-    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableSearch()));
-    connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
-    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
-    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
-    connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
-    connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
-    connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
+    makeSignalConnections(); // UI widgets (exception: recent files)
 
     m_model = new RegExpModel(this);
     ui->resultView->setModel(m_model);
@@ -316,4 +303,22 @@ void MainWindow::setIcons()
     QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
     warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
     ui->emptyStringMatchedIconLabel->setPixmap(warningIcon.pixmap(32));
+}
+
+void MainWindow::makeSignalConnections()
+{
+    connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
+    connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
+    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
+    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(search()));
+    connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
+    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableSearch()));
+    connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
+    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
+    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
+    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
+    connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
+    connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
+    connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
+    connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
 }
