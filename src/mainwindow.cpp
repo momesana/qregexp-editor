@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     readSettings();
     updateRecentFileActions();
-    enableSearch();
+    updateUiStatus();
 }
 
 MainWindow::~MainWindow()
@@ -168,7 +168,7 @@ void MainWindow::search()
         ui->resultView->resizeColumnToContents(i);
 }
 
-void MainWindow::enableSearch()
+void MainWindow::updateUiStatus()
 {
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
              ui->regexpLineEdit->text().isEmpty() ||
@@ -200,7 +200,7 @@ void MainWindow::updateRegExp()
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
     m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
-    enableSearch();
+    updateUiStatus();
 }
 
 void MainWindow::clearInputEdit()
@@ -295,7 +295,7 @@ void MainWindow::makeSignalConnections()
     connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
     connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(search()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
-    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(enableSearch()));
+    connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
     connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));

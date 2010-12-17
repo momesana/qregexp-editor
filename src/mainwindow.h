@@ -74,7 +74,7 @@ private slots:
     void search();
     void about();
     void escapedPattern();
-    void enableSearch();
+    void updateUiStatus();
     void updateRegExp();
     void clearInputEdit();
     void clearRegExpEdit();
