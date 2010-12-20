@@ -159,6 +159,13 @@ void MainWindow::escapedPattern()
     m_escapedPatternDialog->activateWindow();
 }
 
+void MainWindow::returnPressed()
+{
+    if (isSearchPossible()) {
+        search();
+    }
+}
+
 void MainWindow::search()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
@@ -290,7 +297,7 @@ void MainWindow::makeSignalConnections()
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
     connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(search()));
+    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(returnPressed()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
