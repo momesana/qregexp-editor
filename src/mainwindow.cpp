@@ -170,10 +170,7 @@ void MainWindow::search()
 
 void MainWindow::updateUiStatus()
 {
-    bool b = ui->inputEdit->toPlainText().isEmpty() ||
-             ui->regexpLineEdit->text().isEmpty() ||
-             !m_rx.isValid() ? false : true;
-
+    bool b = isSearchPossible();
     ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpLineEdit->text().isEmpty());
 
     if (m_rx.isValid()) {
@@ -332,4 +329,12 @@ void MainWindow::createRecentFileActions()
     QAction* separator = ui->recentFilesMenu->addSeparator();
     ui->recentFilesMenu->addAction(tr("C&lear all"), this, SLOT(clearAllRecentFiles()));
     ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
+}
+
+bool MainWindow::isSearchPossible()
+{
+    bool b = ui->inputEdit->toPlainText().isEmpty() ||
+             ui->regexpLineEdit->text().isEmpty() ||
+             !m_rx.isValid() ? false : true;
+    return b;
 }

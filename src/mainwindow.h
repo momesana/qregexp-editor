@@ -66,6 +66,7 @@ private:
     void createStatusBar();
     void createRegExpModel();
     void createRecentFileActions(); 
+    bool isSearchPossible();
 
 private slots:
     void open();
