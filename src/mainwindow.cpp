@@ -85,7 +85,7 @@ void MainWindow::readSettings()
     QSettings s;
     restoreGeometry(s.value("mainwindow/geometry").toByteArray());
     restoreState(s.value("mainwindow/state").toByteArray());
-    const int index = s.value("mainwindow/patternsyntaxcombobox", QRegExp::RegExp2).toInt();
+    const int index = s.value("mainwindow/patternsyntaxcombobox", 0).toInt();
     ui->syntaxComboBox->setCurrentIndex(index);
     ui->caseSensitivityCheckBox->setChecked(s.value("mainwindow/casesensitivitycheckbox", true).toBool());
     ui->minimalCheckBox->setChecked(s.value("mainwindow/minimalcheckbox", false).toBool());
