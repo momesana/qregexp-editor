@@ -14,31 +14,51 @@
    <string>Tool Bar</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Regular Expression:</string>
+         <string>Pattern:</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1" colspan="4">
        <widget class="QLineEdit" name="regexpLineEdit"/>
       </item>
-      <item>
+      <item row="0" column="5">
        <widget class="QPushButton" name="searchButton">
         <property name="text">
          <string>Search</string>
         </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Style:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="syntaxComboBox"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="minimalCheckBox">
+        <property name="text">
+         <string>Minimal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QCheckBox" name="caseSensitivityCheckBox">
+        <property name="text">
+         <string>Case-sensitive</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -51,34 +71,9 @@
         </property>
        </spacer>
       </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Pattern style:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="syntaxComboBox">
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="minimalCheckBox">
-        <property name="text">
-         <string>Minimal</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="caseSensitivityCheckBox">
-        <property name="text">
-         <string>Case-sensitive</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QSplitter" name="splitter">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -91,7 +86,7 @@
       </widget>
      </widget>
     </item>
-    <item>
+    <item row="2" column="0">
      <widget class="QWidget" name="warningWidget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
        <item>
@@ -132,7 +127,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
