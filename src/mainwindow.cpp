@@ -82,36 +82,34 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
 void MainWindow::readSettings()
 {
-    QSettings s;
-    restoreGeometry(s.value("mainwindow/geometry").toByteArray());
-    restoreState(s.value("mainwindow/state").toByteArray());
-    const int index = s.value("mainwindow/patternsyntaxcombobox", 0).toInt();
+    restoreGeometry(m_settings.value("mainwindow/geometry").toByteArray());
+    restoreState(m_settings.value("mainwindow/state").toByteArray());
+    const int index = m_settings.value("mainwindow/patternsyntaxcombobox", 0).toInt();
     ui->syntaxComboBox->setCurrentIndex(index);
-    ui->caseSensitivityCheckBox->setChecked(s.value("mainwindow/casesensitivitycheckbox", true).toBool());
-    ui->minimalCheckBox->setChecked(s.value("mainwindow/minimalcheckbox", false).toBool());
-    m_recentFiles = s.value("mainwindow/recentfiles", QStringList()).toStringList();
+    ui->caseSensitivityCheckBox->setChecked(m_settings.value("mainwindow/casesensitivitycheckbox", true).toBool());
+    ui->minimalCheckBox->setChecked(m_settings.value("mainwindow/minimalcheckbox", false).toBool());
+    m_recentFiles = m_settings.value("mainwindow/recentfiles", QStringList()).toStringList();
 
-    QStringList widths = s.value("mainWindow/resultview").toString().split(' ');
+    QStringList widths = m_settings.value("mainWindow/resultview").toString().split(' ');
     for (int i = 0; i < widths.count(); ++i)
         ui->resultView->setColumnWidth(i, qMax(widths.at(i).toInt(), 0));
 }
 
 void MainWindow::writeSettings()
 {
-    QSettings s;
-    s.setValue("mainwindow/geometry", saveGeometry());
-    s.setValue("mainwindow/state", saveState());
-    s.setValue("mainwindow/patternsyntaxcombobox", ui->syntaxComboBox->currentIndex());
-    s.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
-    s.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
-    s.setValue("mainwindow/recentfiles", m_recentFiles);
+    m_settings.setValue("mainwindow/geometry", saveGeometry());
+    m_settings.setValue("mainwindow/state", saveState());
+    m_settings.setValue("mainwindow/patternsyntaxcombobox", ui->syntaxComboBox->currentIndex());
+    m_settings.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
+    m_settings.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
+    m_settings.setValue("mainwindow/recentfiles", m_recentFiles);
 
     QString widths;
     for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         widths.append(QString::number(ui->resultView->columnWidth(i)));
         widths.append(' ');
     }
-    s.setValue("mainWindow/resultview", widths);
+    m_settings.setValue("mainWindow/resultview", widths);
 }
 
 void MainWindow::open()

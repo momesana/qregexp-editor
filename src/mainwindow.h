@@ -23,6 +23,7 @@
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
+#include <QtCore/QSettings>
 
 #include <QtGui/QMainWindow>
 
@@ -55,6 +56,7 @@ private:
     QStringList m_recentFiles;
     QList<QAction*> m_recentFileActions;
     const int m_maxRecentFiles;
+    QSettings m_settings;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
