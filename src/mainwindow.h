@@ -20,6 +20,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "searchsettings.h"
+
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
@@ -57,6 +59,7 @@ private:
     QList<QAction*> m_recentFileActions;
     const int m_maxRecentFiles;
     QSettings m_settings;
+    SearchSettings m_searchSettings;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
@@ -69,6 +72,8 @@ private:
     void createRegExpModel();
     void createRecentFileActions(); 
     bool isSearchPossible();
+    SearchData searchSettings() const;
+    void setSearchSettings(SearchSettings *s) const;
 
 private slots:
     void open();

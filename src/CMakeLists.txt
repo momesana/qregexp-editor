@@ -12,6 +12,8 @@ set(qregexp-editor_SRCS
    node.cpp
    regexpmodel.cpp
    treeitem.cpp
+   searchdata.cpp
+   searchsettings.cpp
    mainwindow.cpp
    escapedpatterndialog.cpp
    aboutdialog.cpp

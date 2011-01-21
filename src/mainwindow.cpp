@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     , m_aboutDialog(0)
     , m_escapedPatternDialog(0)
     , m_maxRecentFiles(10)
+    , m_settings()
+    , m_searchSettings()
 {
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
@@ -76,40 +78,52 @@ void MainWindow::changeEvent(QEvent *e)
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
+    m_searchSettings.append(searchSettings());
     writeSettings();
     e->accept();
 }
 
+static const char groupM[] = "mainwindow";
+static const char geometryKeyC[] = "geometry";
+static const char stateKeyC[] = "state";
+static const char recentFilesKeyC[] = "recentfiles";
+static const char resultViewWidthsKeyC[] = "resultview";
+
 void MainWindow::readSettings()
 {
-    restoreGeometry(m_settings.value("mainwindow/geometry").toByteArray());
-    restoreState(m_settings.value("mainwindow/state").toByteArray());
-    const int index = m_settings.value("mainwindow/patternsyntaxcombobox", 0).toInt();
-    ui->syntaxComboBox->setCurrentIndex(index);
-    ui->caseSensitivityCheckBox->setChecked(m_settings.value("mainwindow/casesensitivitycheckbox", true).toBool());
-    ui->minimalCheckBox->setChecked(m_settings.value("mainwindow/minimalcheckbox", false).toBool());
-    m_recentFiles = m_settings.value("mainwindow/recentfiles", QStringList()).toStringList();
-
-    QStringList widths = m_settings.value("mainWindow/resultview").toString().split(' ');
+    m_settings.beginGroup(QLatin1String(groupM));
+    restoreGeometry(m_settings.value(
+                    QLatin1String(geometryKeyC)).toByteArray());
+    restoreState(m_settings.value(QLatin1String(stateKeyC)).toByteArray());
+    m_recentFiles = m_settings.value(QLatin1String(recentFilesKeyC),
+                                        QStringList()).toStringList();
+    QStringList widths = m_settings.value(QLatin1String(
+                            resultViewWidthsKeyC)).toString().split(' ');
     for (int i = 0; i < widths.count(); ++i)
         ui->resultView->setColumnWidth(i, qMax(widths.at(i).toInt(), 0));
+
+    m_settings.endGroup();
+
+    m_searchSettings.fromSettings(&m_settings);
+    m_searchSettings.setHistoryLength(1);
+    setSearchSettings(&m_searchSettings);
 }
 
 void MainWindow::writeSettings()
 {
-    m_settings.setValue("mainwindow/geometry", saveGeometry());
-    m_settings.setValue("mainwindow/state", saveState());
-    m_settings.setValue("mainwindow/patternsyntaxcombobox", ui->syntaxComboBox->currentIndex());
-    m_settings.setValue("mainwindow/casesensitivitycheckbox", ui->caseSensitivityCheckBox->isChecked());
-    m_settings.setValue("mainwindow/minimalcheckbox", ui->minimalCheckBox->isChecked());
-    m_settings.setValue("mainwindow/recentfiles", m_recentFiles);
+    m_settings.beginGroup(QLatin1String(groupM));
+    m_settings.setValue(QLatin1String(geometryKeyC), saveGeometry());
+    m_settings.setValue(QLatin1String(stateKeyC), saveState());
+    m_settings.setValue(QLatin1String(recentFilesKeyC), m_recentFiles);
 
     QString widths;
     for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         widths.append(QString::number(ui->resultView->columnWidth(i)));
         widths.append(' ');
     }
-    m_settings.setValue("mainWindow/resultview", widths);
+    m_settings.setValue(QLatin1String(resultViewWidthsKeyC), widths);
+    m_settings.endGroup();
+    m_searchSettings.toSettings(&m_settings);
 }
 
 void MainWindow::open()
@@ -342,4 +356,26 @@ bool MainWindow::isSearchPossible()
              ui->regexpLineEdit->text().isEmpty() ||
              !m_rx.isValid() ? false : true;
     return b;
+}
+
+SearchData MainWindow::searchSettings() const
+{
+    SearchData rc;
+    rc.pattern = ui->regexpLineEdit->text();
+    rc.syntax = ui->syntaxComboBox->currentIndex();
+    rc.caseSensitivity = ui->caseSensitivityCheckBox->isChecked();
+    rc.minimal = ui->minimalCheckBox->isChecked();
+    return rc;
+}
+
+void MainWindow::setSearchSettings(SearchSettings *s) const
+{
+    QList<SearchData>searches = s->searchData();
+    if (!searches.isEmpty()) {
+        SearchData rc = searches.last();
+        ui->regexpLineEdit->setText(rc.pattern);
+        ui->syntaxComboBox->setCurrentIndex(rc.syntax);
+        ui->caseSensitivityCheckBox->setChecked(rc.caseSensitivity);
+        ui->minimalCheckBox->setChecked(rc.minimal);
+    }
 }
