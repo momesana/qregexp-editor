@@ -37,10 +37,9 @@ int main(int argc, char** argv)
 {
   QApplication app(argc, argv);
 
-  QCoreApplication::setOrganizationName("momesana software inc.");
-  QCoreApplication::setOrganizationDomain("momesana.com");
+  QCoreApplication::setOrganizationName("QRegExp-Editor");
   QCoreApplication::setApplicationVersion("0.2.0.1");
-  QCoreApplication::setApplicationName("QRegExp Editor");
+  QCoreApplication::setApplicationName("QRegExp-Editor");
 
   const QString &appTrPath = QApplication::applicationDirPath()
                         + QLatin1String(SHARE_PATH "/translations");
