@@ -44,8 +44,11 @@ AboutDialog::AboutDialog(QWidget* parent)
   QHash<QTextBrowser*, QString>::iterator iter;
   for (iter = hash.begin(); iter != hash.end(); ++iter) {
       QFile f(iter.value());
-      if (f.open(QIODevice::ReadOnly | QIODevice::Text))
-          iter.key()->setHtml(f.readAll());
+      if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&f);
+            in.setCodec("UTF-8");
+          iter.key()->setHtml(in.readAll());
+    }
   }
 
   readSettings();
