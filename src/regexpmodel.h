@@ -28,9 +28,8 @@
 class TreeItem;
 class QRegExp;
 
-class RegExpModel : public QAbstractItemModel
-{
-Q_OBJECT
+class RegExpModel : public QAbstractItemModel {
+    Q_OBJECT
 public:
     explicit RegExpModel(QObject *parent = 0);
     ~RegExpModel();
@@ -39,7 +38,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    QVariant headerData (int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     void evaluate(const QString& text, const QRegExp& regExp);
     TreeItem* nodeFromIndex(const QModelIndex &index) const;
 

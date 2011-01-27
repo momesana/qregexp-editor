@@ -93,14 +93,15 @@ void MainWindow::readSettings()
 {
     m_settings.beginGroup(QLatin1String(groupM));
     restoreGeometry(m_settings.value(
-                    QLatin1String(geometryKeyC)).toByteArray());
+                        QLatin1String(geometryKeyC)).toByteArray());
     restoreState(m_settings.value(QLatin1String(stateKeyC)).toByteArray());
     m_recentFiles = m_settings.value(QLatin1String(recentFilesKeyC),
-                                        QStringList()).toStringList();
+                                     QStringList()).toStringList();
     QStringList widths = m_settings.value(QLatin1String(
-                            resultViewWidthsKeyC)).toString().split(' ');
-    for (int i = 0; i < widths.count(); ++i)
+            resultViewWidthsKeyC)).toString().split(' ');
+    for (int i = 0; i < widths.count(); ++i) {
         ui->resultView->setColumnWidth(i, qMax(widths.at(i).toInt(), 0));
+    }
 
     m_settings.endGroup();
 
@@ -129,8 +130,9 @@ void MainWindow::writeSettings()
 void MainWindow::open()
 {
     QString fileName = QFileDialog::getOpenFileName(this);
-    if (!fileName.isEmpty())
+    if (!fileName.isEmpty()) {
         loadFile(fileName);
+    }
 }
 
 void MainWindow::openRecentFile()
@@ -183,8 +185,9 @@ void MainWindow::search()
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
 
     // Resize the columns to it's contents
-    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i)
+    for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         ui->resultView->resizeColumnToContents(i);
+    }
 }
 
 void MainWindow::updateUiStatus()
@@ -195,8 +198,7 @@ void MainWindow::updateUiStatus()
     if (m_rx.isValid()) {
         ui->regexpLineEdit->setStyleSheet("");
         statusBar()->showMessage(tr("Valid expression"));
-    }
-    else {
+    } else {
         ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #F7E7E7; }");
         statusBar()->showMessage(
             tr("Invalid expression: %1").arg(m_rx.errorString()));
@@ -262,16 +264,17 @@ void MainWindow::updateRecentFileActions()
 {
     ui->recentFilesMenu->setEnabled(m_recentFiles.size());
     QMutableStringListIterator i(m_recentFiles);
-    while(i.hasNext()) {
-        if (!QFile::exists(i.next()))
+    while (i.hasNext()) {
+        if (!QFile::exists(i.next())) {
             i.remove();
+        }
     }
 
     QFontMetrics fm = this->fontMetrics();
-    for(int i = 0; i < m_recentFileActions.size(); ++i) {
-        if (i >= m_maxRecentFiles || i >= m_recentFiles.size())
+    for (int i = 0; i < m_recentFileActions.size(); ++i) {
+        if (i >= m_maxRecentFiles || i >= m_recentFiles.size()) {
             m_recentFileActions[i]->setVisible(false);
-        else {
+        } else {
             const QString path = m_recentFiles.at(i);
             QAction* act = m_recentFileActions[i];
             act->setText(QString("%1 [%2]")

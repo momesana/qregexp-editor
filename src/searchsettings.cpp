@@ -61,7 +61,7 @@ void SearchSettings::setHistoryLength(int newLength)
     }
 
     if (newLength < searchDataSize) {
-	Q_ASSERT(!m_searches.isEmpty());
+        Q_ASSERT(!m_searches.isEmpty());
         int toRemoveElements = searchDataSize - newLength;
         for (int i = 0; i < toRemoveElements; ++i) {
             m_searches.removeAt(0);
@@ -80,7 +80,7 @@ void SearchSettings::toSettings(QSettings *s) const
         s->setValue(QLatin1String(patternKeyC), m_searches.at(i).pattern);
         s->setValue(QLatin1String(syntaxKeyC), m_searches.at(i).syntax);
         s->setValue(QLatin1String(caseSensitivityKeyC),
-                                    m_searches.at(i).caseSensitivity);
+                    m_searches.at(i).caseSensitivity);
         s->setValue(QLatin1String(minimalKeyC), m_searches.at(i).minimal);
     }
     s->endArray();
@@ -97,14 +97,14 @@ void SearchSettings::fromSettings(QSettings *s)
             s->setArrayIndex(i);
             SearchData search;
             search.pattern = s->value(QLatin1String(patternKeyC),
-                                        QString()).toString();
+                                      QString()).toString();
             search.syntax = s->value(QLatin1String(syntaxKeyC),
-                                        defaultSyntax).toInt();
+                                     defaultSyntax).toInt();
             search.caseSensitivity = s->value(
-                                        QLatin1String(caseSensitivityKeyC),
-                                        defaultCaseSensitivity).toBool();
+                                         QLatin1String(caseSensitivityKeyC),
+                                         defaultCaseSensitivity).toBool();
             search.minimal = s->value(QLatin1String(minimalKeyC),
-                                        defaultMinimal).toBool();
+                                      defaultMinimal).toBool();
             m_searches.append(search);
         }
     } else {
@@ -124,7 +124,7 @@ QDebug operator<<(QDebug dbg, const SearchSettings &p)
 
     dbg.nospace() << "(";
     for (int i = 0; i < n; ++i) {
-       dbg.nospace() << s.at(i) << ", ";
+        dbg.nospace() << s.at(i) << ", ";
     }
     dbg.nospace() << length << ")";
     return dbg.space();

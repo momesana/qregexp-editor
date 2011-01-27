@@ -30,14 +30,14 @@ SearchData::SearchData()
 bool SearchData::equals(const SearchData &s) const
 {
     return pattern == s.pattern
-        && syntax == s.syntax
-        && caseSensitivity == s.caseSensitivity
-        && minimal == s.minimal;
+           && syntax == s.syntax
+           && caseSensitivity == s.caseSensitivity
+           && minimal == s.minimal;
 }
 
 QDebug operator<<(QDebug dbg, const SearchData &p)
 {
     dbg.nospace() << "(" << p.pattern << ", " << p.syntax << ", "
-                        << p.caseSensitivity << ", " << p.minimal <<")";
+                  << p.caseSensitivity << ", " << p.minimal << ")";
     return dbg.space();
 }

@@ -34,7 +34,7 @@ struct SearchData {
 };
 
 inline bool operator==(const SearchData &p1, const SearchData &p2)
-    { return p1.equals(p2); }
+{ return p1.equals(p2); }
 
 QDebug operator<<(QDebug dbg, const SearchData &p);
 

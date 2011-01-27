@@ -70,7 +70,7 @@ private:
     void makeSignalConnections();
     void createStatusBar();
     void createRegExpModel();
-    void createRecentFileActions(); 
+    void createRecentFileActions();
     bool isSearchPossible();
     SearchData searchSettings() const;
     void setSearchSettings(SearchSettings *s) const;

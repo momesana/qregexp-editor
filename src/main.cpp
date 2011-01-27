@@ -35,26 +35,26 @@
 
 int main(int argc, char** argv)
 {
-  QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-  QCoreApplication::setOrganizationName("QRegExp-Editor");
-  QCoreApplication::setApplicationVersion("0.2.0.1");
-  QCoreApplication::setApplicationName("QRegExp-Editor");
+    QCoreApplication::setOrganizationName("QRegExp-Editor");
+    QCoreApplication::setApplicationVersion("0.2.0.1");
+    QCoreApplication::setApplicationName("QRegExp-Editor");
 
-  const QString &appTrPath = QApplication::applicationDirPath()
-                        + QLatin1String(SHARE_PATH "/translations");
+    const QString &appTrPath = QApplication::applicationDirPath()
+                               + QLatin1String(SHARE_PATH "/translations");
 
-  QTranslator qtTranslator;
-  qtTranslator.load("qt_" + QLocale::system().name(),
-                    QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-  app.installTranslator(&qtTranslator);
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(),
+                      QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    app.installTranslator(&qtTranslator);
 
-  QTranslator appTranslator;
-  appTranslator.load(QLatin1String("qregexp-editor_") + QLocale::system().name(), appTrPath);
-  app.installTranslator(&appTranslator);
+    QTranslator appTranslator;
+    appTranslator.load(QLatin1String("qregexp-editor_") + QLocale::system().name(), appTrPath);
+    app.installTranslator(&appTranslator);
 
-  MainWindow mw;
-  mw.show();
-  return app.exec();
+    MainWindow mw;
+    mw.show();
+    return app.exec();
 }
 

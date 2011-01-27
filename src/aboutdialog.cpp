@@ -28,30 +28,30 @@
 AboutDialog::AboutDialog(QWidget* parent)
     : QDialog(parent)
 {
-  setupUi(this);
+    setupUi(this);
 
-  versionLabel->setText(QString("<div>"
-                        "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span> <br />"
-                        "<span style='font-size: 8pt;'> Copyright &copy; 2010 M. Mehdi Salem Naraghi<span><div>")
-                        .arg(qApp->applicationName())
-                        .arg(qApp->applicationVersion()));
+    versionLabel->setText(QString("<div>"
+                                  "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span> <br />"
+                                  "<span style='font-size: 8pt;'> Copyright &copy; 2010 M. Mehdi Salem Naraghi<span><div>")
+                          .arg(qApp->applicationName())
+                          .arg(qApp->applicationVersion()));
 
-  QHash<QTextBrowser*, QString> hash;
-  hash[aboutBrowser] = ":ABOUT.html";
-  hash[authorsBrowser] = ":AUTHORS.html";
-  hash[licenseBrowser] = ":COPYING.html";
+    QHash<QTextBrowser*, QString> hash;
+    hash[aboutBrowser] = ":ABOUT.html";
+    hash[authorsBrowser] = ":AUTHORS.html";
+    hash[licenseBrowser] = ":COPYING.html";
 
-  QHash<QTextBrowser*, QString>::iterator iter;
-  for (iter = hash.begin(); iter != hash.end(); ++iter) {
-      QFile f(iter.value());
-      if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    QHash<QTextBrowser*, QString>::iterator iter;
+    for (iter = hash.begin(); iter != hash.end(); ++iter) {
+        QFile f(iter.value());
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QTextStream in(&f);
             in.setCodec("UTF-8");
-          iter.key()->setHtml(in.readAll());
+            iter.key()->setHtml(in.readAll());
+        }
     }
-  }
 
-  readSettings();
+    readSettings();
 }
 
 AboutDialog::~AboutDialog()
@@ -60,14 +60,14 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::changeEvent(QEvent* e)
 {
-  QDialog::changeEvent(e);
-  switch (e->type()) {
+    QDialog::changeEvent(e);
+    switch (e->type()) {
     case QEvent::LanguageChange:
-      retranslateUi(this);
-      break;
+        retranslateUi(this);
+        break;
     default:
-      break;
-  }
+        break;
+    }
 }
 
 void AboutDialog::closeEvent(QCloseEvent* e)
@@ -80,8 +80,9 @@ void AboutDialog::readSettings()
 {
     QSettings settings;
     QRect geometry = settings.value("aboutdialog/geometry", QRect()).toRect();
-    if (!geometry.isNull())
-      resize(geometry.width(), geometry.height());
+    if (!geometry.isNull()) {
+        resize(geometry.width(), geometry.height());
+    }
 }
 
 void AboutDialog::writeSettings()

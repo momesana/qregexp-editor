@@ -33,10 +33,10 @@ TreeItem::TreeItem(const QVariant& data, Type type, Node* parent)
 
 TreeItem::Type TreeItem::type() const
 {
-  return m_type;
+    return m_type;
 }
 
 void TreeItem::setType(Type type)
 {
-  m_type = type;
+    m_type = type;
 }
