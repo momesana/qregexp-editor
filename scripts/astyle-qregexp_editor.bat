@@ -5,6 +5,15 @@
 ::
 :: requirements: installed astyle 
 
-FOR /R %%G in (*.c) DO astyle --indent=spaces=4 --brackets=stroustrup --add-brackets --indent-labels --pad-header --pad-oper --unpad-paren --keep-one-line-blocks --convert-tabs --indent-preprocessor --indent-namespaces "%%G" 
-FOR /R %%G in (*.cpp) DO astyle --indent=spaces=4 --brackets=stroustrup --add-brackets --indent-labels --pad-header --pad-oper --unpad-paren --keep-one-line-blocks --convert-tabs --indent-preprocessor --indent-namespaces "%%G" 
-FOR /R %%G in (*.h) DO astyle --indent=spaces=4 --brackets=stroustrup --add-brackets --indent-labels --pad-header --pad-oper --unpad-paren --keep-one-line-blocks --convert-tabs --indent-preprocessor --indent-namespaces "%%G" 
+setlocal EnableDelayedExpansion
+
+SET ASTYLE_OPTS=--indent=spaces=4 --brackets=stroustrup --add-brackets ^
+                 --indent-labels --pad-header --pad-oper --unpad-paren ^
+                 --keep-one-line-blocks --convert-tabs --indent-preprocessor ^
+                 --indent-namespaces
+
+FOR /R %%g IN (*.c *.cpp *.h) DO (
+    astyle %ASTYLE_OPTS%  %%g
+)
+
+endlocal
