@@ -39,15 +39,15 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    void evaluate(const QString& text, const QRegExp& regExp);
-    TreeItem* nodeFromIndex(const QModelIndex &index) const;
+    void evaluate(const QString &text, const QRegExp &regExp);
+    TreeItem *nodeFromIndex(const QModelIndex &index) const;
 
 signals:
-    void statusChanged(const QString&);
+    void statusChanged(const QString &);
     void emptyStringMatched(bool);
 
 private:
-    TreeItem* m_rootNode;
+    TreeItem *m_rootNode;
     QList<QColor> m_colors;
 };
 

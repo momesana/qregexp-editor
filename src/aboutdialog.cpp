@@ -25,7 +25,7 @@
 
 #include <QtGui/QCloseEvent>
 
-AboutDialog::AboutDialog(QWidget* parent)
+AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
@@ -36,12 +36,12 @@ AboutDialog::AboutDialog(QWidget* parent)
                           .arg(qApp->applicationName())
                           .arg(qApp->applicationVersion()));
 
-    QHash<QTextBrowser*, QString> hash;
+    QHash<QTextBrowser *, QString> hash;
     hash[aboutBrowser] = ":ABOUT.html";
     hash[authorsBrowser] = ":AUTHORS.html";
     hash[licenseBrowser] = ":COPYING.html";
 
-    QHash<QTextBrowser*, QString>::iterator iter;
+    QHash<QTextBrowser *, QString>::iterator iter;
     for (iter = hash.begin(); iter != hash.end(); ++iter) {
         QFile f(iter.value());
         if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -58,7 +58,7 @@ AboutDialog::~AboutDialog()
 {
 }
 
-void AboutDialog::changeEvent(QEvent* e)
+void AboutDialog::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
     switch (e->type()) {
@@ -70,7 +70,7 @@ void AboutDialog::changeEvent(QEvent* e)
     }
 }
 
-void AboutDialog::closeEvent(QCloseEvent* e)
+void AboutDialog::closeEvent(QCloseEvent *e)
 {
     writeSettings();
     e->accept();

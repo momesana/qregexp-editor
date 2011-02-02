@@ -38,7 +38,7 @@ RegExpModel::~RegExpModel()
     delete m_rootNode;
 }
 
-void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
+void RegExpModel::evaluate(const QString &text, const QRegExp &regExp)
 {
     beginResetModel();
     delete m_rootNode;
@@ -56,11 +56,11 @@ void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
         }
 
         qDebug() << tr("************** Match **************\n%1").arg(regExp.cap(0));
-        TreeItem* stringNode = new TreeItem(regExp.cap(0), TreeItem::STRING, m_rootNode);
+        TreeItem *stringNode = new TreeItem(regExp.cap(0), TreeItem::STRING, m_rootNode);
         for (int i = 1; i < count; ++i) {
             const QString subStr = regExp.cap(i);
             qDebug() << tr("--> Capture %1: %2").arg(QString::number(i)).arg(subStr);
-            TreeItem* subStringNode = new TreeItem(TreeItem::SUB_STRING, stringNode);
+            TreeItem *subStringNode = new TreeItem(TreeItem::SUB_STRING, stringNode);
             subStringNode->setData(subStr);
 
             if (!subStr.isEmpty()) {
@@ -106,13 +106,13 @@ void RegExpModel::evaluate(const QString& text, const QRegExp& regExp)
     emit emptyStringMatched(empty);
 }
 
-TreeItem* RegExpModel::nodeFromIndex(const QModelIndex &index) const
+TreeItem *RegExpModel::nodeFromIndex(const QModelIndex &index) const
 {
     if (!index.isValid()) {
         return m_rootNode;
     }
 
-    return static_cast<TreeItem*>(index.internalPointer());
+    return static_cast<TreeItem *>(index.internalPointer());
 }
 
 QModelIndex RegExpModel::index(int row, int column, const QModelIndex &parent) const
@@ -151,7 +151,7 @@ int RegExpModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
-    Node* n = nodeFromIndex(parent);
+    Node *n = nodeFromIndex(parent);
     return n->childCount();
 }
 
@@ -167,7 +167,7 @@ QVariant RegExpModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    TreeItem* t = nodeFromIndex(index);
+    TreeItem *t = nodeFromIndex(index);
     if (role == Qt::DisplayRole) {
         if (index.column() == 0) {
             switch (t->type()) {

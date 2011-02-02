@@ -137,7 +137,7 @@ void MainWindow::open()
 
 void MainWindow::openRecentFile()
 {
-    QAction* act = qobject_cast<QAction*>(sender());
+    QAction *act = qobject_cast<QAction *>(sender());
     this->loadFile(act->data().toString());
 }
 
@@ -231,7 +231,7 @@ void MainWindow::clearRegExpEdit()
     ui->regexpLineEdit->clear();
 }
 
-void MainWindow::updateStatus(const QString& message)
+void MainWindow::updateStatus(const QString &message)
 {
     m_statusLabel->setText(message);
 }
@@ -276,7 +276,7 @@ void MainWindow::updateRecentFileActions()
             m_recentFileActions[i]->setVisible(false);
         } else {
             const QString path = m_recentFiles.at(i);
-            QAction* act = m_recentFileActions[i];
+            QAction *act = m_recentFileActions[i];
             act->setText(QString("%1 [%2]")
                          .arg(QFileInfo(path).fileName())
                          .arg(fm.elidedText(path, Qt::ElideMiddle, width() / 2))); // TODO find more intelligent way to calculate the avail. width
@@ -343,12 +343,12 @@ void MainWindow::createRegExpModel()
 void MainWindow::createRecentFileActions()
 {
     for (int i = 0; i < m_maxRecentFiles; ++i) {
-        QAction* act = new QAction(this);
+        QAction *act = new QAction(this);
         connect(act, SIGNAL(triggered()), SLOT(openRecentFile()));
         m_recentFileActions << act;
         act->setVisible(false);
     }
-    QAction* separator = ui->recentFilesMenu->addSeparator();
+    QAction *separator = ui->recentFilesMenu->addSeparator();
     ui->recentFilesMenu->addAction(tr("C&lear all"), this, SLOT(clearAllRecentFiles()));
     ui->recentFilesMenu->insertActions(separator, m_recentFileActions);
 }

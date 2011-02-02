@@ -31,13 +31,13 @@ class EscapedPatternDialog : public QDialog {
 public:
     EscapedPatternDialog(QWidget *parent = 0);
     ~EscapedPatternDialog();
-    void setPattern(const QString& pattern);
+    void setPattern(const QString &pattern);
 
 protected:
     void changeEvent(QEvent *e);
 
 private:
-    QString escapePattern(const QString& pattern);
+    QString escapePattern(const QString &pattern);
     Ui::EscapedPatternDialog *ui;
 };
 

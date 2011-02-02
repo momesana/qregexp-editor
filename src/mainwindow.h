@@ -56,7 +56,7 @@ private:
     QLabel *m_statusLabel;
     QRegExp m_rx;
     QStringList m_recentFiles;
-    QList<QAction*> m_recentFileActions;
+    QList<QAction *> m_recentFileActions;
     const int m_maxRecentFiles;
     QSettings m_settings;
     SearchSettings m_searchSettings;
@@ -86,7 +86,7 @@ private slots:
     void updateRegExp();
     void clearInputEdit();
     void clearRegExpEdit();
-    void updateStatus(const QString&);
+    void updateStatus(const QString &);
     void toggleWarningWidget(bool);
     void returnPressed();
 };

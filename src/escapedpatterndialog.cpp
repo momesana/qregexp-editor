@@ -32,7 +32,7 @@ EscapedPatternDialog::~EscapedPatternDialog()
     delete ui;
 }
 
-void EscapedPatternDialog::setPattern(const QString& pattern)
+void EscapedPatternDialog::setPattern(const QString &pattern)
 {
     QString str = escapePattern(pattern);
     ui->textBrowser->setPlainText(str);
@@ -50,7 +50,7 @@ void EscapedPatternDialog::changeEvent(QEvent *e)
     }
 }
 
-QString EscapedPatternDialog::escapePattern(const QString& pattern)
+QString EscapedPatternDialog::escapePattern(const QString &pattern)
 {
     QString str(pattern);
 

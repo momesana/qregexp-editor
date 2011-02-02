@@ -41,7 +41,7 @@ SearchSettings::SearchSettings()
 {
 }
 
-void SearchSettings::append(const SearchData& value)
+void SearchSettings::append(const SearchData &value)
 {
     if (m_searches.contains(value)) { // already there, nothing to do
     } else {

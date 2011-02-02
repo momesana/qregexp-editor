@@ -31,7 +31,7 @@ public:
     SearchSettings();
     void setHistoryLength(int newLength);
     inline int historyLength() const { return m_length; }
-    void append(const SearchData& value);
+    void append(const SearchData &value);
     inline const QList<SearchData> searchData() const { return m_searches; }
     void toSettings(QSettings *s) const;
     void fromSettings(QSettings *s);

@@ -33,7 +33,7 @@
 #  define SHARE_PATH "/../share/qregexp-editor"
 #endif
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
