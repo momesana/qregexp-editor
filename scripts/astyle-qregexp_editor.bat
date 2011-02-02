@@ -10,7 +10,7 @@ setlocal EnableDelayedExpansion
 SET ASTYLE_OPTS=--indent=spaces=4 --brackets=stroustrup --add-brackets ^
                  --indent-labels --pad-header --pad-oper --unpad-paren ^
                  --keep-one-line-blocks --convert-tabs --indent-preprocessor ^
-                 --indent-namespaces
+                 --indent-namespaces --align-pointer=name
 
 FOR /R %%g IN (*.c *.cpp *.h) DO (
     astyle %ASTYLE_OPTS%  %%g
