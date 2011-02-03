@@ -6,8 +6,9 @@
 # 
 # requirements: installed astyle 
 
-astyle --indent=spaces=4 --brackets=stroustrup --add-brackets \
+OPTS="--indent=spaces=4 --brackets=stroustrup --add-brackets \
       --indent-labels --pad-header --pad-oper --unpad-paren \
       --keep-one-line-blocks --convert-tabs \
-      --indent-preprocessor --indent-namespaces --align-pointer=name \
-      $(find -type f -name '*.c') $(find -type f -name '*.cpp') $(find -type f -name '*.h')
+      --indent-preprocessor --indent-namespaces --align-pointer=name"
+
+astyle ${OPTS} $(find . -regex ".*\.\(c\|cpp\|h\)$")
