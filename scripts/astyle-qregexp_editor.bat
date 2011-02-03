@@ -3,7 +3,7 @@
 ::
 :: the coding style is defined in http://techbase.kde.org/Policies/Kdelibs_Coding_Style 
 ::
-:: requirements: installed astyle 
+:: requirements: installed astyle => 1.24
 
 setlocal EnableDelayedExpansion
 

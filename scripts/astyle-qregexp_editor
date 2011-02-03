@@ -4,7 +4,7 @@
 # 
 # the coding style is defined in http://techbase.kde.org/Policies/Kdelibs_Coding_Style 
 # 
-# requirements: installed astyle 
+# requirements: installed astyle => 1.24
 
 OPTS="--indent=spaces=4 --brackets=stroustrup --add-brackets \
       --indent-labels --pad-header --pad-oper --unpad-paren \
