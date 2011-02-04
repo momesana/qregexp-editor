@@ -48,3 +48,4 @@ add_executable(qregexp-editor ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
 target_link_libraries(qregexp-editor ${QT_LIBRARIES})
 
 install(TARGETS qregexp-editor DESTINATION bin)
+add_dependencies(qregexp-editor translations)
