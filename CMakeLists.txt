@@ -2,13 +2,32 @@ project(QRegExp-Editor)
 
 cmake_minimum_required(VERSION 2.6)
 
+# Set the defaut version. Will be used if version file
+# isn't available and if it's impossible to get the version
+# from git.
+set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.0.1")
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
+include(QRegExpEditorVersion)
 
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
 set(SHARE_PATH ${CMAKE_INSTALL_PREFIX}/share/qregexp-editor)
 
 # must be placed before any add_subdirectory
 set(FILES_TO_TRANSLATE)
+
+GetQRegExpEditorVersion(QREGEXP-EDITOR_VERSION)
+message(STATUS "QREGEXP-EDITOR_VERSION: " ${QREGEXP-EDITOR_VERSION})
+file(WRITE "${BINARY_DIR}/VERSION_FILE" ${QREGEXP-EDITOR_VERSION})
+
+configure_file(
+   "${SOURCE_DIR}/qregexp_editor-version.cpp.in"
+   "${CMAKE_CURRENT_BINARY_DIR}/src/qregexp_editor-version.cpp"
+   @ONLY
+)
 
 add_subdirectory(src)
 

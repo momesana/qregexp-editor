@@ -17,6 +17,8 @@
  * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "qregexp_editor-version.h"
+
 // Qt
 #include <QApplication>
 #include <QTranslator>
@@ -38,7 +40,7 @@ int main(int argc, char** argv)
 
   QCoreApplication::setOrganizationName("momesana software inc.");
   QCoreApplication::setOrganizationDomain("momesana.com");
-  QCoreApplication::setApplicationVersion("0.2.0.1");
+    QCoreApplication::setApplicationVersion(QLatin1String(version_string));
   QCoreApplication::setApplicationName("QRegExp Editor");
 
   const QString &appTrPath = QApplication::applicationDirPath()
