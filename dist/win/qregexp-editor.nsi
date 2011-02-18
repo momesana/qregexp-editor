@@ -15,11 +15,11 @@ SetCompressor /FINAL /SOLID lzma
 !define P "QRegExp-Editor"                    ; Program name
 !define P_NORM "qregexp-editor"               ; Program name (normalized)
 !define ROOT_DIR "..\.."                      ; Program root directory
-!define BUILD_DIR "${ROOT_DIR}\build\src"     ; Build dir
+!define BUILD_DIR "${ROOT_DIR}\build"     ; Build dir
 !define ADD_REMOVE "Software\Microsoft\Windows\CurrentVersion\Uninstall\${P}"
 !define PRODUCT_REG_KEY "${P}"
 
-InstallDir "$PROGRAMFILES"                    ; Default installation directory
+InstallDir "$PROGRAMFILES\${P}"               ; Default installation directory
 Name "${P}"                                   ; Name displayed on installer
 OutFile "setup-${P_NORM}-${V}-win${ARCH}.exe" ; Resulting installer filename
 BrandingText /TRIMLEFT "${P_NORM}-${V}"
@@ -44,11 +44,11 @@ RequestExecutionLevel admin
 !insertmacro MUI_PAGE_INSTFILES
     ; These indented statements modify settings for MUI_PAGE_FINISH
     !define MUI_FINISHPAGE_NOAUTOCLOSE
-    !define MUI_FINISHPAGE_RUN "$INSTDIR\${P}\bin\${P_NORM}.exe"
+    !define MUI_FINISHPAGE_RUN "$INSTDIR\bin\${P_NORM}.exe"
     !define MUI_FINISHPAGE_RUN_CHECKED
     !define MUI_FINISHPAGE_RUN_TEXT "Launch ${P}-${V}"
-    !define MUI_FINISHPAGE_SHOWREADME_CHECKED
-	!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\${P}\README.txt"
+    !define MUI_FINISHPAGE_SHOWREADME_NOTCHECKED
+	!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\README.txt"
 !insertmacro MUI_PAGE_FINISH
 
 ;-------------- Uninstall Pages -------------
@@ -160,8 +160,8 @@ FunctionEnd
 Section "" ; No components page, name is not important
 Call checkAlreadyInstalled
 
-SetOutPath $INSTDIR\${P}\ ; Set output path to the installation directory.
-WriteUninstaller $INSTDIR\${P}\uninstall.exe ; Tell it where to put the uninstaller
+SetOutPath $INSTDIR\ ; Set output path to the installation directory.
+WriteUninstaller $INSTDIR\uninstall.exe ; Tell it where to put the uninstaller
 
 ; Readme, License etc.
 File ${ROOT_DIR}\COPYING
@@ -169,26 +169,30 @@ File ${ROOT_DIR}\COPYING.html
 File /oname=README.txt ${ROOT_DIR}\README
 
 ; Bin
-SetOutPath $INSTDIR\${P}\bin
-File ${BUILD_DIR}\${P_NORM}.exe
+SetOutPath $INSTDIR\bin
+File ${BUILD_DIR}\src\${P_NORM}.exe
 File ${QT_DIR}\bin\mingwm10.dll
 File ${QT_DIR}\bin\libgcc_s_dw2-1.dll
 File ${MINGW_DIR}\bin\libstdc++-6.dll
 File ${QT_DIR}\bin\QtCore4.dll
 File ${QT_DIR}\bin\QtGui4.dll
 
+; Translations
+SetOutPath $INSTDIR\share\${P_NORM}\translations
+File /r ${BUILD_DIR}\*.qm
+
 ; Shortcuts 
 CreateDirectory "$SMPROGRAMS\${P}"
-CreateShortCut "$SMPROGRAMS\${P}\${P_NORM}.lnk" "$INSTDIR\${P}\bin\${P_NORM}.exe"
-CreateShortCut "$SMPROGRAMS\${P}\uninstall.lnk" "$INSTDIR\${P}\uninstall.exe"
+CreateShortCut "$SMPROGRAMS\${P}\${P}.lnk" "$INSTDIR\bin\${P_NORM}.exe"
+CreateShortCut "$SMPROGRAMS\${P}\uninstall.lnk" "$INSTDIR\uninstall.exe"
 
 ; Add version number to Registry
 WriteRegStr HKLM "Software\${PRODUCT_REG_KEY}" "Version" "${V}"
 
 ; Add uninstall information to "Add/Remove Programs"
 WriteRegStr HKLM ${ADD_REMOVE} "DisplayName" "${P}-${V}"
-WriteRegStr HKLM ${ADD_REMOVE} "UninstallString" "$\"$INSTDIR\${P}\uninstall.exe$\""
-WriteRegStr HKLM ${ADD_REMOVE} "QuietUninstallString" "$\"$INSTDIR\${P}\uninstall.exe$\" /S"
+WriteRegStr HKLM ${ADD_REMOVE} "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+WriteRegStr HKLM ${ADD_REMOVE} "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
 WriteRegStr HKLM ${ADD_REMOVE} "Version" "${V}"
 SectionEnd
 
@@ -202,19 +206,22 @@ Delete $INSTDIR\bin\libgcc_s_dw2-1.dll
 Delete $INSTDIR\bin\libstdc++-6.dll
 Delete $INSTDIR\bin\QtCore4.dll
 Delete $INSTDIR\bin\QtGui4.dll
-
 RMDir  $INSTDIR\bin
+
+; Translations
+RMDir /r $INSTDIR\share\${P_NORM}\translations
+RMDir $INSTDIR\share\${P_NORM}
+RMDir $INSTDIR\share
 
 ; Readme, License etc.
 Delete $INSTDIR\COPYING
 Delete $INSTDIR\COPYING.html
 Delete $INSTDIR\README.txt
 Delete $INSTDIR\uninstall.exe
-
 RMDir  $INSTDIR
 
 ; Removing shortcuts
-Delete "$SMPROGRAMS\${P}\${P_NORM}.lnk"
+Delete "$SMPROGRAMS\${P}\${P}.lnk"
 Delete "$SMPROGRAMS\${P}\uninstall.lnk"
 RMDir "$SMPROGRAMS\${P}"
 
