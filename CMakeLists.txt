@@ -14,7 +14,6 @@ include(QRegExpEditorVersion)
 
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
-set(SHARE_PATH ${CMAKE_INSTALL_PREFIX}/share/qregexp-editor)
 
 # must be placed before any add_subdirectory
 set(FILES_TO_TRANSLATE)
@@ -46,4 +45,4 @@ endif (UPDATE_TRANSLATIONS)
 
 add_custom_target(translations DEPENDS ${QM_FILES})
 
-install(FILES ${QM_FILES} DESTINATION ${SHARE_PATH}/translations)
+install(FILES ${QM_FILES} DESTINATION "share/qregexp-editor/translations")
