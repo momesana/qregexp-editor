@@ -20,12 +20,12 @@ if not defined MINGW (
 		echo %FOUND% MinGW!
 		goto check_qt
 	)
-	
+
 	if exist "!MINGW!\bin\make.exe" (
 		echo %FOUND% MinGW!
 		goto check_qt
 	)
-	
+
 	echo %NOT_FOUND% MinGW!
 	goto get_mingw_path
 )
@@ -34,12 +34,12 @@ if not defined MINGW (
 :check_qt
 if not defined QTDIR (
 	:get_qt_path
-	set /P QTDIR=Please enter path to Qt: 
+	set /P QTDIR=Please enter path to Qt:
 	if not exist "!QTDIR!" (
 		echo %INVALID_PATH%
 		goto get_qt_path
 	)
-	
+
 	if exist "!QTDIR!\bin\qmake.exe" (
 		echo %FOUND% Qt!
 		goto check_arch
