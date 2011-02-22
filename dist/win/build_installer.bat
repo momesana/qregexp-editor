@@ -2,9 +2,6 @@
 
 setlocal EnableDelayedExpansion
 
-:: Variables
-set MAKE=
-
 :: Error Messages
 set INVALID_PATH=The directory you entered does not exist!
 set NOT_FOUND=Failed to detect:
@@ -20,18 +17,16 @@ if not defined MINGW (
 	)
 
 	if exist "!MINGW!\bin\mingw32-make.exe" (
-		set MAKE="mingw32-make"
 		echo %FOUND% MinGW!
 		goto check_qt
 	)
 
 	if exist "!MINGW!\bin\make.exe" (
-		set MAKE="make"
 		echo %FOUND% MinGW!
 		goto check_qt
 	)
 
-	echo %NOT_FOUND% MinGW
+	echo %NOT_FOUND% MinGW!
 	goto get_mingw_path
 )
 
@@ -46,20 +41,41 @@ if not defined QTDIR (
 	)
 
 	if exist "!QTDIR!\bin\qmake.exe" (
-		echo %NOT_FOUND% Qt!
-		goto set_path
+		echo %FOUND% Qt!
+		goto check_arch
 	)
 
 	echo %NOT_FOUND% Qt!
 	goto get_qt_path
 )
 
-:set_path
-set PATH=%MINGW%\bin;%QTDIR%\bin;%PATH%
+:check_arch
+if not defined ARCH (
+	set /P ARCH="Please either enter Architecture (32 or 64) or press enter for default (32)": 
+	if not defined ARCH (
+		set ARCH=32
+		echo Set to default: 32
+	)
+)
+
+if not defined VERSION (
+	if exist ..\..\build\VERSION_FILE (
+		echo "file exists"
+		set /P VERSION=<..\..\build\VERSION_FILE
+	)
+	
+	if not defined VERSION (
+		:get_version_number
+		set /P VERSION=Please enter the version number to be used: 
+		if not defined VERSION (
+			echo You didn't enter a valid version number
+			goto get_version_number
+		)
+	)
+)
 
 :: Starting the compilation process
-echo "COMPILING QREGEXP-EDITOR"
-md build
-cd build && cmake -G "MinGW Makefiles" .. && %MAKE% && %Make% translations
+echo "BUILDING INSTALLER"
+makensis.exe qregexp-editor.nsi
 
 endlocal
