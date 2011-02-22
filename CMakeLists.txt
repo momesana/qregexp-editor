@@ -46,3 +46,14 @@ endif (UPDATE_TRANSLATIONS)
 add_custom_target(translations DEPENDS ${QM_FILES})
 
 install(FILES ${QM_FILES} DESTINATION "share/qregexp-editor/translations")
+
+
+################ uninstall target #################
+
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
+
+add_custom_target(uninstall
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
