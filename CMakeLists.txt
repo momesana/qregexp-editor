@@ -27,7 +27,7 @@ configure_file(
    "${CMAKE_CURRENT_BINARY_DIR}/src/qregexp_editor-version.cpp"
    @ONLY
 )
-
+include("CPackConfig.cmake")
 add_subdirectory(src)
 
 ################ translation stuff ################
