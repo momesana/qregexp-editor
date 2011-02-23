@@ -299,7 +299,7 @@ void MainWindow::populateComboBoxes()
 void MainWindow::setIcons()
 {
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
-    ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit")));
+    ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit.png")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
     QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
