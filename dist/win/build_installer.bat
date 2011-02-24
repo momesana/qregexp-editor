@@ -2,11 +2,6 @@
 
 setlocal EnableDelayedExpansion
 
-:: Error Messages
-set INVALID_PATH=The directory you entered does not exist!
-set NOT_FOUND=Failed to detect:
-set FOUND=Successfully detected:
-
 :: Check for MinGW
 if not defined MINGW (
     :get_mingw_path
