@@ -9,44 +9,29 @@ set FOUND=Successfully detected:
 
 :: Check for MinGW
 if not defined MINGW (
-	:get_mingw_path
-	set /P MINGW=Please enter path to MinGW: 
-	if not exist "!MINGW!" (
-		echo %INVALID_PATH%
-		goto get_mingw_path
-	)
+    :get_mingw_path
+    call :get_path MinGW MINGW
+)
 
-	if exist "!MINGW!\bin\mingw32-make.exe" (
-		echo %FOUND% MinGW!
-		goto check_qt
-	)
-
-	if exist "!MINGW!\bin\make.exe" (
-		echo %FOUND% MinGW!
-		goto check_qt
-	)
-
-	echo %NOT_FOUND% MinGW!
-	goto get_mingw_path
+call :check_path "!MINGW!" mingw32-make.exe MinGW MAKE
+if not defined MAKE (
+    call :check_path "!MINGW!" make.exe MinGW MAKE
+    if not defined MAKE (
+        echo Failed to detect MinGW
+        goto get_mingw_path
+    )
 )
 
 :: Check for Qt
-:check_qt
 if not defined QTDIR (
-	:get_qt_path
-	set /P QTDIR=Please enter path to Qt:
-	if not exist "!QTDIR!" (
-		echo %INVALID_PATH%
-		goto get_qt_path
-	)
+    :get_qt_path
+    call:get_path Qt QTDIR
+)
 
-	if exist "!QTDIR!\bin\qmake.exe" (
-		echo %FOUND% Qt!
-		goto check_arch
-	)
-
-	echo %NOT_FOUND% Qt!
-	goto get_qt_path
+call :check_path "!QTDIR!" qmake.exe Qt QMAKE
+if not defined QMAKE (
+    echo Failed to detect Qt
+    goto get_qt_path
 )
 
 :check_arch
@@ -79,3 +64,26 @@ echo "BUILDING INSTALLER"
 makensis.exe qregexp-editor.nsi
 
 endlocal
+goto:eof
+
+::--------------------------------------------------------
+::-- Function section starts below here
+::--------------------------------------------------------
+:get_path
+setlocal
+set /P EXE_PATH=Please enter path to %~1: 
+if not exist "%EXE_PATH%" (
+    echo The directory you entered does not exist!
+    goto get_path
+) else (
+    endlocal
+    set "%~2=%EXE_PATH%"
+)
+goto:eof
+
+:check_path
+if exist %~1\bin\%~2 (
+    echo Successfully detected %~3!
+    set "%~4=%~2"
+) else ( set "%~4=" )
+goto:eof
