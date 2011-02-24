@@ -15,7 +15,7 @@ SetCompressor /FINAL /SOLID lzma
 !define P "QRegExp-Editor"                    ; Program name
 !define P_NORM "qregexp-editor"               ; Program name (normalized)
 !define ROOT_DIR "..\.."                      ; Program root directory
-!define BUILD_DIR "${ROOT_DIR}\build"     ; Build dir
+!define BUILD_DIR "${ROOT_DIR}\build"         ; Build dir
 !define ADD_REMOVE "Software\Microsoft\Windows\CurrentVersion\Uninstall\${P}"
 !define PRODUCT_REG_KEY "${P}"
 
@@ -117,10 +117,10 @@ RequestExecutionLevel admin
 !insertmacro MUI_LANGUAGE "Catalan"
 !insertmacro MUI_LANGUAGE "Esperanto"
 
-; ------------ Reserve Files ------------
+; ------------- Reserve Files ---------------------
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
-; ------------- Installer Functions ----------
+; ------------- Installer Functions ---------------
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
@@ -156,11 +156,11 @@ Function un.onInit
   !insertmacro MUI_UNGETLANGUAGE
 FunctionEnd
 
-;------------ Installer -------------
+;-------------- Installer -------------------------
 Section "" ; No components page, name is not important
 Call checkAlreadyInstalled
 
-SetOutPath $INSTDIR\ ; Set output path to the installation directory.
+SetOutPath $INSTDIR ; Set output path to the installation directory.
 WriteUninstaller $INSTDIR\uninstall.exe ; Tell it where to put the uninstaller
 
 ; Readme, License etc.
