@@ -38,6 +38,8 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 
     QCoreApplication::setOrganizationName("QRegExp-Editor");
+    QCoreApplication::setOrganizationDomain(
+                        QLatin1String("http://qregexp-editor.sourceforge.net"));
     QCoreApplication::setApplicationVersion("0.2.0.1");
     QCoreApplication::setApplicationName("QRegExp-Editor");
 
