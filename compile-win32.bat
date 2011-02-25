@@ -17,6 +17,7 @@ if not defined MAKE (
     )
 )
 
+:: Check for Qt
 if not defined QTDIR (
     :get_qt_path
     call:get_path Qt QTDIR
