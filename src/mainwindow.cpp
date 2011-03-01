@@ -19,6 +19,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "constants.h"
 #include "regexpmodel.h"
 #include "aboutdialog.h"
 #include "escapedpatterndialog.h"
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(qApp->applicationName());
 
     // icons
+    QApplication::setWindowIcon(QIcon(QLatin1String(ICON_QREGEXP_LOGO_128)));
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
