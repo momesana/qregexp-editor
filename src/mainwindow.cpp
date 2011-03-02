@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     , m_aboutDialog(0)
     , m_escapedPatternDialog(0)
     , m_maxRecentFiles(10)
-    , m_settings()
+    , m_settings(QSettings::IniFormat, QSettings::UserScope, QLatin1String("QRegExp-Editor"), QLatin1String("QRegExp-Editor"))
     , m_searchSettings()
 {
     ui->setupUi(this);
