@@ -59,8 +59,11 @@ add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 
-################ install images ###################
+###### install images & icon & desktop menu #######
 
 install(DIRECTORY "images"
    DESTINATION share/qregexp-editor
    PATTERN "*.sh" EXCLUDE)
+
+install(FILES dist/linux/qregexp-editor.desktop DESTINATION share/applications)
+install(FILES images/qregexp-editor-logo-32.png DESTINATION share/pixmaps)
