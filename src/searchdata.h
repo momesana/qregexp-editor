@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 M. Mehdi Salem Naraghi <momesana@yahoo.de>
+ * Copyright (C) 2011 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * This file is part of QRegexp-Editor.
  *
@@ -14,30 +14,28 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegexp-Editor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ABOUTDIALOG_H
-#define ABOUTDIALOG_H
+#ifndef SEARCHDATA_H
+#define SEARCHDATA_H
 
-#include "ui_aboutdialog.h"
+#include <QtCore/QString>
+#include <QtCore/QDebug>
 
-#include <QtGui/QDialog>
+struct SearchData {
+    QString pattern;
+    int syntax;
+    bool caseSensitivity;
+    bool minimal;
 
-class AboutDialog : public QDialog, public Ui::AboutDialog {
-    Q_OBJECT
-public:
-    AboutDialog(QWidget *parent = 0);
-    ~AboutDialog();
-
-protected:
-    virtual void changeEvent(QEvent *);
-    virtual void closeEvent(QCloseEvent *);
-
-private:
-    void readSettings();
-    void writeSettings();
-
+    SearchData();
+    bool equals(const SearchData &s) const;
 };
 
-#endif // ABOUTDIALOG_H
+inline bool operator==(const SearchData &p1, const SearchData &p2)
+{ return p1.equals(p2); }
+
+QDebug operator<<(QDebug dbg, const SearchData &p);
+
+#endif // SEARCHDATA_H
