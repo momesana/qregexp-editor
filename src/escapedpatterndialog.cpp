@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 2010 M. Mehdi Salem Naraghi <momesana@yahoo.de>
  *
- * This file is part of Regexp-Editor.
+ * This file is part of QRegexp-Editor.
  *
- * Regexp-Editor is free software: you can redistribute it and/or modify
+ * QRegexp-Editor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Foobar is distributed in the hope that it will be useful,
+ * QRegExp-Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "escapedpatterndialog.h"
@@ -32,10 +32,9 @@ EscapedPatternDialog::~EscapedPatternDialog()
     delete ui;
 }
 
-void EscapedPatternDialog::setPattern(const QString& pattern)
+void EscapedPatternDialog::setPattern(const QString &pattern)
 {
-    QString str(pattern);
-    str.replace('\\', "\\\\");
+    QString str = escapePattern(pattern);
     ui->textBrowser->setPlainText(str);
 }
 
@@ -49,4 +48,17 @@ void EscapedPatternDialog::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+QString EscapedPatternDialog::escapePattern(const QString &pattern)
+{
+    QString str(pattern);
+
+    // escape backslashs and double quotes
+    str.replace(QString(QLatin1Char('\\')), QLatin1String("\\\\"));
+    str.replace(QString(QLatin1Char('"')), QLatin1String("\\\""));
+    str.prepend(QLatin1String("\""));
+    str.append(QLatin1String("\""));
+
+    return str;
 }
