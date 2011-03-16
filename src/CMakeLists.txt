@@ -1,4 +1,5 @@
 include_directories(
+   ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -8,7 +9,8 @@ file(GLOB CPP_FILES *.cpp)
 file(GLOB UI_FILES *.ui)
 set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_FILES} PARENT_SCOPE)
 
-set(qregexp-editor_SRCS
+list(APPEND qregexp-editor_SRCS
+   qregexp_editor-version.cpp
    node.cpp
    regexpmodel.cpp
    treeitem.cpp
@@ -43,7 +45,7 @@ qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
 qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
 qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
-add_executable(qregexp-editor ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
+add_executable(qregexp-editor WIN32 MACOSX_BUNDLE ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
 
 target_link_libraries(qregexp-editor ${QT_LIBRARIES})
 
