@@ -43,6 +43,7 @@ void RegExpModel::evaluate(const QString &text, const QRegExp &regExp)
     beginResetModel();
     delete m_rootNode;
     m_rootNode = new TreeItem(TreeItem::ROOT, 0);
+    unsigned int matchesCnt = 0;
     const int count = regExp.captureCount() + 1;
     int pos = 0;
     bool empty = false; // is the empty string being matched? (leads to an infinite loop)
@@ -72,6 +73,7 @@ void RegExpModel::evaluate(const QString &text, const QRegExp &regExp)
         new TreeItem(regExp.pos(), TreeItem::POSITION, stringNode);
         new TreeItem(len, TreeItem::LENGTH, stringNode);
         pos += len;
+        ++matchesCnt;
     }
     endResetModel();
 
@@ -99,7 +101,8 @@ void RegExpModel::evaluate(const QString &text, const QRegExp &regExp)
         ps = "W3CXmlSchema11";
         break;
     }
-    emit statusChanged(tr("Case-sensitive: %1  Minimal: %2  Style: %3")
+    emit statusChanged(tr("Matches: %1  Case-sensitive: %2  Minimal: %3  Style: %4")
+                       .arg(QString::number(matchesCnt))
                        .arg(cs ? tr("On") : tr("Off"))
                        .arg(min ? tr("On") : tr("Off"))
                        .arg(ps));

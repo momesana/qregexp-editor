@@ -19,6 +19,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "constants.h"
 #include "regexpmodel.h"
 #include "aboutdialog.h"
 #include "escapedpatterndialog.h"
