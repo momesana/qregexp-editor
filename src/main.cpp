@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 
     QCoreApplication::setOrganizationName("QRegExp-Editor");
     QCoreApplication::setOrganizationDomain(
-                        QLatin1String("http://qregexp-editor.sourceforge.net"));
+        QLatin1String("http://qregexp-editor.sourceforge.net"));
     QCoreApplication::setApplicationVersion(QLatin1String(version_string));
     QCoreApplication::setApplicationName("QRegExp-Editor");
 
