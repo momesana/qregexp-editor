@@ -2,6 +2,12 @@ project(QRegExp-Editor)
 
 cmake_minimum_required(VERSION 2.6)
 
+if(APPLE)
+   set(PROGRAM_NAME ${PROJECT_NAME})
+else(APPLE)
+   set(PROGRAM_NAME "qregexp-editor")
+endif(APPLE)
+
 # Set the defaut version. Will be used if version file
 # isn't available and if it's impossible to get the version
 # from git.
@@ -45,7 +51,7 @@ endif (UPDATE_TRANSLATIONS)
 
 add_custom_target(translations DEPENDS ${QM_FILES})
 
-install(FILES ${QM_FILES} DESTINATION "share/qregexp-editor/translations")
+install(FILES ${QM_FILES} DESTINATION "share/${PROGRAM_NAME}/translations")
 
 
 ################ uninstall target #################
@@ -62,7 +68,7 @@ add_custom_target(uninstall
 ###### install images & icon & desktop menu #######
 
 install(DIRECTORY "images"
-   DESTINATION share/qregexp-editor
+   DESTINATION "share/${PROGRAM_NAME}"
    PATTERN "*.sh" EXCLUDE)
 
 install(FILES dist/linux/qregexp-editor.desktop DESTINATION share/applications)

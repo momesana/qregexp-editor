@@ -45,9 +45,16 @@ qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
 qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
 qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
-add_executable(qregexp-editor WIN32 MACOSX_BUNDLE ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
+if(APPLE)
+   set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QREGEXP-EDITOR_VERSION})
+   set(MACOSX_BUNDLE_VERSION ${QREGEXP-EDITOR_VERSION})
+   set(MACOSX_BUNDLE_LONG_VERSION_STRING "Version ${QREGEXP-EDITOR_VERSION}")
+   set(CMAKE_OSX_ARCHITECTURES "i386")
+endif(APPLE)
 
-target_link_libraries(qregexp-editor ${QT_LIBRARIES})
+add_executable(${PROGRAM_NAME} WIN32 MACOSX_BUNDLE ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
 
-install(TARGETS qregexp-editor DESTINATION bin)
-add_dependencies(qregexp-editor translations)
+target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
+
+install(TARGETS ${PROGRAM_NAME} DESTINATION bin)
+add_dependencies(${PROGRAM_NAME} translations)
