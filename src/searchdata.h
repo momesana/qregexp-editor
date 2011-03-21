@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2011 Luís Pereira <luis.artur.pereira@gmail.com>
  *
- * This file is part of QRegexp-Editor.
+ * This file is part of QRegExp-Editor.
  *
- * QRegexp-Editor is free software: you can redistribute it and/or modify
+ * QRegExp-Editor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegexp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef SEARCHDATA_H
