@@ -79,7 +79,7 @@ private slots:
     void open();
     void openRecentFile();
     void clearAllRecentFiles();
-    void search();
+    void match();
     void about();
     void escapedPattern();
     void updateUiStatus();

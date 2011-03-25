@@ -106,9 +106,9 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="searchButton">
+            <widget class="QPushButton" name="matchButton">
              <property name="text">
-              <string>Search</string>
+              <string>Match</string>
              </property>
             </widget>
            </item>
@@ -173,7 +173,6 @@ p, li { white-space: pre-wrap; }
     <addaction name="clearInputEditAct"/>
     <addaction name="clearRegExpEditAct"/>
     <addaction name="separator"/>
-    <addaction name="searchAct"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -232,9 +231,12 @@ p, li { white-space: pre-wrap; }
     <string>&amp;Quit</string>
    </property>
   </action>
-  <action name="searchAct">
+  <action name="matchAct">
    <property name="text">
-    <string>&amp;Search</string>
+    <string>&amp;Match</string>
+   </property>
+   <property name="toolTip">
+    <string>Match</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>

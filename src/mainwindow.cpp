@@ -177,11 +177,11 @@ void MainWindow::escapedPattern()
 void MainWindow::returnPressed()
 {
     if (isSearchPossible()) {
-        search();
+        match();
     }
 }
 
-void MainWindow::search()
+void MainWindow::match()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
 
@@ -205,8 +205,8 @@ void MainWindow::updateUiStatus()
             tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
 
-    ui->searchButton->setEnabled(b);
-    ui->searchAct->setEnabled(b);
+    ui->matchButton->setEnabled(b);
+    ui->matchAct->setEnabled(b);
 }
 
 void MainWindow::updateRegExp()
@@ -319,8 +319,8 @@ void MainWindow::makeSignalConnections()
     connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
-    connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
+    connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
+    connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
 }
