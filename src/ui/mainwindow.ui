@@ -270,10 +270,12 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <tabstops>
-  <tabstop>inputEdit</tabstop>
+  <tabstop>regexpEdit</tabstop>
   <tabstop>syntaxComboBox</tabstop>
   <tabstop>minimalCheckBox</tabstop>
   <tabstop>caseSensitivityCheckBox</tabstop>
+  <tabstop>matchButton</tabstop>
+  <tabstop>inputEdit</tabstop>
   <tabstop>resultView</tabstop>
  </tabstops>
  <resources/>
