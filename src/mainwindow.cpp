@@ -168,7 +168,7 @@ void MainWindow::escapedPattern()
         m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
     }
 
-    m_escapedPatternDialog->setPattern(ui->regexpLineEdit->text());
+    m_escapedPatternDialog->setPattern(ui->regexpEdit->toPlainText());
     m_escapedPatternDialog->show();
     m_escapedPatternDialog->raise();
     m_escapedPatternDialog->activateWindow();
@@ -194,13 +194,13 @@ void MainWindow::search()
 void MainWindow::updateUiStatus()
 {
     bool b = isSearchPossible();
-    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpLineEdit->text().isEmpty());
+    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpEdit->toPlainText().isEmpty());
 
     if (m_rx.isValid()) {
-        ui->regexpLineEdit->setStyleSheet("");
+        ui->regexpEdit->setStyleSheet("");
         statusBar()->showMessage(tr("Valid expression"));
     } else {
-        ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #F7E7E7; }");
+        ui->regexpEdit->setStyleSheet("QPlainTextEdit { background: #F7E7E7; }");
         statusBar()->showMessage(
             tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
@@ -214,7 +214,7 @@ void MainWindow::updateRegExp()
     int index = ui->syntaxComboBox->currentIndex();
     // we use the data as enum value for the pattern syntax of the regexp
     int data = ui->syntaxComboBox->itemData(index, Qt::UserRole).toInt();
-    m_rx.setPattern(ui->regexpLineEdit->text());
+    m_rx.setPattern(ui->regexpEdit->toPlainText());
     m_rx.setPatternSyntax((QRegExp::PatternSyntax)data);
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
     m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
@@ -229,7 +229,7 @@ void MainWindow::clearInputEdit()
 
 void MainWindow::clearRegExpEdit()
 {
-    ui->regexpLineEdit->clear();
+    ui->regexpEdit->clear();
 }
 
 void MainWindow::updateStatus(const QString &message)
@@ -312,8 +312,7 @@ void MainWindow::makeSignalConnections()
 {
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
-    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(returnPressed()));
+    connect(ui->regexpEdit, SIGNAL(textChanged()), SLOT(updateRegExp()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
@@ -357,7 +356,7 @@ void MainWindow::createRecentFileActions()
 bool MainWindow::isSearchPossible()
 {
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
-             ui->regexpLineEdit->text().isEmpty() ||
+             ui->regexpEdit->toPlainText().isEmpty() ||
              !m_rx.isValid() ? false : true;
     return b;
 }
@@ -365,7 +364,7 @@ bool MainWindow::isSearchPossible()
 SearchData MainWindow::searchSettings() const
 {
     SearchData rc;
-    rc.pattern = ui->regexpLineEdit->text();
+    rc.pattern = ui->regexpEdit->toPlainText();
     rc.syntax = ui->syntaxComboBox->currentIndex();
     rc.caseSensitivity = ui->caseSensitivityCheckBox->isChecked();
     rc.minimal = ui->minimalCheckBox->isChecked();
@@ -377,7 +376,7 @@ void MainWindow::setSearchSettings(SearchSettings *s) const
     QList<SearchData>searches = s->searchData();
     if (!searches.isEmpty()) {
         SearchData rc = searches.last();
-        ui->regexpLineEdit->setText(rc.pattern);
+        ui->regexpEdit->setPlainText(rc.pattern);
         ui->syntaxComboBox->setCurrentIndex(rc.syntax);
         ui->caseSensitivityCheckBox->setChecked(rc.caseSensitivity);
         ui->minimalCheckBox->setChecked(rc.minimal);
