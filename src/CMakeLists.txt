@@ -10,6 +10,9 @@ file(GLOB UI_FILES *.ui)
 set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_FILES} PARENT_SCOPE)
 
 list(APPEND qregexp-editor_SRCS
+   regexptextedit.cpp
+   regexptextedit_p.cpp
+   parentheseshighlighter.cpp
    qregexp_editor-version.cpp
    node.cpp
    regexpmodel.cpp
@@ -29,6 +32,7 @@ set(qregexp-editor_UIs
 )
 
 set(qregexp-editor_MOC_HDRS
+   parentheseshighlighter.h
    aboutdialog.h
    escapedpatterndialog.h
    mainwindow.h
@@ -45,6 +49,12 @@ qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
 qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
 qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
+qt4_generate_moc(
+   ${CMAKE_CURRENT_SOURCE_DIR}/regexptextedit.h
+   ${CMAKE_CURRENT_BINARY_DIR}/regexptextedit.moc
+)
+set(manual_MOC_SRCS "regexptextedit.moc")
+
 if(APPLE)
    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QREGEXP-EDITOR_VERSION})
    set(MACOSX_BUNDLE_VERSION ${QREGEXP-EDITOR_VERSION})
@@ -52,7 +62,14 @@ if(APPLE)
    set(CMAKE_OSX_ARCHITECTURES "i386")
 endif(APPLE)
 
-add_executable(${PROGRAM_NAME} WIN32 MACOSX_BUNDLE ${qregexp-editor_SRCS} ${qregexp-editor_RCC_SRCS})
+add_executable(
+   ${PROGRAM_NAME}
+   WIN32
+   MACOSX_BUNDLE
+   ${qregexp-editor_SRCS}
+   ${manual_MOC_SRCS}
+   ${qregexp-editor_RCC_SRCS}
+)
 
 target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
 

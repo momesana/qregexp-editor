@@ -38,6 +38,7 @@ class EscapedPatternDialog;
 class RegExpModel;
 class QAction;
 class QLabel;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:

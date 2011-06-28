@@ -23,6 +23,7 @@
 #include "regexpmodel.h"
 #include "aboutdialog.h"
 #include "escapedpatterndialog.h"
+#include "parentheseshighlighter.h"
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -58,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent) :
     readSettings();
     updateRecentFileActions();
     updateUiStatus();
+    ui->regexpEdit->setHighlightColor(Qt::yellow);
+    ui->regexpEdit->setHighlightEnabled(true);
 }
 
 MainWindow::~MainWindow()

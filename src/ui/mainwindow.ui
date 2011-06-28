@@ -37,7 +37,7 @@
        <item row="0" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPlainTextEdit" name="regexpEdit">
+          <widget class="RegexpTextEdit" name="regexpEdit">
            <property name="documentTitle">
             <string/>
            </property>
@@ -269,6 +269,13 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RegexpTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header location="global">regexptextedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>regexpEdit</tabstop>
   <tabstop>syntaxComboBox</tabstop>
