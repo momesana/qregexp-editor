@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010 M. Mehdi Salem Naraghi <momesana@yahoo.de>
  *
- * This file is part of QRegexp-Editor.
+ * This file is part of QRegExp-Editor.
  *
  * Regexp-Editor is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -299,6 +299,7 @@ void MainWindow::populateComboBoxes()
 
 void MainWindow::setIcons()
 {
+    QApplication::setWindowIcon(QIcon(QLatin1String(ICON_QREGEXP_LOGO_128)));
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit.png")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
