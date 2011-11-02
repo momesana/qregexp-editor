@@ -50,9 +50,12 @@ public:
     void setHighlightColor(const QColor &c);
     void setHighighlightEnabled(const bool b);
     void resetSelection();
+    void setTextOptionFlagsEnabled(const bool enabled, const QTextOption::Flag flag);
 
     QColor hColor;
     bool highlightEnabled;
+    bool showTabsAndSpaces;
+    QTextOption textOption;
 
     QVector<ParenthesisPair> matchPairs;
     ParenthesesHighlighter *highlighter;

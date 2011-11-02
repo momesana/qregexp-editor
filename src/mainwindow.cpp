@@ -61,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateUiStatus();
     ui->regexpEdit->setHighlightColor(Qt::yellow);
     ui->regexpEdit->setHighlightEnabled(true);
+    ui->regexpEdit->setShowTabsAndSpacesEnabled(false);
 }
 
 MainWindow::~MainWindow()

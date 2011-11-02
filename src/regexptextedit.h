@@ -36,10 +36,12 @@ public:
 
     QColor highlightColor() const;
     bool highlightEnabled() const;
+    bool showTabsAndSpacesEnabled() const;
 
 public Q_SLOTS:
     void setHighlightColor(const QColor &c);
-    void setHighlightEnabled(const bool b);
+    void setHighlightEnabled(const bool enabled);
+    void setShowTabsAndSpacesEnabled(const bool s);
 
 private:
     Q_PRIVATE_SLOT(d_func(), void _q_match());

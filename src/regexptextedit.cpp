@@ -53,6 +53,12 @@ bool RegexpTextEdit::highlightEnabled() const
     return d->highlightEnabled;
 }
 
+bool RegexpTextEdit::showTabsAndSpacesEnabled() const
+{
+    Q_D(const RegexpTextEdit);
+    return d->showTabsAndSpaces;
+}
+
 void RegexpTextEdit::setHighlightColor(const QColor &c)
 {
     Q_D(RegexpTextEdit);
@@ -68,6 +74,15 @@ void RegexpTextEdit::setHighlightEnabled(const bool b)
     if (b != d->highlightEnabled) {
         d->highlightEnabled = b;
         d->setHighighlightEnabled(b);
+    }
+}
+
+void RegexpTextEdit::setShowTabsAndSpacesEnabled(const bool enabled)
+{
+    Q_D(RegexpTextEdit);
+    if (enabled != d->showTabsAndSpaces) {
+        d->showTabsAndSpaces = enabled;
+        d->setTextOptionFlagsEnabled(enabled, QTextOption::ShowTabsAndSpaces);
     }
 }
 

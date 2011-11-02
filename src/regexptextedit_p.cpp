@@ -35,6 +35,8 @@ RegexpTextEditPrivate::RegexpTextEditPrivate(RegexpTextEdit *q)
 {
     hColor = Qt::yellow;
     highlightEnabled = false;
+    showTabsAndSpaces = false;
+    textOption = q->document()->defaultTextOption();
 
     ParenthesisPair p;
     p.left = '(';
@@ -222,6 +224,19 @@ void RegexpTextEditPrivate::setHighighlightEnabled(const bool b)
             q, SLOT(_q_match()));
             resetSelection();
     }
+}
+
+void RegexpTextEditPrivate::setTextOptionFlagsEnabled(const bool enabled, const QTextOption::Flag flag)
+{
+    Q_Q(RegexpTextEdit);
+
+    if (enabled) {
+        textOption.setFlags(textOption.flags() | flag);
+    } else {
+        textOption.setFlags(textOption.flags() & ~flag);
+    }
+
+    q->document()->setDefaultTextOption(textOption);
 }
 
 void RegexpTextEditPrivate::resetSelection()
