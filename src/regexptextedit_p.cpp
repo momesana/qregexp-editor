@@ -104,7 +104,7 @@ bool RegexpTextEditPrivate::matchLeftParenthesis(QTextBlock currentBlock, const 
     int i = infoPos;
     bool firstime = true;
 
-    for ( ; ; ) {
+    for (; ;) {
         if (!currentBlock.isValid()) {
             return false;
         }
@@ -149,7 +149,7 @@ bool RegexpTextEditPrivate::matchRightParenthesis(QTextBlock currentBlock, const
     int i = infoPos;
     bool firstime = true;
 
-    for ( ; ; ) {
+    for (; ;) {
         if (!currentBlock.isValid()) {
             return false;
         }
@@ -216,14 +216,14 @@ void RegexpTextEditPrivate::setHighighlightEnabled(const bool b)
 {
     Q_Q(RegexpTextEdit);
 
-    if(b) {
+    if (b) {
         _q_match();
         QObject::connect(q, SIGNAL(cursorPositionChanged()),
-            q, SLOT(_q_match()));
+                         q, SLOT(_q_match()));
     } else {
         QObject::disconnect(q, SIGNAL(cursorPositionChanged()),
-            q, SLOT(_q_match()));
-            resetSelection();
+                            q, SLOT(_q_match()));
+        resetSelection();
     }
 }
 
@@ -301,19 +301,19 @@ void RegexpTextEditPrivate::_q_match()
         bool ok = findParenthesisIndex(par, &pIndex);
         if (ok) {
             bool found;
-            if(direction == -1) {
+            if (direction == -1) {
                 found = matchRightParenthesis(q->textCursor().block(),
-                                                i, pIndex);
+                                              i, pIndex);
             } else {
                 found = matchLeftParenthesis(q->textCursor().block(),
-                                                i, pIndex);
+                                             i, pIndex);
             }
             if (found) {
                 createParenthesisSelection(firstBlockCharacterPos + info->pos);
             }
         } else {
             qWarning("RegexpTextEditPrivate::_q_match(): '%c' not matchable ",
-                        par);
+                     par);
         }
     }
 }
