@@ -36,6 +36,7 @@ RegexpTextEditPrivate::RegexpTextEditPrivate(RegexpTextEdit *q)
     hColor = Qt::yellow;
     highlightEnabled = false;
     showTabsAndSpaces = false;
+    showLineAndParagraphSeparators = false;
     textOption = q->document()->defaultTextOption();
 
     ParenthesisPair p;

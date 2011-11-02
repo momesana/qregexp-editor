@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->regexpEdit->setHighlightColor(Qt::yellow);
     ui->regexpEdit->setHighlightEnabled(true);
     ui->regexpEdit->setShowTabsAndSpacesEnabled(false);
+    ui->regexpEdit->setShowLineAndParagraphSeparatorsEnabled(false);
 }
 
 MainWindow::~MainWindow()

@@ -41,7 +41,8 @@ public:
 public Q_SLOTS:
     void setHighlightColor(const QColor &c);
     void setHighlightEnabled(const bool enabled);
-    void setShowTabsAndSpacesEnabled(const bool s);
+    void setShowTabsAndSpacesEnabled(const bool enabled);
+    void setShowLineAndParagraphSeparatorsEnabled(const bool s);
 
 private:
     Q_PRIVATE_SLOT(d_func(), void _q_match());

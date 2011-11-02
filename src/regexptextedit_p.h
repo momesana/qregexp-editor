@@ -55,6 +55,7 @@ public:
     QColor hColor;
     bool highlightEnabled;
     bool showTabsAndSpaces;
+    bool showLineAndParagraphSeparators;
     QTextOption textOption;
 
     QVector<ParenthesisPair> matchPairs;
