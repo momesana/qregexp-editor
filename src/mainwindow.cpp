@@ -318,6 +318,8 @@ void MainWindow::setIcons()
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit.png")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
+    ui->preferencesAct->setIcon(QIcon::fromTheme(QLatin1String("configure"),
+                                QIcon(QLatin1String(ICON_CONFIGURE))));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
     QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
     warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
@@ -339,6 +341,7 @@ void MainWindow::makeSignalConnections()
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
+    connect(ui->preferencesAct, SIGNAL(triggered()), SLOT(showPreferencesDialog()));
 }
 
 void MainWindow::createStatusBar()
@@ -397,4 +400,8 @@ void MainWindow::setSearchSettings(SearchSettings *s) const
         ui->caseSensitivityCheckBox->setChecked(rc.caseSensitivity);
         ui->minimalCheckBox->setChecked(rc.minimal);
     }
+}
+
+void MainWindow::showPreferencesDialog()
+{
 }

@@ -8,6 +8,7 @@
         <file>images/edit-clear.png</file>
         <file>images/document-open.png</file>
         <file>images/application-exit.png</file>
+        <file>images/configure.png</file>
         <file>images/qregexp-editor-logo-128.png</file>
     </qresource>
 </RCC>

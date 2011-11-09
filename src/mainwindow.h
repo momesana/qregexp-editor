@@ -93,6 +93,7 @@ private slots:
     void updateStatus(const QString &);
     void toggleWarningWidget(bool);
     void returnPressed();
+    void showPreferencesDialog();
 };
 
 #endif // MAINWINDOW_H

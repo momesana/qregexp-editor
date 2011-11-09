@@ -21,5 +21,5 @@
 #define CONSTANTS_H
 
 const char *const ICON_QREGEXP_LOGO_128 = ":/images/qregexp-editor-logo-128.png";
-
+const char *const ICON_CONFIGURE = ":/images/configure.png";
 #endif // CONSTANTS_H
