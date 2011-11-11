@@ -89,7 +89,7 @@ void RegexpTextEdit::setShowTabsAndSpacesEnabled(const bool enabled)
 void RegexpTextEdit::setShowLineAndParagraphSeparatorsEnabled(const bool enabled)
 {
     Q_D(RegexpTextEdit);
-    if (enabled != d->showTabsAndSpaces) {
+    if (enabled != d->showLineAndParagraphSeparators) {
         d->showLineAndParagraphSeparators = enabled;
         d->setTextOptionFlagsEnabled(enabled, QTextOption::ShowLineAndParagraphSeparators);
     }
