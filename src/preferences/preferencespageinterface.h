@@ -10,18 +10,25 @@
  *
  * QRegExp-Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef PREFERENCESPAGEINTERFACE_H
+#define PREFERENCESPAGEINTERFACE_H
 
-const char *const ICON_QREGEXP_LOGO_128 = ":/images/qregexp-editor-logo-128.png";
-const char *const ICON_CONFIGURE = ":/images/configure.png";
-const char *const ICON_UNKNOWN = ":/images/unknown.png";
+class QWidget;
 
-#endif // CONSTANTS_H
+class PreferencesPageInterface {
+
+public:
+    virtual ~PreferencesPageInterface() {}
+    virtual QWidget *widget() const = 0;
+    virtual void apply() = 0;
+    virtual void updateWidget() = 0;
+};
+
+#endif // PREFERENCESPAGEINTERFACE_H

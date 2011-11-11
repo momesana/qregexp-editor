@@ -1,6 +1,7 @@
 include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}
    ${CMAKE_CURRENT_BINARY_DIR}
+   "${CMAKE_CURRENT_BINARY_DIR}/preferences"
 )
 
 
@@ -9,7 +10,22 @@ file(GLOB CPP_FILES *.cpp)
 file(GLOB UI_FILES *.ui)
 set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_FILES} PARENT_SCOPE)
 
+list(APPEND preferences_SRCS
+   preferences/preferencesdialog.cpp
+   preferences/settingsinterface.cpp
+   preferences/settingsinterface.h
+)
+
+list(APPEND preferences_UIs
+   preferences/preferencesdialog.ui
+)
+
+list(APPEND preferences_MOC_HDRS
+   preferences/preferencesdialog.h
+)
+
 list(APPEND qregexp-editor_SRCS
+   ${preferences_SRCS}
    regexptextedit.cpp
    regexptextedit_p.cpp
    parentheseshighlighter.cpp
@@ -26,12 +42,14 @@ list(APPEND qregexp-editor_SRCS
 )
 
 set(qregexp-editor_UIs
+   ${preferences_UIs}
    ui/aboutdialog.ui
    ui/escapedpatterndialog.ui
    ui/mainwindow.ui
 )
 
 set(qregexp-editor_MOC_HDRS
+   ${preferences_MOC_HDRS}
    parentheseshighlighter.h
    aboutdialog.h
    escapedpatterndialog.h
@@ -53,7 +71,16 @@ qt4_generate_moc(
    ${CMAKE_CURRENT_SOURCE_DIR}/regexptextedit.h
    ${CMAKE_CURRENT_BINARY_DIR}/regexptextedit.moc
 )
-set(manual_MOC_SRCS "regexptextedit.moc")
+qt4_generate_moc(
+   ${CMAKE_CURRENT_SOURCE_DIR}/preferences/settingsinterface.h
+   ${CMAKE_CURRENT_BINARY_DIR}/preferences/settingsinterface.moc
+)
+
+list(APPEND manual_MOC_SRCS
+   "regexptextedit.moc"
+   "preferences/settingsinterface.moc"
+
+)
 
 if(APPLE)
    set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${QREGEXP-EDITOR_VERSION})
