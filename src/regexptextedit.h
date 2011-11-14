@@ -37,6 +37,7 @@ public:
     QColor highlightColor() const;
     bool highlightEnabled() const;
     bool showTabsAndSpacesEnabled() const;
+    bool showLineAndParagraphSeparatorsEnabled() const;
 
 public Q_SLOTS:
     void setHighlightColor(const QColor &c);

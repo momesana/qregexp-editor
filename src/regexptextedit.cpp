@@ -59,6 +59,12 @@ bool RegexpTextEdit::showTabsAndSpacesEnabled() const
     return d->showTabsAndSpaces;
 }
 
+bool RegexpTextEdit::showLineAndParagraphSeparatorsEnabled() const
+{
+    Q_D(const RegexpTextEdit);
+    return d->showLineAndParagraphSeparators;
+}
+
 void RegexpTextEdit::setHighlightColor(const QColor &c)
 {
     Q_D(RegexpTextEdit);
