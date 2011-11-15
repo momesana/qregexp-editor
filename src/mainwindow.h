@@ -94,7 +94,6 @@ private slots:
     void clearRegExpEdit();
     void updateStatus(const QString &);
     void toggleWarningWidget(bool);
-    void returnPressed();
     void showPreferencesDialog();
     void updateRegexpSettingsUi();
     void showTabsAndSpaces(bool);

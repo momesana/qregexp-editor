@@ -187,13 +187,6 @@ void MainWindow::escapedPattern()
     m_escapedPatternDialog->activateWindow();
 }
 
-void MainWindow::returnPressed()
-{
-    if (isSearchPossible()) {
-        match();
-    }
-}
-
 void MainWindow::match()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
