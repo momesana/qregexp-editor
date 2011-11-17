@@ -89,7 +89,8 @@ private slots:
     void about();
     void escapedPattern();
     void updateUiStatus();
-    void updateRegExp();
+    void updateRegExpOptions(); // Updates everyting except pattern
+    void updateRegExpPattern();
     void clearInputEdit();
     void clearRegExpEdit();
     void updateStatus(const QString &);

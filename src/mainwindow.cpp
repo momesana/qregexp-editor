@@ -215,19 +215,23 @@ void MainWindow::updateUiStatus()
     ui->matchAct->setEnabled(b);
 }
 
-void MainWindow::updateRegExp()
+void MainWindow::updateRegExpPattern()
+{
+    m_rx.setPattern(ui->regexpEdit->toPlainText());
+    updateUiStatus();
+}
+
+void MainWindow::updateRegExpOptions()
 {
     int index = ui->syntaxComboBox->currentIndex();
     // we use the data as enum value for the pattern syntax of the regexp
     int data = ui->syntaxComboBox->itemData(index, Qt::UserRole).toInt();
-    m_rx.setPattern(ui->regexpEdit->toPlainText());
     m_rx.setPatternSyntax((QRegExp::PatternSyntax)data);
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
     m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
     updateUiStatus();
 }
-
 void MainWindow::clearInputEdit()
 {
     ui->inputEdit->clear();
@@ -335,7 +339,7 @@ void MainWindow::makeSignalConnections()
 {
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
-    connect(ui->regexpEdit, SIGNAL(textChanged()), SLOT(updateRegExp()));
+    connect(ui->regexpEdit, SIGNAL(textChanged()), SLOT(updateRegExpPattern()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
@@ -345,9 +349,9 @@ void MainWindow::makeSignalConnections()
             SLOT(showNewlines(bool)));
     connect(ui->showParenthesesMatchAct, SIGNAL(triggered(bool)),
             SLOT(showParenthesesMatch(bool)));
-    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
-    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
+    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExpOptions()));
+    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
+    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
     connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
