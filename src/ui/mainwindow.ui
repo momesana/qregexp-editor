@@ -203,9 +203,9 @@ p, li { white-space: pre-wrap; }
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="inputEditToolbar">
    <property name="windowTitle">
-    <string>Tool Bar</string>
+    <string>Input Edit</string>
    </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonFollowStyle</enum>
