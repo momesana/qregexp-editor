@@ -197,9 +197,28 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="escapedPatternAct"/>
    </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="preferencesAct"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <widget class="QMenu" name="toolbarsMenu">
+     <property name="title">
+      <string>Toolbars</string>
+     </property>
+    </widget>
+    <addaction name="toolbarsMenu"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_Tools"/>
+   <addaction name="menu_View"/>
+   <addaction name="menu_Settings"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -266,6 +285,14 @@ p, li { white-space: pre-wrap; }
   <action name="escapedPatternAct">
    <property name="text">
     <string>Escaped pattern</string>
+   </property>
+  </action>
+  <action name="preferencesAct">
+   <property name="text">
+    <string>Preferences...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
  </widget>

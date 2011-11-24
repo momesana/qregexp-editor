@@ -48,6 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setIcons();
     populateComboBoxes();
 
+    toolbars.append(ui->inputEditToolbar);
+    populateToolbarMenu();
+
     // shortcuts
     ui->quitAct->setShortcut(QKeySequence::Quit);
 
@@ -300,6 +303,13 @@ void MainWindow::populateComboBoxes()
     ui->syntaxComboBox->addItem(tr("WildcardUnix"), QRegExp::WildcardUnix);
     ui->syntaxComboBox->addItem(tr("FixedString"), QRegExp::FixedString);
     ui->syntaxComboBox->addItem(tr("W3CXmlSchema11"), QRegExp::W3CXmlSchema11);
+}
+
+void MainWindow::populateToolbarMenu()
+{
+    for (int i = 0; i < toolbars.size(); ++i) {
+        ui->toolbarsMenu->addAction(toolbars.at(i)->toggleViewAction());
+    }
 }
 
 void MainWindow::setIcons()

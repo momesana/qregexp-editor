@@ -38,6 +38,7 @@ class EscapedPatternDialog;
 class RegExpModel;
 class QAction;
 class QLabel;
+class QToolBar;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -61,12 +62,14 @@ private:
     const int m_maxRecentFiles;
     QSettings m_settings;
     SearchSettings m_searchSettings;
+    QList<QToolBar *> toolbars;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
     void writeSettings();
     void readSettings();
     void populateComboBoxes();
+    void populateToolbarMenu();
     void setIcons();
     void makeSignalConnections();
     void createStatusBar();
