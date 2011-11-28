@@ -25,6 +25,7 @@
 
 static const char showTabsAndSpacesKeyC[] = "showTabsAndSpaces";
 static const char showNewlinesKeyC[] = "showNewlines";
+static const char showParenthesesMatchKeyC[] = "showParenthesesMatch";
 
 RegexpSettings::RegexpSettings(QSettings *s, const QString &name)
     : SettingsInterface(s, name)
@@ -44,6 +45,7 @@ void RegexpSettings::toSettings() const
     s->setValue(QLatin1String(showTabsAndSpacesKeyC),
                 m_options.showTabsAndSpaces);
     s->setValue(QLatin1String(showNewlinesKeyC), m_options.showNewlines);
+    s->setValue(QLatin1String(showParenthesesMatchKeyC), m_options.showParenthesesMatch);
     s->endGroup();
 }
 
@@ -56,6 +58,7 @@ void RegexpSettings::fromSettings()
     m_options.showTabsAndSpaces = s->value(QLatin1String(
             showTabsAndSpacesKeyC)).toBool();
     m_options.showNewlines = s->value(QLatin1String(showNewlinesKeyC)).toBool();
+    m_options.showParenthesesMatch = s->value(QLatin1String(showParenthesesMatchKeyC)).toBool();
     s->endGroup();
 }
 

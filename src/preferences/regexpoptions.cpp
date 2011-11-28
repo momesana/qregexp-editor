@@ -21,19 +21,22 @@
 
 RegexpOptions::RegexpOptions()
     : showTabsAndSpaces(false),
-      showNewlines(false)
+      showNewlines(false),
+      showParenthesesMatch(true)
 {
 }
 
 bool RegexpOptions::equals(const RegexpOptions &s) const
 {
     return showTabsAndSpaces == s.showTabsAndSpaces
-           && showNewlines == s.showNewlines;
+           && showNewlines == s.showNewlines
+           && showParenthesesMatch == s.showParenthesesMatch;
 }
 
 QDebug operator<<(QDebug dbg, const RegexpOptions &p)
 {
     dbg.nospace() << "(" << p.showTabsAndSpaces << ", " <<
-                  p.showNewlines << ")";
+                  p.showNewlines << ", " <<
+                  p.showParenthesesMatch << ")";
     return dbg.space();
 }

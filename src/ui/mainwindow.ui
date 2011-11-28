@@ -261,6 +261,8 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="showTabsAndSpacesAct"/>
    <addaction name="showNewlinesAct"/>
+   <addaction name="separator"/>
+   <addaction name="showParenthesesMatchAct"/>
   </widget>
   <action name="openAct">
    <property name="text">
@@ -340,6 +342,17 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>Visualize line separator with appropriate symbol character</string>
+   </property>
+  </action>
+  <action name="showParenthesesMatchAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable Parentheses matching</string>
+   </property>
+   <property name="toolTip">
+    <string>Highlight matching parentheses</string>
    </property>
   </action>
  </widget>

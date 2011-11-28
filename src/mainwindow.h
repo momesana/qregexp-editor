@@ -99,6 +99,7 @@ private slots:
     void updateRegexpSettingsUi();
     void showTabsAndSpaces(bool);
     void showNewlines(bool);
+    void showParenthesesMatch(bool);
 };
 
 #endif // MAINWINDOW_H

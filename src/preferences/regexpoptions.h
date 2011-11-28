@@ -25,6 +25,7 @@
 struct RegexpOptions {
     bool showTabsAndSpaces;
     bool showNewlines;
+    bool showParenthesesMatch;
 
     RegexpOptions();
     bool equals(const RegexpOptions &) const;

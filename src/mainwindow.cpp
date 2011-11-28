@@ -67,7 +67,6 @@ MainWindow::MainWindow(QWidget *parent) :
     updateRecentFileActions();
     updateUiStatus();
     ui->regexpEdit->setHighlightColor(Qt::yellow);
-    ui->regexpEdit->setHighlightEnabled(true);
     updateRegexpSettingsUi();
 }
 
@@ -328,6 +327,9 @@ void MainWindow::setIcons()
         QIcon(QLatin1String(ICON_SHOW_TABS_AND_SPACES)));
     ui->showNewlinesAct->setIcon(
         QIcon(QLatin1String(ICON_SHOW_NEWLINES)));
+    ui->showParenthesesMatchAct->setIcon(
+        QIcon(QLatin1String(ICON_PARENTHESES_HIGHLIGHTER)));
+
     ui->preferencesAct->setIcon(QIcon::fromTheme(QLatin1String("configure"),
                                 QIcon(QLatin1String(ICON_CONFIGURE))));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
@@ -348,6 +350,8 @@ void MainWindow::makeSignalConnections()
             SLOT(showTabsAndSpaces(bool)));
     connect(ui->showNewlinesAct, SIGNAL(triggered(bool)),
             SLOT(showNewlines(bool)));
+    connect(ui->showParenthesesMatchAct, SIGNAL(triggered(bool)),
+            SLOT(showParenthesesMatch(bool)));
     connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
@@ -432,6 +436,9 @@ void MainWindow::updateRegexpSettingsUi()
 
     ui->showNewlinesAct->setChecked(rc.showNewlines);
     ui->regexpEdit->setShowLineAndParagraphSeparatorsEnabled(rc.showNewlines);
+
+    ui->showParenthesesMatchAct->setChecked(rc.showParenthesesMatch);
+    ui->regexpEdit->setHighlightEnabled(rc.showParenthesesMatch);
 }
 
 void MainWindow::showTabsAndSpaces(bool checked)
@@ -445,5 +452,12 @@ void MainWindow::showNewlines(bool checked)
 {
     RegexpOptions rc = m_regexpSettings->options();
     rc.showNewlines = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::showParenthesesMatch(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showParenthesesMatch = checked;
     m_regexpSettings->setOptions(rc);
 }
