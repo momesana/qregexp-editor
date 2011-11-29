@@ -25,6 +25,8 @@
 #include "escapedpatterndialog.h"
 #include "parentheseshighlighter.h"
 
+#include "preferences/regexpsettings.h"
+
 // Qt
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
@@ -41,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     , m_maxRecentFiles(10)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QLatin1String("QRegExp-Editor"), QLatin1String("QRegExp-Editor"))
     , m_searchSettings()
+    , m_regexpSettings(new RegexpSettings(&m_settings, QLatin1String("regexp")))
 {
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
@@ -49,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     populateComboBoxes();
 
     toolbars.append(ui->inputEditToolbar);
+    toolbars.append(ui->regexpEditToolbar);
     populateToolbarMenu();
 
     // shortcuts
@@ -64,8 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     updateUiStatus();
     ui->regexpEdit->setHighlightColor(Qt::yellow);
     ui->regexpEdit->setHighlightEnabled(true);
-    ui->regexpEdit->setShowTabsAndSpacesEnabled(false);
-    ui->regexpEdit->setShowLineAndParagraphSeparatorsEnabled(false);
+    updateRegexpSettingsUi();
 }
 
 MainWindow::~MainWindow()
@@ -117,6 +120,8 @@ void MainWindow::readSettings()
     m_searchSettings.fromSettings(&m_settings);
     m_searchSettings.setHistoryLength(1);
     setSearchSettings(&m_searchSettings);
+
+    m_regexpSettings->fromSettings();
 }
 
 void MainWindow::writeSettings()
@@ -134,6 +139,7 @@ void MainWindow::writeSettings()
     m_settings.setValue(QLatin1String(resultViewWidthsKeyC), widths);
     m_settings.endGroup();
     m_searchSettings.toSettings(&m_settings);
+    m_regexpSettings->toSettings();
 }
 
 void MainWindow::open()
@@ -318,6 +324,10 @@ void MainWindow::setIcons()
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit.png")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
+    ui->showTabsAndSpacesAct->setIcon(
+        QIcon(QLatin1String(ICON_SHOW_TABS_AND_SPACES)));
+    ui->showNewlinesAct->setIcon(
+        QIcon(QLatin1String(ICON_SHOW_NEWLINES)));
     ui->preferencesAct->setIcon(QIcon::fromTheme(QLatin1String("configure"),
                                 QIcon(QLatin1String(ICON_CONFIGURE))));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
@@ -334,6 +344,10 @@ void MainWindow::makeSignalConnections()
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
+    connect(ui->showTabsAndSpacesAct, SIGNAL(triggered(bool)),
+            SLOT(showTabsAndSpaces(bool)));
+    connect(ui->showNewlinesAct, SIGNAL(triggered(bool)),
+            SLOT(showNewlines(bool)));
     connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
@@ -342,6 +356,9 @@ void MainWindow::makeSignalConnections()
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
     connect(ui->preferencesAct, SIGNAL(triggered()), SLOT(showPreferencesDialog()));
+
+    connect(m_regexpSettings, SIGNAL(settingsChanged(const QString &)),
+            SLOT(updateRegexpSettingsUi()));
 }
 
 void MainWindow::createStatusBar()
@@ -404,4 +421,29 @@ void MainWindow::setSearchSettings(SearchSettings *s) const
 
 void MainWindow::showPreferencesDialog()
 {
+}
+
+void MainWindow::updateRegexpSettingsUi()
+{
+    RegexpOptions rc = m_regexpSettings->options();
+
+    ui->showTabsAndSpacesAct->setChecked(rc.showTabsAndSpaces);
+    ui->regexpEdit->setShowTabsAndSpacesEnabled(rc.showTabsAndSpaces);
+
+    ui->showNewlinesAct->setChecked(rc.showNewlines);
+    ui->regexpEdit->setShowLineAndParagraphSeparatorsEnabled(rc.showNewlines);
+}
+
+void MainWindow::showTabsAndSpaces(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showTabsAndSpaces = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::showNewlines(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showNewlines = checked;
+    m_regexpSettings->setOptions(rc);
 }

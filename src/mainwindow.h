@@ -33,6 +33,7 @@ namespace Ui {
     class MainWindow;
 }
 
+class RegexpSettings;
 class AboutDialog;
 class EscapedPatternDialog;
 class RegExpModel;
@@ -63,6 +64,7 @@ private:
     QSettings m_settings;
     SearchSettings m_searchSettings;
     QList<QToolBar *> toolbars;
+    RegexpSettings *m_regexpSettings;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
@@ -94,6 +96,9 @@ private slots:
     void toggleWarningWidget(bool);
     void returnPressed();
     void showPreferencesDialog();
+    void updateRegexpSettingsUi();
+    void showTabsAndSpaces(bool);
+    void showNewlines(bool);
 };
 
 #endif // MAINWINDOW_H

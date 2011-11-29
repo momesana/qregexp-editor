@@ -14,17 +14,26 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#include "regexpoptions.h"
 
-const char *const ICON_QREGEXP_LOGO_128 = ":/images/qregexp-editor-logo-128.png";
-const char *const ICON_SHOW_TABS_AND_SPACES =
-    ":/images/show-tabs-and-spaces.png";
-const char *const ICON_SHOW_NEWLINES = ":/images/show-newlines.png";
-const char *const ICON_CONFIGURE = ":/images/configure.png";
-const char *const ICON_UNKNOWN = ":/images/unknown.png";
+RegexpOptions::RegexpOptions()
+    : showTabsAndSpaces(false),
+      showNewlines(false)
+{
+}
 
-#endif // CONSTANTS_H
+bool RegexpOptions::equals(const RegexpOptions &s) const
+{
+    return showTabsAndSpaces == s.showTabsAndSpaces
+           && showNewlines == s.showNewlines;
+}
+
+QDebug operator<<(QDebug dbg, const RegexpOptions &p)
+{
+    dbg.nospace() << "(" << p.showTabsAndSpaces << ", " <<
+                  p.showNewlines << ")";
+    return dbg.space();
+}

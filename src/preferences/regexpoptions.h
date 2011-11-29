@@ -14,17 +14,32 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef REGEXPOPTIONS_H
+#define REGEXPOPTIONS_H
 
-const char *const ICON_QREGEXP_LOGO_128 = ":/images/qregexp-editor-logo-128.png";
-const char *const ICON_SHOW_TABS_AND_SPACES =
-    ":/images/show-tabs-and-spaces.png";
-const char *const ICON_SHOW_NEWLINES = ":/images/show-newlines.png";
-const char *const ICON_CONFIGURE = ":/images/configure.png";
-const char *const ICON_UNKNOWN = ":/images/unknown.png";
+#include <QtCore/QDebug>
 
-#endif // CONSTANTS_H
+struct RegexpOptions {
+    bool showTabsAndSpaces;
+    bool showNewlines;
+
+    RegexpOptions();
+    bool equals(const RegexpOptions &) const;
+};
+
+inline bool operator==(const RegexpOptions &p1, const RegexpOptions &p2)
+{
+    return p1.equals(p2);
+}
+
+inline bool operator!=(const RegexpOptions &p1, const RegexpOptions &p2)
+{
+    return !p1.equals(p2);
+}
+
+QDebug operator<<(QDebug dbg, const RegexpOptions &p);
+
+#endif // REGEXPOPTIONS_H

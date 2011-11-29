@@ -243,6 +243,25 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="clearInputEditAct"/>
   </widget>
+  <widget class="QToolBar" name="regexpEditToolbar">
+   <property name="windowTitle">
+    <string>Regexp Edit</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonFollowStyle</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="showTabsAndSpacesAct"/>
+   <addaction name="showNewlinesAct"/>
+  </widget>
   <action name="openAct">
    <property name="text">
     <string>&amp;Open</string>
@@ -299,6 +318,28 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="showTabsAndSpacesAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show tabs and spaces</string>
+   </property>
+   <property name="toolTip">
+    <string>Visualize spaces with little dots, and tabs with little arrows</string>
+   </property>
+  </action>
+  <action name="showNewlinesAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show newlines</string>
+   </property>
+   <property name="toolTip">
+    <string>Visualize line separator with appropriate symbol character</string>
    </property>
   </action>
  </widget>

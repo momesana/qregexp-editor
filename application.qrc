@@ -10,6 +10,8 @@
         <file>images/application-exit.png</file>
         <file>images/configure.png</file>
         <file>images/unknown.png</file>
+        <file>images/show-tabs-and-spaces.png</file>
+        <file>images/show-newlines.png</file>
         <file>images/qregexp-editor-logo-128.png</file>
     </qresource>
 </RCC>

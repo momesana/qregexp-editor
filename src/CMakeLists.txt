@@ -14,6 +14,8 @@ list(APPEND preferences_SRCS
    preferences/preferencesdialog.cpp
    preferences/settingsinterface.cpp
    preferences/settingsinterface.h
+   preferences/regexpoptions.cpp
+   preferences/regexpsettings.cpp
 )
 
 list(APPEND preferences_UIs
@@ -22,6 +24,7 @@ list(APPEND preferences_UIs
 
 list(APPEND preferences_MOC_HDRS
    preferences/preferencesdialog.h
+   preferences/regexpsettings.h
 )
 
 list(APPEND qregexp-editor_SRCS
