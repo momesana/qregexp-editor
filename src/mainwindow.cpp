@@ -357,6 +357,8 @@ void MainWindow::makeSignalConnections()
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
     connect(ui->filterNewlinesAct, SIGNAL(triggered(bool)),
             SLOT(filterNewlines(bool)));
+    connect(ui->filterTrailingWhitespacesAct, SIGNAL(triggered(bool)),
+            SLOT(filterTrailingWhitespaces(bool)));
     connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
@@ -431,6 +433,7 @@ void MainWindow::showPreferencesDialog()
 
 void MainWindow::updateRegexpSettingsUi()
 {
+    qDebug() << Q_FUNC_INFO;
     RegexpOptions rc = m_regexpSettings->options();
 
     ui->showTabsAndSpacesAct->setChecked(rc.showTabsAndSpaces);
@@ -444,6 +447,8 @@ void MainWindow::updateRegexpSettingsUi()
 
     ui->filterNewlinesAct->setChecked(
         rc.filters.testFlag(PatternFilter::FilterNewlines));
+    ui->filterTrailingWhitespacesAct->setChecked(
+        rc.filters.testFlag(PatternFilter::FilterTrailingWhitespaces));
     patternFilter.setFilters(rc.filters);
 
     updateRegExpPattern();
@@ -472,6 +477,7 @@ void MainWindow::showParenthesesMatch(bool checked)
 
 void MainWindow::filterNewlines(bool checked)
 {
+    qDebug() << Q_FUNC_INFO;
     RegexpOptions rc = m_regexpSettings->options();
 
     if (checked) {
@@ -479,5 +485,20 @@ void MainWindow::filterNewlines(bool checked)
     } else {
         rc.filters &= ~PatternFilter::FilterNewlines;
     }
+    qDebug() << Q_FUNC_INFO << "rc.filters: " << rc.filters;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::filterTrailingWhitespaces(bool checked)
+{
+    qDebug() << Q_FUNC_INFO;
+    RegexpOptions rc = m_regexpSettings->options();
+
+    if (checked) {
+        rc.filters |= PatternFilter::FilterTrailingWhitespaces;
+    } else {
+        rc.filters &= ~PatternFilter::FilterTrailingWhitespaces;
+    }
+    qDebug() << Q_FUNC_INFO << "rc.filters: " << rc.filters;
     m_regexpSettings->setOptions(rc);
 }

@@ -30,7 +30,8 @@ public:
 
     enum Filter {
         NoFilters = 0x0,
-        FilterNewlines = 0x1
+        FilterNewlines = 0x1,
+        FilterTrailingWhitespaces = 0x2
     };
     Q_DECLARE_FLAGS(Filters, Filter)
 
@@ -40,7 +41,8 @@ public:
     QString filtered(QString &pattern);
 
 private:
-
+    class Private;
+    Private *d;
     Filters f;
 };
 

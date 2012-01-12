@@ -275,6 +275,7 @@ p, li { white-space: pre-wrap; }
     <bool>false</bool>
    </attribute>
    <addaction name="filterNewlinesAct"/>
+   <addaction name="filterTrailingWhitespacesAct"/>
   </widget>
   <action name="openAct">
    <property name="text">
@@ -373,6 +374,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Filter newlines</string>
+   </property>
+  </action>
+  <action name="filterTrailingWhitespacesAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Filter trailing whitespaces</string>
+   </property>
+   <property name="toolTip">
+    <string>Filters trailing whitespaces: 't', '
+', 'v', 'f', 'r', and ' '.</string>
    </property>
   </action>
  </widget>

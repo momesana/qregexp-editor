@@ -103,6 +103,7 @@ private slots:
     void showNewlines(bool);
     void showParenthesesMatch(bool);
     void filterNewlines(bool);
+    void filterTrailingWhitespaces(bool);
 };
 
 #endif // MAINWINDOW_H
