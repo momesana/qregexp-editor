@@ -106,3 +106,5 @@ target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
 
 install(TARGETS ${PROGRAM_NAME} DESTINATION bin)
 add_dependencies(${PROGRAM_NAME} translations)
+
+add_subdirectory(tests)

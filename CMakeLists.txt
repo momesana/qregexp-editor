@@ -16,6 +16,7 @@ set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.0.2")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
+enable_testing()
 include(QRegExpEditorVersion)
 
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
