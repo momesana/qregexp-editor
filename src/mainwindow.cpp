@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     toolbars.append(ui->inputEditToolbar);
     toolbars.append(ui->regexpEditToolbar);
+    toolbars.append(ui->filtersToolbar);
     populateToolbarMenu();
 
     // shortcuts
@@ -217,7 +218,9 @@ void MainWindow::updateUiStatus()
 
 void MainWindow::updateRegExpPattern()
 {
-    m_rx.setPattern(ui->regexpEdit->toPlainText());
+    QString s = QString(ui->regexpEdit->toPlainText());
+    QString pattern = patternFilter.filtered(s);
+    m_rx.setPattern(pattern);
     updateUiStatus();
 }
 
@@ -352,6 +355,8 @@ void MainWindow::makeSignalConnections()
     connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExpOptions()));
     connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
     connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
+    connect(ui->filterNewlinesAct, SIGNAL(triggered(bool)),
+            SLOT(filterNewlines(bool)));
     connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
@@ -436,6 +441,12 @@ void MainWindow::updateRegexpSettingsUi()
 
     ui->showParenthesesMatchAct->setChecked(rc.showParenthesesMatch);
     ui->regexpEdit->setHighlightEnabled(rc.showParenthesesMatch);
+
+    ui->filterNewlinesAct->setChecked(
+        rc.filters.testFlag(PatternFilter::FilterNewlines));
+    patternFilter.setFilters(rc.filters);
+
+    updateRegExpPattern();
 }
 
 void MainWindow::showTabsAndSpaces(bool checked)
@@ -456,5 +467,17 @@ void MainWindow::showParenthesesMatch(bool checked)
 {
     RegexpOptions rc = m_regexpSettings->options();
     rc.showParenthesesMatch = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::filterNewlines(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+
+    if (checked) {
+        rc.filters |= PatternFilter::FilterNewlines;
+    } else {
+        rc.filters &= ~PatternFilter::FilterNewlines;
+    }
     m_regexpSettings->setOptions(rc);
 }

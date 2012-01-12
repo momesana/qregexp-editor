@@ -21,6 +21,7 @@
 #define MAINWINDOW_H
 
 #include "searchsettings.h"
+#include "patternfilter.h"
 
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
@@ -65,6 +66,7 @@ private:
     SearchSettings m_searchSettings;
     QList<QToolBar *> toolbars;
     RegexpSettings *m_regexpSettings;
+    PatternFilter patternFilter;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
@@ -100,6 +102,7 @@ private slots:
     void showTabsAndSpaces(bool);
     void showNewlines(bool);
     void showParenthesesMatch(bool);
+    void filterNewlines(bool);
 };
 
 #endif // MAINWINDOW_H

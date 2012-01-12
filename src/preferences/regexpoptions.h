@@ -21,11 +21,13 @@
 #define REGEXPOPTIONS_H
 
 #include <QtCore/QDebug>
+#include "patternfilter.h"
 
 struct RegexpOptions {
     bool showTabsAndSpaces;
     bool showNewlines;
     bool showParenthesesMatch;
+    PatternFilter::Filters filters;
 
     RegexpOptions();
     bool equals(const RegexpOptions &) const;

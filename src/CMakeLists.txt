@@ -31,6 +31,7 @@ list(APPEND qregexp-editor_SRCS
    ${preferences_SRCS}
    regexptextedit.cpp
    regexptextedit_p.cpp
+   patternfilter.cpp
    parentheseshighlighter.cpp
    qregexp_editor-version.cpp
    node.cpp

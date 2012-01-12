@@ -22,7 +22,8 @@
 RegexpOptions::RegexpOptions()
     : showTabsAndSpaces(false),
       showNewlines(false),
-      showParenthesesMatch(true)
+      showParenthesesMatch(true),
+      filters(0)
 {
 }
 
@@ -30,13 +31,15 @@ bool RegexpOptions::equals(const RegexpOptions &s) const
 {
     return showTabsAndSpaces == s.showTabsAndSpaces
            && showNewlines == s.showNewlines
-           && showParenthesesMatch == s.showParenthesesMatch;
+           && showParenthesesMatch == s.showParenthesesMatch
+           && filters == s.filters;
 }
 
 QDebug operator<<(QDebug dbg, const RegexpOptions &p)
 {
     dbg.nospace() << "(" << p.showTabsAndSpaces << ", " <<
                   p.showNewlines << ", " <<
-                  p.showParenthesesMatch << ")";
+                  p.showParenthesesMatch << ", " <<
+                  p.filters << ")";
     return dbg.space();
 }

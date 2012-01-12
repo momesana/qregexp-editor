@@ -18,6 +18,7 @@
  */
 
 #include "regexpsettings.h"
+#include "patternfilter.h"
 
 #include <QtCore/QLatin1String>
 #include <QtCore/QSettings>
@@ -26,6 +27,7 @@
 static const char showTabsAndSpacesKeyC[] = "showTabsAndSpaces";
 static const char showNewlinesKeyC[] = "showNewlines";
 static const char showParenthesesMatchKeyC[] = "showParenthesesMatch";
+static const char regexpFiltersKeyC[] = "filters";
 
 RegexpSettings::RegexpSettings(QSettings *s, const QString &name)
     : SettingsInterface(s, name)
@@ -46,6 +48,7 @@ void RegexpSettings::toSettings() const
                 m_options.showTabsAndSpaces);
     s->setValue(QLatin1String(showNewlinesKeyC), m_options.showNewlines);
     s->setValue(QLatin1String(showParenthesesMatchKeyC), m_options.showParenthesesMatch);
+    s->setValue(QLatin1String(regexpFiltersKeyC), (uint)m_options.filters);
     s->endGroup();
 }
 
@@ -59,6 +62,7 @@ void RegexpSettings::fromSettings()
             showTabsAndSpacesKeyC)).toBool();
     m_options.showNewlines = s->value(QLatin1String(showNewlinesKeyC)).toBool();
     m_options.showParenthesesMatch = s->value(QLatin1String(showParenthesesMatchKeyC)).toBool();
+    m_options.filters = (PatternFilter::Filters) s->value(QLatin1String(regexpFiltersKeyC)).toUInt();
     s->endGroup();
 }
 
