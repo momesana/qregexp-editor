@@ -196,6 +196,11 @@ void MainWindow::match()
     for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         ui->resultView->resizeColumnToContents(i);
     }
+
+    // usability: expand everything when we have one match only
+    const int matchesCount = m_model->rowCount(QModelIndex());
+    if (matchesCount == 1)
+        ui->resultView->expandAll();
 }
 
 void MainWindow::updateUiStatus()
