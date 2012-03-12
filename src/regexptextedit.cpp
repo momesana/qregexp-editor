@@ -70,7 +70,11 @@ void RegexpTextEdit::setHighlightColor(const QColor &c)
     Q_D(RegexpTextEdit);
     if (c != d->hColor) {
         d->hColor = c;
-        d->setHighlightColor(c);
+        if (d->highlightEnabled) {
+            // setHighlightColor() changes the color even when highlight is
+            // disabled. Only call it if highlight is enabled.
+            d->setHighlightColor(c);
+        }
     }
 }
 
