@@ -23,7 +23,8 @@ RegexpOptions::RegexpOptions()
     : showTabsAndSpaces(false),
       showNewlines(false),
       showParenthesesMatch(true),
-      filters(0)
+      filters(0),
+      highlightMatchColor(Qt::yellow)
 {
 }
 
@@ -32,7 +33,8 @@ bool RegexpOptions::equals(const RegexpOptions &s) const
     return showTabsAndSpaces == s.showTabsAndSpaces
            && showNewlines == s.showNewlines
            && showParenthesesMatch == s.showParenthesesMatch
-           && filters == s.filters;
+           && filters == s.filters
+           && highlightMatchColor == s.highlightMatchColor;
 }
 
 QDebug operator<<(QDebug dbg, const RegexpOptions &p)
@@ -40,6 +42,7 @@ QDebug operator<<(QDebug dbg, const RegexpOptions &p)
     dbg.nospace() << "(" << p.showTabsAndSpaces << ", " <<
                   p.showNewlines << ", " <<
                   p.showParenthesesMatch << ", " <<
-                  p.filters << ")";
+                  p.filters << ", " <<
+                  p.highlightMatchColor << ")";
     return dbg.space();
 }

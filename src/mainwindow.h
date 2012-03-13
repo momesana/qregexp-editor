@@ -34,6 +34,7 @@ namespace Ui {
     class MainWindow;
 }
 
+class PreferencesDialog;
 class RegexpSettings;
 class AboutDialog;
 class EscapedPatternDialog;
@@ -67,6 +68,7 @@ private:
     QList<QToolBar *> toolbars;
     RegexpSettings *m_regexpSettings;
     PatternFilter patternFilter;
+    PreferencesDialog *m_preferencesDialog;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
@@ -77,6 +79,7 @@ private:
     void setIcons();
     void makeSignalConnections();
     void createStatusBar();
+    void createPreferencesDialog();
     void createRegExpModel();
     void createRecentFileActions();
     bool isSearchPossible();
@@ -104,6 +107,7 @@ private slots:
     void showParenthesesMatch(bool);
     void filterNewlines(bool);
     void filterTrailingWhitespaces(bool);
+    void updateRegexpDialogSettingsUi();
 };
 
 #endif // MAINWINDOW_H

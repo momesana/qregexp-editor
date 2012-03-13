@@ -20,6 +20,7 @@
 #ifndef REGEXPOPTIONS_H
 #define REGEXPOPTIONS_H
 
+#include <QtGui/QColor>
 #include <QtCore/QDebug>
 #include "patternfilter.h"
 
@@ -28,6 +29,7 @@ struct RegexpOptions {
     bool showNewlines;
     bool showParenthesesMatch;
     PatternFilter::Filters filters;
+    QColor highlightMatchColor;
 
     RegexpOptions();
     bool equals(const RegexpOptions &) const;

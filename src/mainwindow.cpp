@@ -25,7 +25,10 @@
 #include "escapedpatterndialog.h"
 #include "parentheseshighlighter.h"
 
+#include "preferences/preferencesdialog.h"
+#include "preferences/regexppreferencespage.h"
 #include "preferences/regexpsettings.h"
+
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -44,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QLatin1String("QRegExp-Editor"), QLatin1String("QRegExp-Editor"))
     , m_searchSettings()
     , m_regexpSettings(new RegexpSettings(&m_settings, QLatin1String("regexp")))
+    , m_preferencesDialog(new PreferencesDialog(this))
 {
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
@@ -63,12 +67,13 @@ MainWindow::MainWindow(QWidget *parent) :
     createRegExpModel();
     createRecentFileActions();
     createStatusBar();
+    createPreferencesDialog();
 
     readSettings();
     updateRecentFileActions();
     updateUiStatus();
-    ui->regexpEdit->setHighlightColor(Qt::yellow);
     updateRegexpSettingsUi();
+    updateRegexpDialogSettingsUi();
 }
 
 MainWindow::~MainWindow()
@@ -374,6 +379,21 @@ void MainWindow::makeSignalConnections()
             SLOT(updateRegexpSettingsUi()));
 }
 
+void MainWindow::createPreferencesDialog()
+{
+    m_preferencesDialog = new PreferencesDialog(this, tr("Preferences"));
+    RegexpPreferencesPage *rp = new RegexpPreferencesPage(
+        m_preferencesDialog, m_regexpSettings);
+    m_preferencesDialog->addPage(
+        rp,
+        QIcon::fromTheme(QLatin1String("document-properties"),
+                         QIcon(QLatin1String(ICON_DOCUMENT_PROPERTIES))),
+        tr("RegExp"));
+
+    connect(m_regexpSettings, SIGNAL(settingsChanged(const QString &)),
+            SLOT(updateRegexpDialogSettingsUi()));
+}
+
 void MainWindow::createStatusBar()
 {
     m_statusLabel = new QLabel;
@@ -434,6 +454,9 @@ void MainWindow::setSearchSettings(SearchSettings *s) const
 
 void MainWindow::showPreferencesDialog()
 {
+    if (m_preferencesDialog) {
+        m_preferencesDialog->show();
+    }
 }
 
 void MainWindow::updateRegexpSettingsUi()
@@ -506,4 +529,10 @@ void MainWindow::filterTrailingWhitespaces(bool checked)
     }
     qDebug() << Q_FUNC_INFO << "rc.filters: " << rc.filters;
     m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::updateRegexpDialogSettingsUi()
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    ui->regexpEdit->setHighlightColor(rc.highlightMatchColor);
 }

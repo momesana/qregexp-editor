@@ -28,6 +28,7 @@ static const char showTabsAndSpacesKeyC[] = "showTabsAndSpaces";
 static const char showNewlinesKeyC[] = "showNewlines";
 static const char showParenthesesMatchKeyC[] = "showParenthesesMatch";
 static const char regexpFiltersKeyC[] = "filters";
+static const char highlightMatchColorKeyC[] = "highlightMatchColor";
 
 RegexpSettings::RegexpSettings(QSettings *s, const QString &name)
     : SettingsInterface(s, name)
@@ -49,6 +50,7 @@ void RegexpSettings::toSettings() const
     s->setValue(QLatin1String(showNewlinesKeyC), m_options.showNewlines);
     s->setValue(QLatin1String(showParenthesesMatchKeyC), m_options.showParenthesesMatch);
     s->setValue(QLatin1String(regexpFiltersKeyC), (uint)m_options.filters);
+    s->setValue(QLatin1String(highlightMatchColorKeyC), m_options.highlightMatchColor);
     s->endGroup();
 }
 
@@ -63,6 +65,7 @@ void RegexpSettings::fromSettings()
     m_options.showNewlines = s->value(QLatin1String(showNewlinesKeyC)).toBool();
     m_options.showParenthesesMatch = s->value(QLatin1String(showParenthesesMatchKeyC)).toBool();
     m_options.filters = (PatternFilter::Filters) s->value(QLatin1String(regexpFiltersKeyC)).toUInt();
+    m_options.highlightMatchColor = s->value(QLatin1String(highlightMatchColorKeyC), Qt::yellow).value<QColor>();
     s->endGroup();
 }
 
