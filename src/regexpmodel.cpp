@@ -82,22 +82,22 @@ void RegExpModel::evaluate(const QString &text, const QRegExp &regExp)
     bool min = regExp.isMinimal();
     QString ps;
     switch (regExp.patternSyntax()) {
-    case 0:
+    case QRegExp::RegExp:
         ps = "RegExp";
         break;
-    case 1:
+    case QRegExp::Wildcard:
         ps = "Wildcard";
         break;
-    case 2:
+    case QRegExp::FixedString:
         ps = "FixedString";
         break;
-    case 3:
+    case QRegExp::RegExp2:
         ps = "RegExp2";
         break;
-    case 4:
+    case QRegExp::WildcardUnix:
         ps = "WildcardUnix";
         break;
-    case 5:
+    case QRegExp::W3CXmlSchema11:
         ps = "W3CXmlSchema11";
         break;
     }
