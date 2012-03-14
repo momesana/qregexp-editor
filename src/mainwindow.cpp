@@ -23,6 +23,12 @@
 #include "regexpmodel.h"
 #include "aboutdialog.h"
 #include "escapedpatterndialog.h"
+#include "parentheseshighlighter.h"
+
+#include "preferences/preferencesdialog.h"
+#include "preferences/regexppreferencespage.h"
+#include "preferences/regexpsettings.h"
+
 
 // Qt
 #include <QtCore/QCoreApplication>
@@ -40,12 +46,19 @@ MainWindow::MainWindow(QWidget *parent) :
     , m_maxRecentFiles(10)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QLatin1String("QRegExp-Editor"), QLatin1String("QRegExp-Editor"))
     , m_searchSettings()
+    , m_regexpSettings(new RegexpSettings(&m_settings, QLatin1String("regexp")))
+    , m_preferencesDialog(new PreferencesDialog(this))
 {
     ui->setupUi(this);
     setWindowTitle(qApp->applicationName());
 
     setIcons();
     populateComboBoxes();
+
+    toolbars.append(ui->inputEditToolbar);
+    toolbars.append(ui->regexpEditToolbar);
+    toolbars.append(ui->filtersToolbar);
+    populateToolbarMenu();
 
     // shortcuts
     ui->quitAct->setShortcut(QKeySequence::Quit);
@@ -54,10 +67,13 @@ MainWindow::MainWindow(QWidget *parent) :
     createRegExpModel();
     createRecentFileActions();
     createStatusBar();
+    createPreferencesDialog();
 
     readSettings();
     updateRecentFileActions();
     updateUiStatus();
+    updateRegexpSettingsUi();
+    updateRegexpDialogSettingsUi();
 }
 
 MainWindow::~MainWindow()
@@ -109,6 +125,8 @@ void MainWindow::readSettings()
     m_searchSettings.fromSettings(&m_settings);
     m_searchSettings.setHistoryLength(1);
     setSearchSettings(&m_searchSettings);
+
+    m_regexpSettings->fromSettings();
 }
 
 void MainWindow::writeSettings()
@@ -126,6 +144,7 @@ void MainWindow::writeSettings()
     m_settings.setValue(QLatin1String(resultViewWidthsKeyC), widths);
     m_settings.endGroup();
     m_searchSettings.toSettings(&m_settings);
+    m_regexpSettings->toSettings();
 }
 
 void MainWindow::open()
@@ -168,20 +187,13 @@ void MainWindow::escapedPattern()
         m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
     }
 
-    m_escapedPatternDialog->setPattern(ui->regexpLineEdit->text());
+    m_escapedPatternDialog->setPattern(ui->regexpEdit->toPlainText());
     m_escapedPatternDialog->show();
     m_escapedPatternDialog->raise();
     m_escapedPatternDialog->activateWindow();
 }
 
-void MainWindow::returnPressed()
-{
-    if (isSearchPossible()) {
-        search();
-    }
-}
-
-void MainWindow::search()
+void MainWindow::match()
 {
     m_model->evaluate(ui->inputEdit->toPlainText(), m_rx);
 
@@ -189,39 +201,50 @@ void MainWindow::search()
     for (int i = 0; i < m_model->columnCount(QModelIndex()) - 1; ++i) {
         ui->resultView->resizeColumnToContents(i);
     }
+
+    // usability: expand everything when we have one match only
+    const int matchesCount = m_model->rowCount(QModelIndex());
+    if (matchesCount == 1)
+        ui->resultView->expandAll();
 }
 
 void MainWindow::updateUiStatus()
 {
     bool b = isSearchPossible();
-    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpLineEdit->text().isEmpty());
+    ui->escapedPatternAct->setEnabled(m_rx.isValid() && !ui->regexpEdit->toPlainText().isEmpty());
 
     if (m_rx.isValid()) {
-        ui->regexpLineEdit->setStyleSheet("");
+        ui->regexpEdit->setStyleSheet("");
         statusBar()->showMessage(tr("Valid expression"));
     } else {
-        ui->regexpLineEdit->setStyleSheet("QLineEdit { background: #F7E7E7; }");
+        ui->regexpEdit->setStyleSheet("QPlainTextEdit { background: #F7E7E7; }");
         statusBar()->showMessage(
             tr("Invalid expression: %1").arg(m_rx.errorString()));
     }
 
-    ui->searchButton->setEnabled(b);
-    ui->searchAct->setEnabled(b);
+    ui->matchButton->setEnabled(b);
+    ui->matchAct->setEnabled(b);
 }
 
-void MainWindow::updateRegExp()
+void MainWindow::updateRegExpPattern()
+{
+    QString s = QString(ui->regexpEdit->toPlainText());
+    QString pattern = patternFilter.filtered(s);
+    m_rx.setPattern(pattern);
+    updateUiStatus();
+}
+
+void MainWindow::updateRegExpOptions()
 {
     int index = ui->syntaxComboBox->currentIndex();
     // we use the data as enum value for the pattern syntax of the regexp
     int data = ui->syntaxComboBox->itemData(index, Qt::UserRole).toInt();
-    m_rx.setPattern(ui->regexpLineEdit->text());
     m_rx.setPatternSyntax((QRegExp::PatternSyntax)data);
     m_rx.setMinimal(ui->minimalCheckBox->isChecked());
     m_rx.setCaseSensitivity(ui->caseSensitivityCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
     updateUiStatus();
 }
-
 void MainWindow::clearInputEdit()
 {
     ui->inputEdit->clear();
@@ -229,7 +252,7 @@ void MainWindow::clearInputEdit()
 
 void MainWindow::clearRegExpEdit()
 {
-    ui->regexpLineEdit->clear();
+    ui->regexpEdit->clear();
 }
 
 void MainWindow::updateStatus(const QString &message)
@@ -297,12 +320,28 @@ void MainWindow::populateComboBoxes()
     ui->syntaxComboBox->addItem(tr("W3CXmlSchema11"), QRegExp::W3CXmlSchema11);
 }
 
+void MainWindow::populateToolbarMenu()
+{
+    for (int i = 0; i < toolbars.size(); ++i) {
+        ui->toolbarsMenu->addAction(toolbars.at(i)->toggleViewAction());
+    }
+}
+
 void MainWindow::setIcons()
 {
     QApplication::setWindowIcon(QIcon(QLatin1String(ICON_QREGEXP_LOGO_128)));
     ui->openAct->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/document-open.png")));
     ui->quitAct->setIcon(QIcon::fromTheme("application-exit", QIcon(":/images/application-exit.png")));
     ui->clearInputEditAct->setIcon(QIcon::fromTheme("edit-clear", QIcon(":/images/edit-clear.png")));
+    ui->showTabsAndSpacesAct->setIcon(
+        QIcon(QLatin1String(ICON_SHOW_TABS_AND_SPACES)));
+    ui->showNewlinesAct->setIcon(
+        QIcon(QLatin1String(ICON_SHOW_NEWLINES)));
+    ui->showParenthesesMatchAct->setIcon(
+        QIcon(QLatin1String(ICON_PARENTHESES_HIGHLIGHTER)));
+
+    ui->preferencesAct->setIcon(QIcon::fromTheme(QLatin1String("configure"),
+                                QIcon(QLatin1String(ICON_CONFIGURE))));
     ui->aboutAct->setIcon(QIcon::fromTheme("help-about"));
     QIcon warningIcon = style()->standardIcon(QStyle::SP_MessageBoxWarning);
     warningIcon = QIcon::fromTheme("dialog-warning", warningIcon);
@@ -313,18 +352,46 @@ void MainWindow::makeSignalConnections()
 {
     connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
     connect(ui->quitAct, SIGNAL(triggered()), SLOT(close()));
-    connect(ui->regexpLineEdit, SIGNAL(textChanged(QString)), SLOT(updateRegExp()));
-    connect(ui->regexpLineEdit, SIGNAL(returnPressed()), SLOT(returnPressed()));
+    connect(ui->regexpEdit, SIGNAL(textChanged()), SLOT(updateRegExpPattern()));
     connect(ui->clearRegExpEditAct, SIGNAL(triggered()), SLOT(clearRegExpEdit()));
     connect(ui->inputEdit, SIGNAL(textChanged()), SLOT(updateUiStatus()));
     connect(ui->clearInputEditAct, SIGNAL(triggered()), SLOT(clearInputEdit()));
-    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExp()));
-    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExp()));
-    connect(ui->searchAct, SIGNAL(triggered()), SLOT(search()));
-    connect(ui->searchButton, SIGNAL(released()), SLOT(search()));
+    connect(ui->showTabsAndSpacesAct, SIGNAL(triggered(bool)),
+            SLOT(showTabsAndSpaces(bool)));
+    connect(ui->showNewlinesAct, SIGNAL(triggered(bool)),
+            SLOT(showNewlines(bool)));
+    connect(ui->showParenthesesMatchAct, SIGNAL(triggered(bool)),
+            SLOT(showParenthesesMatch(bool)));
+    connect(ui->syntaxComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateRegExpOptions()));
+    connect(ui->caseSensitivityCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
+    connect(ui->minimalCheckBox, SIGNAL(toggled(bool)), SLOT(updateRegExpOptions()));
+    connect(ui->filterNewlinesAct, SIGNAL(triggered(bool)),
+            SLOT(filterNewlines(bool)));
+    connect(ui->filterTrailingWhitespacesAct, SIGNAL(triggered(bool)),
+            SLOT(filterTrailingWhitespaces(bool)));
+    connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
+    connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
+    connect(ui->preferencesAct, SIGNAL(triggered()), SLOT(showPreferencesDialog()));
+
+    connect(m_regexpSettings, SIGNAL(settingsChanged(const QString &)),
+            SLOT(updateRegexpSettingsUi()));
+}
+
+void MainWindow::createPreferencesDialog()
+{
+    m_preferencesDialog = new PreferencesDialog(this, tr("Preferences"));
+    RegexpPreferencesPage *rp = new RegexpPreferencesPage(
+        m_preferencesDialog, m_regexpSettings);
+    m_preferencesDialog->addPage(
+        rp,
+        QIcon::fromTheme(QLatin1String("document-properties"),
+                         QIcon(QLatin1String(ICON_DOCUMENT_PROPERTIES))),
+        tr("RegExp"));
+
+    connect(m_regexpSettings, SIGNAL(settingsChanged(const QString &)),
+            SLOT(updateRegexpDialogSettingsUi()));
 }
 
 void MainWindow::createStatusBar()
@@ -358,7 +425,7 @@ void MainWindow::createRecentFileActions()
 bool MainWindow::isSearchPossible()
 {
     bool b = ui->inputEdit->toPlainText().isEmpty() ||
-             ui->regexpLineEdit->text().isEmpty() ||
+             ui->regexpEdit->toPlainText().isEmpty() ||
              !m_rx.isValid() ? false : true;
     return b;
 }
@@ -366,7 +433,7 @@ bool MainWindow::isSearchPossible()
 SearchData MainWindow::searchSettings() const
 {
     SearchData rc;
-    rc.pattern = ui->regexpLineEdit->text();
+    rc.pattern = ui->regexpEdit->toPlainText();
     rc.syntax = ui->syntaxComboBox->currentIndex();
     rc.caseSensitivity = ui->caseSensitivityCheckBox->isChecked();
     rc.minimal = ui->minimalCheckBox->isChecked();
@@ -378,9 +445,94 @@ void MainWindow::setSearchSettings(SearchSettings *s) const
     QList<SearchData>searches = s->searchData();
     if (!searches.isEmpty()) {
         SearchData rc = searches.last();
-        ui->regexpLineEdit->setText(rc.pattern);
+        ui->regexpEdit->setPlainText(rc.pattern);
         ui->syntaxComboBox->setCurrentIndex(rc.syntax);
         ui->caseSensitivityCheckBox->setChecked(rc.caseSensitivity);
         ui->minimalCheckBox->setChecked(rc.minimal);
     }
+}
+
+void MainWindow::showPreferencesDialog()
+{
+    if (m_preferencesDialog) {
+        m_preferencesDialog->show();
+    }
+}
+
+void MainWindow::updateRegexpSettingsUi()
+{
+    qDebug() << Q_FUNC_INFO;
+    RegexpOptions rc = m_regexpSettings->options();
+
+    ui->showTabsAndSpacesAct->setChecked(rc.showTabsAndSpaces);
+    ui->regexpEdit->setShowTabsAndSpacesEnabled(rc.showTabsAndSpaces);
+
+    ui->showNewlinesAct->setChecked(rc.showNewlines);
+    ui->regexpEdit->setShowLineAndParagraphSeparatorsEnabled(rc.showNewlines);
+
+    ui->showParenthesesMatchAct->setChecked(rc.showParenthesesMatch);
+    ui->regexpEdit->setHighlightEnabled(rc.showParenthesesMatch);
+
+    ui->filterNewlinesAct->setChecked(
+        rc.filters.testFlag(PatternFilter::FilterNewlines));
+    ui->filterTrailingWhitespacesAct->setChecked(
+        rc.filters.testFlag(PatternFilter::FilterTrailingWhitespaces));
+    patternFilter.setFilters(rc.filters);
+
+    updateRegExpPattern();
+}
+
+void MainWindow::showTabsAndSpaces(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showTabsAndSpaces = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::showNewlines(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showNewlines = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::showParenthesesMatch(bool checked)
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    rc.showParenthesesMatch = checked;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::filterNewlines(bool checked)
+{
+    qDebug() << Q_FUNC_INFO;
+    RegexpOptions rc = m_regexpSettings->options();
+
+    if (checked) {
+        rc.filters |= PatternFilter::FilterNewlines;
+    } else {
+        rc.filters &= ~PatternFilter::FilterNewlines;
+    }
+    qDebug() << Q_FUNC_INFO << "rc.filters: " << rc.filters;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::filterTrailingWhitespaces(bool checked)
+{
+    qDebug() << Q_FUNC_INFO;
+    RegexpOptions rc = m_regexpSettings->options();
+
+    if (checked) {
+        rc.filters |= PatternFilter::FilterTrailingWhitespaces;
+    } else {
+        rc.filters &= ~PatternFilter::FilterTrailingWhitespaces;
+    }
+    qDebug() << Q_FUNC_INFO << "rc.filters: " << rc.filters;
+    m_regexpSettings->setOptions(rc);
+}
+
+void MainWindow::updateRegexpDialogSettingsUi()
+{
+    RegexpOptions rc = m_regexpSettings->options();
+    ui->regexpEdit->setHighlightColor(rc.highlightMatchColor);
 }

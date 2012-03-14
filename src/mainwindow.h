@@ -21,6 +21,7 @@
 #define MAINWINDOW_H
 
 #include "searchsettings.h"
+#include "patternfilter.h"
 
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
@@ -33,11 +34,15 @@ namespace Ui {
     class MainWindow;
 }
 
+class PreferencesDialog;
+class RegexpSettings;
 class AboutDialog;
 class EscapedPatternDialog;
 class RegExpModel;
 class QAction;
 class QLabel;
+class QToolBar;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -60,15 +65,21 @@ private:
     const int m_maxRecentFiles;
     QSettings m_settings;
     SearchSettings m_searchSettings;
+    QList<QToolBar *> toolbars;
+    RegexpSettings *m_regexpSettings;
+    PatternFilter patternFilter;
+    PreferencesDialog *m_preferencesDialog;
 
     bool loadFile(const QString &filename);
     void updateRecentFileActions();
     void writeSettings();
     void readSettings();
     void populateComboBoxes();
+    void populateToolbarMenu();
     void setIcons();
     void makeSignalConnections();
     void createStatusBar();
+    void createPreferencesDialog();
     void createRegExpModel();
     void createRecentFileActions();
     bool isSearchPossible();
@@ -79,16 +90,24 @@ private slots:
     void open();
     void openRecentFile();
     void clearAllRecentFiles();
-    void search();
+    void match();
     void about();
     void escapedPattern();
     void updateUiStatus();
-    void updateRegExp();
+    void updateRegExpOptions(); // Updates everyting except pattern
+    void updateRegExpPattern();
     void clearInputEdit();
     void clearRegExpEdit();
     void updateStatus(const QString &);
     void toggleWarningWidget(bool);
-    void returnPressed();
+    void showPreferencesDialog();
+    void updateRegexpSettingsUi();
+    void showTabsAndSpaces(bool);
+    void showNewlines(bool);
+    void showParenthesesMatch(bool);
+    void filterNewlines(bool);
+    void filterTrailingWhitespaces(bool);
+    void updateRegexpDialogSettingsUi();
 };
 
 #endif // MAINWINDOW_H

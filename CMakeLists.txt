@@ -2,6 +2,12 @@ project(QRegExp-Editor)
 
 cmake_minimum_required(VERSION 2.6)
 
+if(APPLE)
+   set(PROGRAM_NAME ${PROJECT_NAME})
+else(APPLE)
+   set(PROGRAM_NAME "qregexp-editor")
+endif(APPLE)
+
 # Set the defaut version. Will be used if version file
 # isn't available and if it's impossible to get the version
 # from git.
@@ -10,6 +16,7 @@ set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.0.2")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
+enable_testing()
 include(QRegExpEditorVersion)
 
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -45,7 +52,7 @@ endif (UPDATE_TRANSLATIONS)
 
 add_custom_target(translations DEPENDS ${QM_FILES})
 
-install(FILES ${QM_FILES} DESTINATION "share/qregexp-editor/translations")
+install(FILES ${QM_FILES} DESTINATION "share/${PROGRAM_NAME}/translations")
 
 
 ################ uninstall target #################
@@ -62,7 +69,7 @@ add_custom_target(uninstall
 ###### install images & icon & desktop menu #######
 
 install(DIRECTORY "images"
-   DESTINATION share/qregexp-editor
+   DESTINATION "share/${PROGRAM_NAME}"
    PATTERN "*.sh" EXCLUDE)
 
 install(FILES dist/linux/qregexp-editor.desktop DESTINATION share/applications)
