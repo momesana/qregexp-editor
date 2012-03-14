@@ -31,7 +31,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 {
     setupUi(this);
 
-    versionLabel->setText(QString("<div>"
+    versionLabel->setText(QString::fromUtf8("<div>"
                                   "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span> <br />"
                                   "<span style='font-size: 8pt;'> Copyright &copy; 2010-2012 M. Mehdi Salem Naraghi<span><div>"
                                   "<span style='font-size: 8pt;'> Copyright &copy; 2010-2012 Luís Pereira<span><div>")
