@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Luís Pereira <luis.artur.pereira@gmail.com>
+ * Copyright (C) 2011-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * matchLeftParenthesis, matchRightParenthesis, _q_match and
  *     createParenthesisSelection functions based on the example published

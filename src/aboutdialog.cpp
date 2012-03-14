@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2010 M. Mehdi Salem Naraghi <momesana@yahoo.de>
+ * Copyright (C) 2010-2012 M. Mehdi Salem Naraghi <momesana@yahoo.de>
+ * Copyright (C) 2010-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * This file is part of QRegExp-Editor.
  *
@@ -32,7 +33,8 @@ AboutDialog::AboutDialog(QWidget *parent)
 
     versionLabel->setText(QString("<div>"
                                   "<span style='font-weight: bold; font-size:14pt;'>%1 %2</span> <br />"
-                                  "<span style='font-size: 8pt;'> Copyright &copy; 2010 M. Mehdi Salem Naraghi<span><div>")
+                                  "<span style='font-size: 8pt;'> Copyright &copy; 2010-2012 M. Mehdi Salem Naraghi<span><div>"
+                                  "<span style='font-size: 8pt;'> Copyright &copy; 2010-2012 Luís Pereira<span><div>")
                           .arg(qApp->applicationName())
                           .arg(qApp->applicationVersion()));
 
