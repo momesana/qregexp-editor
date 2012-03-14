@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2012 M. Mehdi Salem Naraghi <momesana@yahoo.de>
+ * Copyright (C) 2010-2012 M. Mehdi Salem Naraghi <momesana@googlemail.com>
  * Copyright (C) 2010-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * This file is part of QRegExp-Editor.
