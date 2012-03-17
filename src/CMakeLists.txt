@@ -5,9 +5,9 @@ include_directories(
 )
 
 
-file(GLOB HEADER_FILES *.h *.hpp)
-file(GLOB CPP_FILES *.cpp)
-file(GLOB UI_FILES *.ui)
+file(GLOB_RECURSE HEADER_FILES *.h *.hpp)
+file(GLOB_RECURSE CPP_FILES *.cpp)
+file(GLOB_RECURSE UI_FILES *.ui)
 set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_FILES} PARENT_SCOPE)
 
 list(APPEND preferences_SRCS
