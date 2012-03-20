@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Luís Pereira <luis.artur.pereira@gmail.com>
+ * Copyright (C) 2011-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * Based on the example published as part of Qt Quarterly Issue 31: Q3 2009
  *     Matching Parentheses with QSyntaxHighlighter · Example Code

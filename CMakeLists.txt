@@ -11,7 +11,7 @@ endif(APPLE)
 # Set the defaut version. Will be used if version file
 # isn't available and if it's impossible to get the version
 # from git.
-set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.0.2")
+set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.1")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
