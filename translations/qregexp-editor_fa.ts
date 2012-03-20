@@ -91,21 +91,18 @@ p, li { white-space: pre-wrap; }
     <name>EscapedPatternDialog</name>
     <message>
         <location filename="../src/ui/escapedpatterndialog.ui" line="14"/>
-        <source>Dialog</source>
+        <source>Escaped pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/escapedpatterndialog.ui" line="20"/>
-        <source>&lt;center&gt;
-&lt;div style=&apos;background: lightgray; font-weight:bold;&apos;&gt;Rationale&lt;/div&gt;
-&lt;/center&gt;
-&lt;p&gt;As the QRegexp documentation says:  The C++ compiler transforms backslashes in strings.&lt;/p&gt;
-&lt;p&gt;To include a \\ in a regexp, enter it twice, i.e. \\\\&lt;br /&gt;
-To include a \&quot; in a regexp, enter \\\&quot;&lt;/p&gt;
-&lt;center&gt;
-&lt;div style=&apos;background: lightgray; font-weight: bold;&apos;&gt;Escaped pattern&lt;/div&gt;
-&lt;/center&gt;
-</source>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#d3d3d3;&quot;&gt;&lt;span style=&quot; font-weight:600; background-color:#d3d3d3;&quot;&gt;Rationale&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;As the QRegexp documentation says: Note: The C++ compiler transforms backslashes in strings. To include a \ in a regexp, enter it twice, i.e. \\. To match the backslash character itself, enter it four times, i.e. \\\\.&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#d3d3d3;&quot;&gt;&lt;span style=&quot; font-weight:600; background-color:#d3d3d3;&quot;&gt;Escaped pattern&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
