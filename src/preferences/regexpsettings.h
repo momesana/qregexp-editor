@@ -14,33 +14,42 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SEARCHSETTINGS_H
-#define SEARCHSETTINGS_H
+#ifndef REGEXPSETTINGS_H
+#define REGEXPSETTINGS_H
 
-#include "searchdata.h"
+#include "settingsinterface.h"
+#include <QtCore/QObject>
 
-#include <QtCore/QList>
+#include "regexpoptions.h"
+
+#include <QtCore/QPointer>
+#include <QtCore/QString>
 
 class QSettings;
 
-class SearchSettings {
+class RegexpSettings : public SettingsInterface  {
+    Q_OBJECT
+
 public:
-    SearchSettings();
-    void setHistoryLength(int newLength);
-    inline int historyLength() const { return m_length; }
-    void append(const SearchData &value);
-    inline const QList<SearchData> searchData() const { return m_searches; }
-    void toSettings(QSettings *s) const;
-    void fromSettings(QSettings *s);
+    RegexpSettings(QSettings *s, const QString &name);
+    virtual ~RegexpSettings();
+    void toSettings() const;
+    void fromSettings();
+
+    RegexpOptions options() const;
+    void setOptions(const RegexpOptions &ao);
+
+    QString group() const;
+
+public slots:
+    void updateSettings();
 
 private:
-    QList<SearchData> m_searches;
-    int m_length;
+    RegexpOptions m_options;
 };
 
-QDebug operator<<(QDebug dbg, const SearchSettings &p);
+#endif // REGEXPSETTINGS_H
 
-#endif // SEARCHSETTINGS_H

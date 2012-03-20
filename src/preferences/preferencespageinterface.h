@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2012 M. Mehdi Salem Naraghi <momesana@googlemail.com>
+ * Copyright (C) 2011-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * This file is part of QRegExp-Editor.
  *
@@ -10,33 +10,25 @@
  *
  * QRegExp-Editor is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "treeitem.h"
+#ifndef PREFERENCESPAGEINTERFACE_H
+#define PREFERENCESPAGEINTERFACE_H
 
-TreeItem::TreeItem(Type type, Node *parent)
-    : Node(parent)
-    , m_type(type)
-{
-}
+class QWidget;
 
-TreeItem::TreeItem(const QVariant &data, Type type, Node *parent)
-    : Node(data, parent)
-    , m_type(type)
-{
-}
+class PreferencesPageInterface {
 
-TreeItem::Type TreeItem::type() const
-{
-    return m_type;
-}
+public:
+    virtual ~PreferencesPageInterface() {}
+    virtual QWidget *widget() const = 0;
+    virtual void apply() = 0;
+    virtual void updateWidget() = 0;
+};
 
-void TreeItem::setType(Type type)
-{
-    m_type = type;
-}
+#endif // PREFERENCESPAGEINTERFACE_H

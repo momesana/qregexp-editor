@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Luís Pereira <luis.artur.pereira@gmail.com>
+ * Copyright (C) 2011-2012 Luís Pereira <luis.artur.pereira@gmail.com>
  *
  * This file is part of QRegExp-Editor.
  *
@@ -21,5 +21,13 @@
 #define CONSTANTS_H
 
 const char *const ICON_QREGEXP_LOGO_128 = ":/images/qregexp-editor-logo-128.png";
+const char *const ICON_DOCUMENT_PROPERTIES = ":/images/document-properties.png";
+const char *const ICON_SHOW_TABS_AND_SPACES =
+    ":/images/show-tabs-and-spaces.png";
+const char *const ICON_SHOW_NEWLINES = ":/images/show-newlines.png";
+const char *const ICON_PARENTHESES_HIGHLIGHTER =
+    ":/images/highlighter_yellow_01.png";
+const char *const ICON_CONFIGURE = ":/images/configure.png";
+const char *const ICON_UNKNOWN = ":/images/unknown.png";
 
 #endif // CONSTANTS_H

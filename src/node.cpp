@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 M. Mehdi Salem Naraghi <momesana@yahoo.de>
+ * Copyright (C) 2010-2012 M. Mehdi Salem Naraghi <momesana@googlemail.com>
  *
  * This file is part of Regexp-Editor.
  *

@@ -14,28 +14,37 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with QRegExp-Editor.  If not, see <http://www.gnu.org/licenses/>.
+ * along with QRegExp-Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SEARCHDATA_H
-#define SEARCHDATA_H
+#ifndef REGEXPOPTIONS_H
+#define REGEXPOPTIONS_H
 
-#include <QtCore/QString>
+#include <QtGui/QColor>
 #include <QtCore/QDebug>
+#include "patternfilter.h"
 
-struct SearchData {
-    QString pattern;
-    int syntax;
-    bool caseSensitivity;
-    bool minimal;
+struct RegexpOptions {
+    bool showTabsAndSpaces;
+    bool showNewlines;
+    bool showParenthesesMatch;
+    PatternFilter::Filters filters;
+    QColor highlightMatchColor;
 
-    SearchData();
-    bool equals(const SearchData &s) const;
+    RegexpOptions();
+    bool equals(const RegexpOptions &) const;
 };
 
-inline bool operator==(const SearchData &p1, const SearchData &p2)
-{ return p1.equals(p2); }
+inline bool operator==(const RegexpOptions &p1, const RegexpOptions &p2)
+{
+    return p1.equals(p2);
+}
 
-QDebug operator<<(QDebug dbg, const SearchData &p);
+inline bool operator!=(const RegexpOptions &p1, const RegexpOptions &p2)
+{
+    return !p1.equals(p2);
+}
 
-#endif // SEARCHDATA_H
+QDebug operator<<(QDebug dbg, const RegexpOptions &p);
+
+#endif // REGEXPOPTIONS_H
