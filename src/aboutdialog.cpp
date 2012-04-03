@@ -26,6 +26,9 @@
 
 #include <QtGui/QCloseEvent>
 
+static const char stateKeyC[] = "geometry";
+static const char groupM[] = "aboutdialog";
+
 AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
 {
@@ -81,14 +84,18 @@ void AboutDialog::closeEvent(QCloseEvent *e)
 void AboutDialog::readSettings()
 {
     QSettings settings;
-    QRect geometry = settings.value("aboutdialog/geometry", QRect()).toRect();
+    settings.beginGroup(QLatin1String(groupM));
+    QRect geometry = settings.value((QLatin1String(stateKeyC)), QRect()).toRect();
     if (!geometry.isNull()) {
         resize(geometry.width(), geometry.height());
     }
+    settings.endGroup();
 }
 
 void AboutDialog::writeSettings()
 {
     QSettings settings;
-    settings.setValue("aboutdialog/geometry", geometry());
+    settings.beginGroup(QLatin1String(groupM));
+    settings.setValue((QLatin1String(stateKeyC)), geometry());
+    settings.endGroup();
 }
