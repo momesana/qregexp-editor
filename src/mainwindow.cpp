@@ -373,6 +373,7 @@ void MainWindow::makeSignalConnections()
     connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
+    connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
     connect(ui->preferencesAct, SIGNAL(triggered()), SLOT(showPreferencesDialog()));
 
