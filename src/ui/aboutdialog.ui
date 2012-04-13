@@ -189,7 +189,7 @@ p, li { white-space: pre-wrap; }
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>AboutDialog</receiver>
-   <slot>reject()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>316</x>
