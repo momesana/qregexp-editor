@@ -188,7 +188,7 @@ void MainWindow::escapedPattern()
         m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
     }
 
-    m_escapedPatternDialog->setPattern(ui->regexpEdit->toPlainText());
+    m_escapedPatternDialog->setPattern(m_rx.pattern());
     m_escapedPatternDialog->show();
     m_escapedPatternDialog->raise();
     m_escapedPatternDialog->activateWindow();
