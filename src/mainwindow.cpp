@@ -172,7 +172,7 @@ void MainWindow::clearAllRecentFiles()
 void MainWindow::about()
 {
     if (!m_aboutDialog) {
-        m_aboutDialog = new AboutDialog(this);
+        m_aboutDialog = new AboutDialog(&m_settings, this);
         m_aboutDialog->setWindowTitle(tr("About %1").arg(qApp->applicationName()));
     }
 

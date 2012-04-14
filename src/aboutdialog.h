@@ -22,12 +22,15 @@
 
 #include "ui_aboutdialog.h"
 
+#include <QtCore/QWeakPointer>
 #include <QtGui/QDialog>
+
+class QSettings;
 
 class AboutDialog : public QDialog, public Ui::AboutDialog {
     Q_OBJECT
 public:
-    AboutDialog(QWidget *parent = 0);
+    AboutDialog(QSettings *settings, QWidget *parent = 0);
     ~AboutDialog();
 
 protected:
@@ -38,6 +41,7 @@ private:
     void readSettings();
     void writeSettings();
 
+    QWeakPointer<QSettings> m_settings;
 };
 
 #endif // ABOUTDIALOG_H
