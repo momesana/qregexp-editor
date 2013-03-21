@@ -1,6 +1,6 @@
 project(QRegExp-Editor)
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6.1)
 
 if(APPLE)
    set(PROGRAM_NAME ${PROJECT_NAME})
