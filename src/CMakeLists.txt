@@ -13,7 +13,6 @@ set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_F
 list(APPEND preferences_SRCS
    preferences/preferencesdialog.cpp
    preferences/settingsinterface.cpp
-   preferences/settingsinterface.h
    preferences/regexpoptions.cpp
    preferences/regexpsettings.cpp
    preferences/regexppreferencespage.cpp
