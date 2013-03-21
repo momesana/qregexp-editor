@@ -12,8 +12,9 @@ endif(APPLE)
 # isn't available and if it's impossible to get the version
 # from git.
 set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.1")
-
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
 include(${QT_USE_FILE})
 enable_testing()
