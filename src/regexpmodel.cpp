@@ -210,7 +210,11 @@ QVariant RegExpModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::ForegroundRole && t->type() == TreeItem::SUB_STRING && index.column() == 1) {
         if (t->data().toString().isEmpty()) {
+#if QT_VERSION < 0x050000
             return Qt::gray;
+#else
+            return QColor(Qt::gray);
+#endif
         }
     }
 
