@@ -20,9 +20,9 @@
 
 #include "aboutdialog.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QSettings>
-#include <QtCore/QDebug>
+#include <QFile>
+#include <QSettings>
+#include <QDebug>
 
 #include <QtGui/QCloseEvent>
 

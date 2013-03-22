@@ -22,8 +22,8 @@
 #include "settingsinterface.h"
 #include "regexpsettings.h"
 
-#include <QtGui/QAction>
-#include <QtGui/QColorDialog>
+#include <QAction>
+#include <QColorDialog>
 
 RegexpPreferencesWidget::RegexpPreferencesWidget(QWidget *parent)
     : QWidget(parent),

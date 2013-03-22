@@ -20,8 +20,8 @@
 #ifndef PREFERENCESDIALOG_H
 #define PREFERENCESDIALOG_H
 
-#include <QtGui/QDialog>
-#include <QtGui/QListWidget>
+#include <QDialog>
+#include <QListWidget>
 
 class PreferencesPageInterface;
 

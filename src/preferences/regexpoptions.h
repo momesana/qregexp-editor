@@ -21,7 +21,7 @@
 #define REGEXPOPTIONS_H
 
 #include <QtGui/QColor>
-#include <QtCore/QDebug>
+#include <QDebug>
 #include "patternfilter.h"
 
 struct RegexpOptions {

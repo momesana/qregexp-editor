@@ -20,9 +20,9 @@
 #include "regexpsettings.h"
 #include "patternfilter.h"
 
-#include <QtCore/QLatin1String>
-#include <QtCore/QSettings>
-#include <QtCore/QDebug>
+#include <QLatin1String>
+#include <QSettings>
+#include <QDebug>
 
 static const char showTabsAndSpacesKeyC[] = "showTabsAndSpaces";
 static const char showNewlinesKeyC[] = "showNewlines";

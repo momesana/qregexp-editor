@@ -20,8 +20,8 @@
 #ifndef SEARCHDATA_H
 #define SEARCHDATA_H
 
-#include <QtCore/QString>
-#include <QtCore/QDebug>
+#include <QString>
+#include <QDebug>
 
 struct SearchData {
     QString pattern;

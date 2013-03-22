@@ -21,7 +21,7 @@
 #include "treeitem.h"
 
 // Qt
-#include <QtCore/QDebug>
+#include <QDebug>
 
 #include <QtGui/QFont>
 

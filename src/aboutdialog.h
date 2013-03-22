@@ -22,8 +22,8 @@
 
 #include "ui_aboutdialog.h"
 
-#include <QtCore/QWeakPointer>
-#include <QtGui/QDialog>
+#include <QWeakPointer>
+#include <QDialog>
 
 class QSettings;
 

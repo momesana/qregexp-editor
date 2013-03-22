@@ -25,7 +25,7 @@
 
 #include "parentheseshighlighter.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 TextBlockData::TextBlockData()
 {

@@ -21,7 +21,7 @@
 #define PATTERNFILTERTEST_H
 
 class PatternFilter;
-#include <QtCore/QObject>
+#include <QObject>
 
 class PatternFilterTest : public QObject {
     Q_OBJECT

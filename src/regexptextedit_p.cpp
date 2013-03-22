@@ -28,7 +28,7 @@
 #include "regexptextedit_p.h"
 #include "regexptextedit.h"
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 RegexpTextEditPrivate::RegexpTextEditPrivate(RegexpTextEdit *q)
     : q_ptr(q)
