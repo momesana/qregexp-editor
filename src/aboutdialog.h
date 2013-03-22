@@ -22,7 +22,7 @@
 
 #include "ui_aboutdialog.h"
 
-#include <QWeakPointer>
+#include <QPointer>
 #include <QDialog>
 
 class QSettings;
@@ -41,7 +41,7 @@ private:
     void readSettings();
     void writeSettings();
 
-    QWeakPointer<QSettings> m_settings;
+    QPointer<QSettings> m_settings;
 };
 
 #endif // ABOUTDIALOG_H
