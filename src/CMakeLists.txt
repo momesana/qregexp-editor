@@ -102,7 +102,12 @@ add_executable(
    ${qregexp-editor_RCC_SRCS}
 )
 
-target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
+if(QT4_FOUND)
+   target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
+elseif(Qt5Widgets_FOUND)
+   target_link_libraries(${PROGRAM_NAME} ${Qt5Widgets_LIBRARIES})
+endif()
+
 
 install(TARGETS ${PROGRAM_NAME} DESTINATION bin)
 add_dependencies(${PROGRAM_NAME} translations)
