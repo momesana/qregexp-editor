@@ -1,6 +1,7 @@
 project(QRegExp-Editor)
 
 cmake_minimum_required(VERSION 2.6.1)
+OPTION(USE_QT5 "Use Qt5. Default is Qt4" No)
 
 if(APPLE)
    set(PROGRAM_NAME ${PROJECT_NAME})
@@ -15,8 +16,24 @@ set(QREGEXP-EDITOR_DEFAULT_VERSION "0.2.1")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
-include(${QT_USE_FILE})
+# include the qtx_xxxxxx macros
+include(QtMacros)
+
+if (USE_QT5)
+   find_package(Qt5Widgets REQUIRED)
+   find_package(Qt5Test REQUIRED)
+   find_package(Qt5LinguistTools REQUIRED)
+
+   include_directories(${Qt5Widgets_INCLUDE_DIRS} ${Qt5Test_INCLUDE_DIRS})
+   add_definitions(${Qt5Core_DEFINITIONS} ${Qt5Test_DEFINITINS})
+   set(CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
+   )
+else()
+   find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
+   include(${QT_USE_FILE})
+endif()
+
 enable_testing()
 include(QRegExpEditorVersion)
 
@@ -46,9 +63,9 @@ option(UPDATE_TRANSLATIONS "Update source translation translations/*.ts
 files(WARNING: make clean will delete the source .ts files! Danger!)")
 
 if (UPDATE_TRANSLATIONS)
-   qt4_create_translation(QM_FILES ${FILES_TO_TRANSLATE} ${TRANSLATIONS_FILES})
+   qtx_create_translation(QM_FILES ${FILES_TO_TRANSLATE} ${TRANSLATIONS_FILES})
 else (UPDATE_TRANSLATIONS)
-   qt4_add_translation(QM_FILES ${TRANSLATIONS_FILES})
+   qtx_add_translation(QM_FILES ${TRANSLATIONS_FILES})
 endif (UPDATE_TRANSLATIONS)
 
 add_custom_target(translations DEPENDS ${QM_FILES})

@@ -66,16 +66,16 @@ set(qregexp-editor_RCCS
 )
 
 # generate rules for building source files from the resources
-qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
+qtx_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
 
-qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
-qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
+qtx_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
+qtx_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
-qt4_generate_moc(
+qtx_generate_moc(
    ${CMAKE_CURRENT_SOURCE_DIR}/regexptextedit.h
    ${CMAKE_CURRENT_BINARY_DIR}/regexptextedit.moc
 )
-qt4_generate_moc(
+qtx_generate_moc(
    ${CMAKE_CURRENT_SOURCE_DIR}/preferences/settingsinterface.h
    ${CMAKE_CURRENT_BINARY_DIR}/preferences/settingsinterface.moc
 )

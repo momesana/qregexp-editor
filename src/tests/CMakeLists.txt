@@ -7,7 +7,7 @@ set(PatternFilterTest_MOC_HDRS
    patternfiltertest.h
 )
 
-qt4_wrap_cpp(PatternFilterTest_SRCS ${PatternFilterTest_MOC_HDRS})
+qtx_wrap_cpp(PatternFilterTest_SRCS ${PatternFilterTest_MOC_HDRS})
 set(TEST_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} )
 
 add_executable(PatternFilterTest ${PatternFilterTest_SRCS})
