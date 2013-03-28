@@ -20,8 +20,8 @@
 #ifndef REGEXPMODEL_H
 #define REGEXPMODEL_H
 
-#include <QtCore/QAbstractItemModel>
-#include <QtCore/QList>
+#include <QAbstractItemModel>
+#include <QList>
 
 #include <QtGui/QColor>
 

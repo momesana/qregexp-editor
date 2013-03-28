@@ -19,8 +19,8 @@
 
 #include "patternfilter.h"
 
-#include <QtCore/QStringList>
-#include <QtCore/QDebug>
+#include <QStringList>
+#include <QDebug>
 
 class PatternFilter::Private {
 

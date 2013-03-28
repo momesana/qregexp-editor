@@ -19,8 +19,8 @@
 
 #include "settingsinterface.h"
 
-#include <QtCore/QPointer>
-#include <QtCore/QSettings>
+#include <QPointer>
+#include <QSettings>
 
 
 class SettingsInterfacePrivate {

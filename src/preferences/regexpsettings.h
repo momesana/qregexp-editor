@@ -21,12 +21,12 @@
 #define REGEXPSETTINGS_H
 
 #include "settingsinterface.h"
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "regexpoptions.h"
 
-#include <QtCore/QPointer>
-#include <QtCore/QString>
+#include <QPointer>
+#include <QString>
 
 class QSettings;
 

@@ -19,9 +19,9 @@
 
 #include "searchsettings.h"
 
-#include <QtCore/QLatin1String>
-#include <QtCore/QSettings>
-#include <QtCore/QDebug>
+#include <QLatin1String>
+#include <QSettings>
+#include <QDebug>
 
 static const char groupS[] = "search-history";
 static const char searchesArray[] = "searches";

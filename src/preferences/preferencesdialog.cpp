@@ -22,8 +22,8 @@
 #include "preferencespageinterface.h"
 #include "constants.h"
 
-#include <QtGui/QPushButton>
-#include <QtCore/QDebug>
+#include <QPushButton>
+#include <QDebug>
 
 PreferencesDialog::PreferencesDialog(QWidget *parent, const QString &title)
     : QDialog(parent),

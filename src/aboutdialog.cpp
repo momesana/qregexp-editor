@@ -20,14 +20,18 @@
 
 #include "aboutdialog.h"
 
-#include <QtCore/QFile>
-#include <QtCore/QSettings>
-#include <QtCore/QDebug>
+#include <QFile>
+#include <QSettings>
+#include <QDebug>
 
 #include <QtGui/QCloseEvent>
 
-AboutDialog::AboutDialog(QWidget *parent)
-    : QDialog(parent)
+static const char geometryKey[] = "geometry";
+static const char group[] = "aboutdialog";
+
+AboutDialog::AboutDialog(QSettings *settings, QWidget *parent)
+    : QDialog(parent),
+      m_settings(settings)
 {
     setupUi(this);
 
@@ -80,15 +84,27 @@ void AboutDialog::closeEvent(QCloseEvent *e)
 
 void AboutDialog::readSettings()
 {
-    QSettings settings;
-    QRect geometry = settings.value("aboutdialog/geometry", QRect()).toRect();
-    if (!geometry.isNull()) {
-        resize(geometry.width(), geometry.height());
+    QSettings *s = m_settings.data();
+    if (s) {
+        s->beginGroup(QLatin1String(group));
+        QRect geometry = s->value((QLatin1String(geometryKey)), QRect()).toRect();
+        if (!geometry.isNull()) {
+            resize(geometry.width(), geometry.height());
+        }
+        s->endGroup();
+    } else {
+        qWarning() << Q_FUNC_INFO << "null settings pointer";
     }
 }
 
 void AboutDialog::writeSettings()
 {
-    QSettings settings;
-    settings.setValue("aboutdialog/geometry", geometry());
+    QSettings *s = m_settings.data();
+    if (s) {
+        s->beginGroup(QLatin1String(group));
+        s->setValue((QLatin1String(geometryKey)), geometry());
+        s->endGroup();
+    } else {
+        qWarning() << Q_FUNC_INFO << "null settings pointer";
+    }
 }

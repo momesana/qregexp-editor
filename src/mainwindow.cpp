@@ -32,12 +32,12 @@
 
 
 // Qt
-#include <QtCore/QCoreApplication>
-#include <QtCore/QSettings>
-#include <QtCore/QDebug>
+#include <QCoreApplication>
+#include <QSettings>
+#include <QDebug>
 
-#include <QtGui/QFileDialog>
-#include <QtGui/QMessageBox>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -172,7 +172,7 @@ void MainWindow::clearAllRecentFiles()
 void MainWindow::about()
 {
     if (!m_aboutDialog) {
-        m_aboutDialog = new AboutDialog(this);
+        m_aboutDialog = new AboutDialog(&m_settings, this);
         m_aboutDialog->setWindowTitle(tr("About %1").arg(qApp->applicationName()));
     }
 
@@ -188,7 +188,7 @@ void MainWindow::escapedPattern()
         m_escapedPatternDialog->setWindowTitle(tr("Escaped Pattern"));
     }
 
-    m_escapedPatternDialog->setPattern(ui->regexpEdit->toPlainText());
+    m_escapedPatternDialog->setPattern(m_rx.pattern());
     m_escapedPatternDialog->show();
     m_escapedPatternDialog->raise();
     m_escapedPatternDialog->activateWindow();
@@ -373,6 +373,7 @@ void MainWindow::makeSignalConnections()
     connect(ui->matchAct, SIGNAL(triggered()), SLOT(match()));
     connect(ui->matchButton, SIGNAL(released()), SLOT(match()));
     connect(ui->aboutAct, SIGNAL(triggered()), SLOT(about()));
+    connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->escapedPatternAct, SIGNAL(triggered()), SLOT(escapedPattern()));
     connect(ui->preferencesAct, SIGNAL(triggered()), SLOT(showPreferencesDialog()));
 

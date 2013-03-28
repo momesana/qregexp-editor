@@ -20,7 +20,7 @@
 #ifndef PATTERNFILTER_H
 #define PATTERNFILTER_H
 
-#include <QtCore/QString>
+#include <QString>
 
 
 class PatternFilter {

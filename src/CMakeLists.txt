@@ -1,6 +1,4 @@
 include_directories(
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_CURRENT_BINARY_DIR}
    "${CMAKE_CURRENT_BINARY_DIR}/preferences"
 )
 
@@ -13,7 +11,6 @@ set(FILES_TO_TRANSLATE ${FILES_TO_TRANSLATE} ${CPP_FILES} ${UI_FILES} ${HEADER_F
 list(APPEND preferences_SRCS
    preferences/preferencesdialog.cpp
    preferences/settingsinterface.cpp
-   preferences/settingsinterface.h
    preferences/regexpoptions.cpp
    preferences/regexpsettings.cpp
    preferences/regexppreferencespage.cpp
@@ -69,16 +66,16 @@ set(qregexp-editor_RCCS
 )
 
 # generate rules for building source files from the resources
-qt4_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
+qtx_add_resources(qregexp-editor_RCC_SRCS ${qregexp-editor_RCCS})
 
-qt4_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
-qt4_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
+qtx_wrap_ui(qregexp-editor_SRCS ${qregexp-editor_UIs})
+qtx_wrap_cpp(qregexp-editor_SRCS ${qregexp-editor_MOC_HDRS})
 
-qt4_generate_moc(
+qtx_generate_moc(
    ${CMAKE_CURRENT_SOURCE_DIR}/regexptextedit.h
    ${CMAKE_CURRENT_BINARY_DIR}/regexptextedit.moc
 )
-qt4_generate_moc(
+qtx_generate_moc(
    ${CMAKE_CURRENT_SOURCE_DIR}/preferences/settingsinterface.h
    ${CMAKE_CURRENT_BINARY_DIR}/preferences/settingsinterface.moc
 )
@@ -105,7 +102,12 @@ add_executable(
    ${qregexp-editor_RCC_SRCS}
 )
 
-target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
+if(QT4_FOUND)
+   target_link_libraries(${PROGRAM_NAME} ${QT_LIBRARIES})
+elseif(Qt5Widgets_FOUND)
+   target_link_libraries(${PROGRAM_NAME} ${Qt5Widgets_LIBRARIES})
+endif()
+
 
 install(TARGETS ${PROGRAM_NAME} DESTINATION bin)
 add_dependencies(${PROGRAM_NAME} translations)

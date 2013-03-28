@@ -22,11 +22,11 @@
 #include "qregexp_editor-version.h"
 
 // Qt
-#include <QtCore/QTranslator>
-#include <QtCore/QLibraryInfo>
-#include <QtCore/QLocale>
+#include <QTranslator>
+#include <QLibraryInfo>
+#include <QLocale>
 
-#include <QtGui/QApplication>
+#include <QApplication>
 
 // Borrowed from QtCreator (qt-creator/src/app/main.cpp)
 #ifdef Q_OS_MAC
