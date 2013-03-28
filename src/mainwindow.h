@@ -24,12 +24,12 @@
 #include "searchsettings.h"
 #include "patternfilter.h"
 
-#include <QtCore/QList>
-#include <QtCore/QRegExp>
-#include <QtCore/QStringList>
-#include <QtCore/QSettings>
+#include <QList>
+#include <QRegExp>
+#include <QStringList>
+#include <QSettings>
 
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 namespace Ui {
     class MainWindow;

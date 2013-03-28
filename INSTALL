@@ -29,7 +29,11 @@ Manual Approach:
    cd build
 
 3. Run CMake:
+   To use Qt4:
    cmake -G "MinGW Makefiles" ..
+
+   To use Qt5:
+   cmake -G "MinGW Makefiles" -DUSE_QT5=Yes ..
 
 4. Build the project:
    make
@@ -59,7 +63,11 @@ Otherwise you should modify the PATH variable accordingly.
    cd build
 
 3. Run CMake:
+   To use Qt4:
    cmake ..
+
+   To use Qt5:
+   cmake -DUSE_QT5=Yes ..
 
 4. Build the project:
    make

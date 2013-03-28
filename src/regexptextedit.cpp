@@ -20,7 +20,7 @@
 #include "regexptextedit.h"
 #include "regexptextedit_p.h"
 
-#include <QtGui/QTextEdit>
+#include <QTextEdit>
 
 
 RegexpTextEdit::RegexpTextEdit(QWidget *parent)

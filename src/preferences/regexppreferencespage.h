@@ -23,10 +23,10 @@
 #include "preferencespageinterface.h"
 #include "regexpsettings.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QPointer>
+#include <QObject>
+#include <QPointer>
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QtGui/QPixmap>
 
 namespace Ui {

@@ -21,7 +21,7 @@
 #define REGEXPTEXTEDIT_H
 
 #include <QtGui/QColor>
-#include <QtGui/QPlainTextEdit>
+#include <QPlainTextEdit>
 
 class RegexpTextEditPrivate;
 

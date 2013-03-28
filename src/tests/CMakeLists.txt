@@ -7,9 +7,14 @@ set(PatternFilterTest_MOC_HDRS
    patternfiltertest.h
 )
 
-qt4_wrap_cpp(PatternFilterTest_SRCS ${PatternFilterTest_MOC_HDRS})
-set(TEST_LIBRARIES ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES} )
+qtx_wrap_cpp(PatternFilterTest_SRCS ${PatternFilterTest_MOC_HDRS})
 
 add_executable(PatternFilterTest ${PatternFilterTest_SRCS})
-target_link_libraries(PatternFilterTest ${TEST_LIBRARIES})
+
+if(QT4_FOUND)
+   target_link_libraries(PatternFilterTest ${QT_QTTEST_LIBRARY} ${QT_LIBRARIES})
+elseif(Qt5Core_FOUND)
+   target_link_libraries(PatternFilterTest ${Qt5Test_LIBRARIES})
+endif()
+
 add_test(NAME PatternFilterTest COMMAND PatternFilterTest)

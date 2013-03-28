@@ -27,7 +27,7 @@
 #define PARENTHESESHIGHLIGHTER_H
 
 #include <QtGui/QSyntaxHighlighter>
-#include <QtCore/QVector>
+#include <QVector>
 
 class QString;
 class QTextDocument;
